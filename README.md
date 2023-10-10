@@ -23,7 +23,10 @@ Server: RESTful API.
 Client: Responsive Webpage.
 
  * React
- * NextJs
+ * NextJs (App router)
+ * Typescript
+ * Tailwind CSS
+
 
 ### Participants
 
