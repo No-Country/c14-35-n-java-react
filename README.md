@@ -44,22 +44,27 @@ Client: Responsive Webpage.
 
 [desarrollo]
 
-<div style="display: flex; flex-wrap: wrap; max-width: 100%; justify-content: center;">
-  <div style="margin-right: 1rem; margin-top: .4rem; text-align: center; display: flex; flex-direction: column; align-items: center;">
-    <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
-    <p style="margin-top: 0rem; margin-bottom: 0rem;"><a href="https://github.com/" target=”_blank”>Ana Avila</a></p>
-    <p style="margin-top: 0rem; margin-bottom: 0rem;">PM</p>
-  </div>
-  <div style="margin-right: 1rem; margin-top: .4rem; text-align: center; display: flex; flex-direction: column; align-items: center;">
-    <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
-    <p style="margin-top: 0rem; margin-bottom: 0rem;"><a href="https://github.com/" target=”_blank”>Rafael</a></p>
-    <p style="margin-top: 0rem; margin-bottom: 0rem;">frontend</p>
-  </div>
-  <div style="margin-right: 1rem; margin-top: .4rem; text-align: center; display: flex; flex-direction: column; align-items: center;">
-    <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
-    <p style="margin-top: 0rem; margin-bottom: 0rem;"><a href="https://github.com/" target=”_blank”>Andrés Segura</a></p>
-    <p style="margin-top: 0rem; margin-bottom: 0rem;">Backend</p>
-  </div>
+<div style="display: flex; flex-wrap: wrap; max-width: 100%; justify-content: left;">
+    <div style="margin-right: .4rem; margin-top: .4rem; text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
+        <p>nombre</p>
+        <p>role</p>
+    </div>
+    <div style="margin-right: .4rem; margin-top: .4rem; text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
+        <p>nombre</p>
+        <p>role</p>
+    </div>
+    <div style="margin-right: .4rem; margin-top: .4rem; text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
+        <p>nombre</p>
+        <p>role</p>
+    </div>
+    <div style="margin-right: .4rem; margin-top: .4rem; text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
+        <p>nombre</p>
+        <p>role</p>
+    </div>
 </div>
 
 ---
