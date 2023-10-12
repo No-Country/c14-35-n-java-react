@@ -8,6 +8,7 @@ const ContactPage = () => {
       <h1 className="mx-auto text-4xl font-bold lg:text-5xl">Contacto</h1>
       <FormInput>Nombre</FormInput>
       <FormInput type="email">Correo</FormInput>
+      <FormInput type="tel">Teléfono</FormInput>
     </FormLayout>
   );
 };

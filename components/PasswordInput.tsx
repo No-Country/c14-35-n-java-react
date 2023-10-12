@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 interface Props {
-  className?: string;
+  children: React.ReactNode;
+  placeholder?: string;
 }
 
-const PasswordInput = ({ className }: Props) => {
+const PasswordInput = ({ children, placeholder }: Props) => {
   const [showPassword, setShowPassword] = useState(false);
   const icon = showPassword ? (
     <AiOutlineEyeInvisible size={28} />
@@ -18,8 +19,8 @@ const PasswordInput = ({ className }: Props) => {
     <div className="relative">
       <input
         type={showPassword ? "text" : "password"}
-        placeholder="Contraseña"
-        className={className}
+        placeholder={placeholder}
+        className="input input-bordered input-success w-full"
       />
       <div
         className="mt-2 absolute right-3 top-0.5"
