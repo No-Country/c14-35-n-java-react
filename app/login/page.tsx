@@ -1,5 +1,5 @@
 import React from "react";
-import PasswordInput from "../components/PasswordInput";
+import PasswordInput from "@/components/PasswordInput";
 
 const LoginPage = () => {
   return (
