@@ -21,6 +21,10 @@ public class UsuarioService {
 
     @Transactional
     public Usuario registrarUsuario(Usuario usuario) {
+        if(usuarioRepository.findByEmail(usuario.getEmail())!= null){
+            throw new RuntimeException("El mail ingresado ya está registrado en la base de datos");
+        }
+
         rolService.guardarRol(usuario.getRol());
         Usuario usuarioDevuelto = usuarioRepository.save(usuario);
         return usuario;
@@ -29,6 +33,7 @@ public class UsuarioService {
     public RespuestaUsuarioDTO login(DatosLoginUsuarioDTO datosLoginUsuarioDTO) {
         Usuario usuarioRecibido = new Usuario(datosLoginUsuarioDTO);
         Usuario usuarioEncontrado = usuarioRepository.findByEmail(usuarioRecibido.getEmail());
+
         if(usuarioEncontrado == null){
             throw new RuntimeException("Usuario no encontrado en la base de datos");
         }
