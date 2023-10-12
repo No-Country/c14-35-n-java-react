@@ -28,7 +28,7 @@ const FormInput = ({
         {type === "password" ? (
           <PasswordInput placeholder={placeholder}>{children}</PasswordInput>
         ) : (
-          <input type={type ?? "text"} placeholder={placeholder} className="input input-bordered input-success"/>
+          <input type={type ?? "text"} placeholder={placeholder} className="input input-bordered input-success w-full"/>
         )}
       <div className="text-error">{errorMessage}</div>
     </>

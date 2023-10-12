@@ -82,9 +82,9 @@ const NavBar = () => {
           >
             Iniciar Sesión
           </Link>
-          <a className="normal-case btn btn-neutral btn-sm lg:btn-md">
+          <Link href="/register" className="normal-case btn btn-neutral btn-sm lg:btn-md">
             Registrate
-          </a>
+          </Link>
         </div>
       </nav>
     </header>
