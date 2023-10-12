@@ -10,7 +10,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -18,6 +20,9 @@ import jakarta.persistence.Id;
  * @author laura
  */
 @Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +33,7 @@ public class Rol {
 
     public Rol(RolDTO rol) {
         this.estudiante= rol.estudiante();
-        this.educador = rol.administrador();
+        this.educador = rol.educador();
         this.administrador=rol.administrador();
 
     }

@@ -5,6 +5,7 @@
 package com.learning.simplified.entidades;
 
 import com.learning.simplified.dto.DatosCrearUsuarioDTO;
+import com.learning.simplified.dto.DatosLoginUsuarioDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,6 +49,16 @@ public class Usuario {
         this.rol= new Rol(datosCrearUsuarioDTO.rol());
         this.curso= new ArrayList<>();
 
+    }
+
+    public Usuario(DatosLoginUsuarioDTO datosLoginUsuarioDTO) {
+        this.nombre="";
+        this.apellido="";
+        this.email=datosLoginUsuarioDTO.email();
+        this.password=datosLoginUsuarioDTO.password();
+        this.alta=null;
+        this.rol= null;
+        this.curso= new ArrayList<>();
     }
 
     ;
