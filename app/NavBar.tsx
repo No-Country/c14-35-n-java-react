@@ -13,8 +13,8 @@ export interface Route {
 
 const NavBar = () => {
   const routes: Route[] = [
-    { name: "Inicio", path: "/" },
-    { name: "Cursos", path: "/" },
+    { name: "Inicio", path: "/home" },
+    { name: "Cursos", path: "/home" },
     { name: "Contacto", path: "/contact" },
   ];
   const pathname = usePathname();
@@ -82,7 +82,10 @@ const NavBar = () => {
           >
             Iniciar Sesión
           </Link>
-          <Link href="/register" className="normal-case btn btn-neutral btn-sm lg:btn-md">
+          <Link
+            href="/register"
+            className="normal-case btn btn-neutral btn-sm lg:btn-md"
+          >
             Registrate
           </Link>
         </div>

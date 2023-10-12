@@ -17,7 +17,7 @@ const LoginPage = () => {
     }
 
     fetch("http://localhost:8080/usuario/login", {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
