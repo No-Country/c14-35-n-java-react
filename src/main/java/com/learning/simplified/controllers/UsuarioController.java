@@ -37,7 +37,7 @@ public class UsuarioController {
 
     }
 
-    @GetMapping()
+    @PostMapping("/login")
     public ResponseEntity<RespuestaUsuarioDTO> register(@RequestBody @Valid DatosLoginUsuarioDTO datosLoginUsuarioDTO){
         return ResponseEntity.ok(usuarioService.login(datosLoginUsuarioDTO));
     }
