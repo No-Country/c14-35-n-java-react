@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+import java.util.List;
 
 
 /**
@@ -24,7 +25,7 @@ public class Video {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToMany
-    private Leccion leccion; 
+    private List<Leccion> leccion;
 
    
 }

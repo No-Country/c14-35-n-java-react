@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+import java.util.List;
 
 
 /**
@@ -23,7 +24,7 @@ public class Leccion {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToMany
-    private Bloque bloque;
+    private List<Bloque> bloque;
 
    
     
