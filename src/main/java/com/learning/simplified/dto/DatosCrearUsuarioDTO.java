@@ -10,7 +10,8 @@ public record DatosCrearUsuarioDTO(
         String email,
         @NotBlank
         @Size(min = 0, max = 15)
-        String password
+        String password,
+        RolDTO rol
 
 ) {
 }

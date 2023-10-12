@@ -4,15 +4,15 @@
  */
 package com.learning.simplified.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import com.learning.simplified.dto.DatosCrearUsuarioDTO;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -20,6 +20,9 @@ import java.util.Date;
  * @author laura
  */
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario {
 
     @Id
@@ -30,11 +33,24 @@ public class Usuario {
     private String email;
     private String password; 
     @Temporal(TemporalType.DATE)
-    private Date alta; 
-    @ManyToOne
+    private LocalDate alta;
+    @OneToOne
     private Rol rol;
-    @ManyToOne
-    private Curso curso; ; 
+    @ManyToMany
+    private List<Curso> curso;
+
+    public Usuario(DatosCrearUsuarioDTO datosCrearUsuarioDTO) {
+        this.nombre="";
+        this.apellido="";
+        this.email=datosCrearUsuarioDTO.email();
+        this.password=datosCrearUsuarioDTO.password();
+        this.alta=LocalDate.now();
+        this.rol= new Rol(datosCrearUsuarioDTO.rol());
+        this.curso= new ArrayList<>();
+
+    }
+
+    ;
 
     
     
