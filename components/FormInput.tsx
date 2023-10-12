@@ -39,7 +39,7 @@ const FormInput = ({
         <input
           type={type ?? "text"}
           placeholder={placeholder}
-          className="input input-bordered input-success"
+          className="input input-bordered input-success w-full"
           onChange={onChange}
           required={required}
         />
