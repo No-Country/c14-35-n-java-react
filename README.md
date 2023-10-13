@@ -44,27 +44,8 @@ Client: Responsive Webpage.
 
 [desarrollo]
 
-<div style="display: flex; flex-wrap: wrap; max-width: 100%; justify-content: left;">
-    <div style="margin-right: .4rem; margin-top: .4rem; text-align: center; display: flex; flex-direction: column; align-items: center;">
-        <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
-        <p>nombre</p>
-        <p>role</p>
-    </div>
-    <div style="margin-right: .4rem; margin-top: .4rem; text-align: center; display: flex; flex-direction: column; align-items: center;">
-        <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
-        <p>nombre</p>
-        <p>role</p>
-    </div>
-    <div style="margin-right: .4rem; margin-top: .4rem; text-align: center; display: flex; flex-direction: column; align-items: center;">
-        <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
-        <p>nombre</p>
-        <p>role</p>
-    </div>
-    <div style="margin-right: .4rem; margin-top: .4rem; text-align: center; display: flex; flex-direction: column; align-items: center;">
-        <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
-        <p>nombre</p>
-        <p>role</p>
-    </div>
+<div align="center">
+  <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
 </div>
 
 ---
