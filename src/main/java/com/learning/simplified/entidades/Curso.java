@@ -26,7 +26,8 @@ public class Curso {
     private RutaAprendizaje rutaAprendizaje;
     @ManyToMany
     private List<Usuario> usuario;
-    
+
+    //TODO Agregar atributo categoria o tipo para etiquetar los cursos
 
    
     
