@@ -45,8 +45,18 @@ Client: Responsive Webpage.
 [desarrollo]
 
 <div align="center">
-  <img src="./project-info/assets/user.svg" alt="Logo" width="80vw">
-</div>
+  <img src="./project-data/assets/user.svg" alt="Logo" width="80vw">
+  <a href="https://github.com/Seujumon" target="_blank"><img src="https://avatars.githubusercontent.com/u/126124556?v=4" alt="Juan" width="80vw"></a>
+  <a href="https://github.com/LauraZeier" target="_blank"><img src="https://avatars.githubusercontent.com/u/118227686?v=4" alt="Laura Zeier" width="80vw"></a>
+  <a href="https://github.com/martinArg96" target="_blank"><img src="https://avatars.githubusercontent.com/u/86529590?v=4" alt="Martin" width="80vw"></a>
+  <a href="https://github.com/DiegoAlexanderSanmartinY" target="_blank"><img src="https://avatars.githubusercontent.com/u/114791208?v=4" alt="Diego" width="80vw"></a>
+  
+  <a href="https://github.com/1ronlag" target="_blank"><img src="https://avatars.githubusercontent.com/u/95989282?v=4" alt="Nicolas" width="80vw"></a>
+  <a href="https://github.com/rcpc265" target="_blank"><img src="https://avatars.githubusercontent.com/u/78826890?v=4" alt="Rafael" width="80vw"></a>
+  <a href="https://github.com/Andr7st" target="_blank"><img src="https://avatars.githubusercontent.com/u/63387323?v=4" alt="Andrés Segura" width="80vw"></a>
+  <a href="https://github.com/Anavil4Scrum" target="_blank"><img src="https://avatars.githubusercontent.com/u/145689629?v=4" alt="Ana Avila" width="80vw"></a>
+  <a href="https://github.com/XanderWander" target="_blank"><img src="https://avatars.githubusercontent.com/u/146034178?v=4" alt="Elio Castillo" width="80vw"></a>
+  </div>
 
 ### Contrib
 
