@@ -3,7 +3,7 @@ import PasswordInput from "./PasswordInput";
 interface Props {
   children: React.ReactNode;
   placeholder?: string;
-  type?: "email" | "password" | "text" | "tel" | "textarea";
+  type?: "email" | "password" | "text" | "tel" | "textarea" | "firstName" | "lastName";
   errorMessage?: string;
   required?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
