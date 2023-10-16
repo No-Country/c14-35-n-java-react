@@ -45,7 +45,7 @@ Client: Responsive Webpage.
 [desarrollo]
 
 <div align="center">
-  <img src="./project-data/assets/user.svg" alt="Logo" width="80vw">
+  <a href="https://github.com/No-Country" target="_blank"><img src="./project-data/assets/user.svg" alt="No Country" width="80vw"></a>
   <a href="https://github.com/Seujumon" target="_blank"><img src="https://avatars.githubusercontent.com/u/126124556?v=4" alt="Juan" width="80vw"></a>
   <a href="https://github.com/LauraZeier" target="_blank"><img src="https://avatars.githubusercontent.com/u/118227686?v=4" alt="Laura Zeier" width="80vw"></a>
   <a href="https://github.com/martinArg96" target="_blank"><img src="https://avatars.githubusercontent.com/u/86529590?v=4" alt="Martin" width="80vw"></a>
