@@ -4,12 +4,15 @@
  */
 package com.learning.simplified.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.learning.simplified.dto.BloqueDTO;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -17,14 +20,28 @@ import jakarta.persistence.ManyToOne;
  * @author laura
  */
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Bloque{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @ManyToOne
+    private String nombre;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_curso")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Curso curso;
+    @OneToMany
+    private List<Leccion> lecciones;
+
+    public Bloque(BloqueDTO bloqueDTO) {
+        this.nombre= bloqueDTO.nombre();
+        this.lecciones= new ArrayList<>();
+    }
+    //@ManyToOne
+    //private Curso curso;
     
     
     

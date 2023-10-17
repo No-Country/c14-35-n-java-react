@@ -4,11 +4,12 @@
  */
 package com.learning.simplified.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.learning.simplified.dto.LeccionDTO;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -18,14 +19,25 @@ import java.util.List;
  * @author laura
  */
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Leccion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToMany
-    private List<Bloque> bloque;
+    private Integer num_leccion;
+    private String titulo;
+    private String url_recurso;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_bloque")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Bloque bloque;
 
-   
-    
+    public Leccion(LeccionDTO leccionDTO) {
+        this.num_leccion= leccionDTO.num_leccion();
+        this.titulo = leccionDTO.titulo();
+        this.url_recurso= leccionDTO.url_recurso();
+    }
 }
