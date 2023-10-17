@@ -33,6 +33,7 @@ const FormInput = ({
       ) : (
         <input
           {...props}
+          type={type}
           className={inputClasses}
         />
       )}
