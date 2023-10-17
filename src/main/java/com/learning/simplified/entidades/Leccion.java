@@ -30,10 +30,7 @@ public class Leccion {
     private Integer num_leccion;
     private String titulo;
     private String url_recurso;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_bloque")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Bloque bloque;
+
 
     public Leccion(LeccionDTO leccionDTO) {
         this.num_leccion= leccionDTO.num_leccion();

@@ -29,10 +29,7 @@ public class Bloque{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nombre;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_curso")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Curso curso;
+
     @OneToMany
     private List<Leccion> lecciones;
 

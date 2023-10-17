@@ -32,6 +32,20 @@ public class CursoController {
         return cursoService.findAll();
     }
 
+    @PutMapping("/activate")
+    public ResponseEntity<CursoDTO> activateCurso(@RequestBody @Valid CursoDTO cursoDTO,
+                                             UriComponentsBuilder uriComponentsBuilder){
+        CursoDTO course = cursoService.activateCurso(cursoDTO);
+        return ResponseEntity.ok().body(course);
+
+    }
+
+    @GetMapping("/allActive")
+    public List<Curso> shorAllActiveCourse(){
+        return cursoService.findAllActiveCourses();
+    }
+
+
 
 
 

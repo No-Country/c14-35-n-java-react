@@ -226,4 +226,27 @@ public class CursoService {
     public List<Curso> findAll() {
         return cursoRepository.findAll();
     }
+
+    public CursoDTO activateCurso(CursoDTO cursoDTO) {
+        Curso course = cursoRepository.getReferenceById(cursoDTO.id());
+        course.setActivo(true);
+        cursoRepository.save(course);
+        return new CursoDTO(
+                course.getId(),
+                course.getNombre(),
+                course.getDescripcion(),
+                course.getRutaAprendizaje(),
+                course.getUsuario(),
+                course.getProfesor().getId(),
+                course.getActivo(),
+                course.getCategorias(),
+                course.getBloques()
+        );
+
+    }
+
+    public List<Curso> findAllActiveCourses() {
+        List <Curso> courses = cursoRepository.findByActivoTrue(true);
+        return courses;
+    }
 }
