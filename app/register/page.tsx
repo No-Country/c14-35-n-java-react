@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const registerPage = () => {
+const RegisterPage = () => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -101,4 +101,4 @@ const registerPage = () => {
   );
 };
 
-export default registerPage;
+export default RegisterPage;
