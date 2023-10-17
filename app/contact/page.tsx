@@ -1,14 +1,15 @@
-import FormInput from "@/components/FormInput";
-import FormLayout from "@/components/FormLayout";
+import FormInput from "@/components/forms/FormInput";
+import FormLayout from "@/components/forms/FormLayout";
 import React from "react";
 
 const ContactPage = () => {
   return (
     <FormLayout>
       <h1 className="mx-auto text-4xl font-bold lg:text-5xl">Contacto</h1>
-      <FormInput>Nombre</FormInput>
-      <FormInput type="email">Correo</FormInput>
-      <FormInput type="tel">Teléfono</FormInput>
+      <FormInput label="Nombre" />
+      <FormInput label="Correo" type="email" />
+      <FormInput label="Teléfono" type="tel" />
+      <FormInput label="Mensaje" type="textarea" />
     </FormLayout>
   );
 };

@@ -1,14 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import { InputHTMLAttributes, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
-interface Props {
-  children: React.ReactNode;
-  placeholder?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-const PasswordInput = ({ children, placeholder, onChange }: Props) => {
+const PasswordInput = ({ ...props }: InputHTMLAttributes<HTMLInputElement>) => {
   const [showPassword, setShowPassword] = useState(false);
   const icon = showPassword ? (
     <AiOutlineEyeInvisible size={28} />
@@ -19,10 +13,9 @@ const PasswordInput = ({ children, placeholder, onChange }: Props) => {
   return (
     <div className="relative">
       <input
+        {...props}
         type={showPassword ? "text" : "password"}
-        placeholder={placeholder}
-        className="input input-bordered input-success w-full"
-        onChange={onChange}
+        className="w-full input input-bordered input-success"
       />
       <div
         className="mt-2 absolute right-3 top-0.5"
