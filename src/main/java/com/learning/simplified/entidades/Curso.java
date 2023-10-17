@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,10 @@ public class Curso {
     @OneToMany
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Bloque> bloques;
+    @Temporal(TemporalType.DATE)
+    private LocalDate alta;
+    private String url_imagen_presentacion;
+    private String url_video_presentacion;
 
 
 
@@ -57,6 +62,9 @@ public class Curso {
         this.activo=false;
         this.categorias= new ArrayList<>();
         this.bloques=new ArrayList<>();
+        this.alta=LocalDate.now();
+        this.url_imagen_presentacion=curso.url_imagen_presentacion();
+        this.url_video_presentacion=curso.url_video_presentacion();
 
 
     }

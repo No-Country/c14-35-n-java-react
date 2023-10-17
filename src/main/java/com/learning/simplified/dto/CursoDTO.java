@@ -6,6 +6,7 @@ import com.learning.simplified.entidades.RutaAprendizaje;
 import com.learning.simplified.entidades.Usuario;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public record CursoDTO(
@@ -17,6 +18,10 @@ public record CursoDTO(
         Long id_profesor,
         Boolean activo,
         List<Categoria> categorias,
-        List <Bloque> bloques
+        List <Bloque> bloques,
+        LocalDate alta,
+        String url_video_presentacion,
+        String url_imagen_presentacion
+
 ) {
 }

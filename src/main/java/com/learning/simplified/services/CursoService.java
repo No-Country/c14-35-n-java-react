@@ -9,6 +9,8 @@ import com.learning.simplified.repository.CursoRepository;
 import com.learning.simplified.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -51,7 +53,10 @@ public class CursoService {
                 courseCreated.getProfesor().getId(),
                 courseCreated.getActivo(),
                 courseCreated.getCategorias(),
-                courseCreated.getBloques()
+                courseCreated.getBloques(),
+                courseCreated.getAlta(),
+                courseCreated.getUrl_video_presentacion(),
+                courseCreated.getUrl_imagen_presentacion()
         );
     }
     @Transactional
@@ -161,7 +166,10 @@ public class CursoService {
                 course.getProfesor().getId(),
                 course.getActivo(),
                 course.getCategorias(),
-                course.getBloques()
+                course.getBloques(),
+                course.getAlta(),
+                course.getUrl_video_presentacion(),
+                course.getUrl_imagen_presentacion()
         );
 
     }
@@ -218,7 +226,10 @@ public class CursoService {
                 course.getProfesor().getId(),
                 course.getActivo(),
                 course.getCategorias(),
-                course.getBloques()
+                course.getBloques(),
+                course.getAlta(),
+                course.getUrl_video_presentacion(),
+                course.getUrl_imagen_presentacion()
         );
 
     }
@@ -240,13 +251,29 @@ public class CursoService {
                 course.getProfesor().getId(),
                 course.getActivo(),
                 course.getCategorias(),
-                course.getBloques()
+                course.getBloques(),
+                course.getAlta(),
+                course.getUrl_video_presentacion(),
+                course.getUrl_imagen_presentacion()
         );
 
     }
 
     public List<Curso> findAllActiveCourses() {
-        List <Curso> courses = cursoRepository.findByActivoTrue(true);
+        List <Curso> courses = cursoRepository.findByProfesorandActivoTrue(true);
         return courses;
+    }
+
+    public Page<Curso> findByActivoTrue(Pageable paginacion, Long id) {
+        return cursoRepository.findByProfesorandActivoTrue(paginacion, true, id);
+    }
+
+    public Page<Curso> findByTeacher(Pageable paginacion, Long id) {
+        return cursoRepository.findByProfesorandActivoTrue(paginacion, id);
+    }
+
+    public Page<Curso> findActiveCourses(Pageable paginacion) {
+        return cursoRepository.findAllActiveCourses(paginacion, true);
+
     }
 }

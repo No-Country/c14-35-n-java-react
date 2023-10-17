@@ -5,6 +5,9 @@ import com.learning.simplified.entidades.Curso;
 import com.learning.simplified.services.CursoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -27,10 +30,13 @@ public class CursoController {
 
     }
 
+    //Muestra todos los cursos
     @GetMapping("/all")
     public List<Curso> listarCursos(){
         return cursoService.findAll();
     }
+
+    //Activa un curso, requiere el id del curso en el body
 
     @PutMapping("/activate")
     public ResponseEntity<CursoDTO> activateCurso(@RequestBody @Valid CursoDTO cursoDTO,
@@ -40,10 +46,39 @@ public class CursoController {
 
     }
 
+    //Muestra todos los cursos activos. Devuelve una lista de cursos, no está paginado
+
     @GetMapping("/allActive")
-    public List<Curso> shorAllActiveCourse(){
+    public List<Curso> showAllActiveCourse(){
         return cursoService.findAllActiveCourses();
     }
+
+    //TODO Armar un método para devolver todos los cursos activos paginados
+    @GetMapping("/allCourses")
+    public ResponseEntity<Page<Curso>> showActiveCourses(@PageableDefault(size = 10) Pageable paginacion) {
+        return ResponseEntity.ok(cursoService.findActiveCourses(paginacion));
+
+    }
+
+
+
+
+
+    //Busca los cursos activos de un profesor por id, los devuelve ordenados de a 10
+    @GetMapping("/active-teacher/{id}")
+    public ResponseEntity<Page<Curso>> activeCourseByTeacher(@PageableDefault(size = 10) Pageable paginacion, @PathVariable Long id) {
+        return ResponseEntity.ok(cursoService.findByActivoTrue(paginacion, id));
+
+    }
+
+    //Buscar todos los cursos de un profesor, activos e inactivos
+
+    @GetMapping("/teacher/{id}")
+    public ResponseEntity<Page<Curso>> showAllCursosByTeacher(@PageableDefault(size = 10) Pageable paginacion, @PathVariable Long id) {
+        return ResponseEntity.ok(cursoService.findByTeacher(paginacion, id));
+
+    }
+
 
 
 
