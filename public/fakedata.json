@@ -1,44 +1,52 @@
-  [
+{
+  "cards": [
     {
+      "id": 1,
       "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-      "nombre": "Curso 1",
-      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "name": "Curso 1",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
       "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
-      "categoria": "Informatica"
+      "category": "Informatica"
     },
     {
+      "id": 2,
       "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-      "nombre": "Curso 2",
-      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "name": "Curso 2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
       "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
-      "categoria": "Finanzas"
+      "category": "Finanzas"
     },
     {
+      "id": 3,
       "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-      "nombre": "Curso 3",
-      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "name": "Curso 3",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
       "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
-      "categoria": "Ciberseguridad"
+      "category": "Ciberseguridad"
     },
     {
+      "id": 3,
       "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-      "nombre": "Curso 4",
-      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "name": "Curso 4",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
       "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
-      "categoria": "Psicología"
+      "category": "Psicología"
     },
     {
+      "id": 4,
       "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-      "nombre": "Curso 5",
-      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "name": "Curso 5",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
       "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
-      "categoria": "Fotografía"
+      "category": "Fotografía"
     },
     {
+      "id": 5,
       "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-      "nombre": "Curso 6",
-      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "name": "Curso 6",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
       "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
-      "categoria": "Filosofía"
+      "category": "Filosofía"
     }
   ]
+}

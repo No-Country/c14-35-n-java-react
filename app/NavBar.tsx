@@ -13,7 +13,6 @@ export interface Route {
 
 const NavBar = () => {
   const routes: Route[] = [
-    { name: "Inicio", path: "/home" },
     { name: "Cursos", path: "/home" },
     { name: "Contacto", path: "/contact" },
   ];
