@@ -1,32 +1,44 @@
   [
-      {
-        "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-        "title": "Curso 1",
-        "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-      },
-      {
-          "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-        "title": "Curso 2",
-        "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-      },
-      {
-          "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-          "title": "Curso 3",
-          "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-        },
-        {
-          "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-          "title": "Curso 4",
-          "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-        },
-        {
-          "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-          "title": "Curso 5",
-          "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-        },
-        {
-          "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-          "title": "Curso 6",
-          "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-        }
-    ]
+    {
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "nombre": "Curso 1",
+      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "categoria": "Informatica"
+    },
+    {
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "nombre": "Curso 2",
+      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "categoria": "Finanzas"
+    },
+    {
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "nombre": "Curso 3",
+      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "categoria": "Ciberseguridad"
+    },
+    {
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "nombre": "Curso 4",
+      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "categoria": "Psicología"
+    },
+    {
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "nombre": "Curso 5",
+      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "categoria": "Fotografía"
+    },
+    {
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "nombre": "Curso 6",
+      "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "categoria": "Filosofía"
+    }
+  ]
