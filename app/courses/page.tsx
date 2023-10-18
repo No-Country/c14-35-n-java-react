@@ -9,22 +9,14 @@ interface Course {
     description: string;
 }
 
-const courses: Course[] = [];
-
-const fetchData = async () => {
-    try {
-        const response = await fetch(`${process.env.API_URL}/cards`);
-        const data = await response.json();
-        courses.push(...data);
-    } catch (error) {
-        console.error('Error al cargar los datos: ', error);
-        // redirect('/404');
-    }
-}
-
-
 const Home = async () => {
-    await fetchData();
+    const courses: Course[] = [];
+
+    fetch(`${process.env.API_URL}/courses`)
+        .then((response) => response.json())
+        .then((data) => courses.push(...data))
+        .catch((error) => console.error('Error al cargar los datos: ', error));
+
     return (
         <div className="mt-10 max-w-5xl mx-auto">
             {/* Buscador */}
