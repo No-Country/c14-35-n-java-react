@@ -4,20 +4,16 @@
  */
 package com.learning.simplified.repository;
 
-import com.learning.simplified.entities.Usuario;
+import com.learning.simplified.entities.Imagen;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-
 import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author laura
  */
-
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-   
-    Usuario findByEmail(String email);
-     
+public interface ImagenRepository extends JpaRepository<Imagen, String> {
+    
+    
 }

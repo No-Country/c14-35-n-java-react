@@ -37,22 +37,23 @@ public class WebSecurity {
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/admin/*").hasRole("ADMIN")
-                .requestMatchers("/css/*", "/js/*", "/img/*", "/**")
-                .permitAll()
+              
+                    .requestMatchers("/admin/*").hasRole("ADMIN")
+                    .requestMatchers("/css/*", "/js/*", "/img/*", "/**")
+                    .permitAll()
                 .and().formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/logincheck")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/inicio")
-                .permitAll()
+                    .loginPage("/login")
+                    .loginProcessingUrl("/logincheck")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/inicio")
+                    .permitAll()
                 .and().logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .permitAll()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                    .permitAll()
                 .and().csrf()
-                .disable();
+                    .disable();
 
         return http.build();
 

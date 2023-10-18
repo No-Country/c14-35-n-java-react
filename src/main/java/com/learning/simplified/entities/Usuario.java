@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 import java.util.List;
+import lombok.Data;
 import lombok.Setter;
 
 
@@ -23,8 +24,7 @@ import lombok.Setter;
  * @author laura
  */
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
@@ -45,6 +45,9 @@ public class Usuario {
     
     @ManyToMany
     private List<Curso> curso;
+    
+    @OneToOne
+    private Imagen imagen; 
 
     
     

@@ -4,10 +4,13 @@
  */
 package com.learning.simplified.enumeraciones;
 
+
+
 /**
  *
  * @author laura
  */
+
 public enum Rol {
     USER,
     ADMIN;
