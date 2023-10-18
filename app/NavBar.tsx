@@ -13,10 +13,10 @@ export interface Route {
 
 const NavBar = () => {
   const routes: Route[] = [
-    { name: "Inicio", path: "/home" },
-    { name: "Cursos", path: "/home" },
+    { name: "Cursos", path: "/courses" },
     { name: "Contacto", path: "/contact" },
   ];
+
   const pathname = usePathname();
 
   const navLinks = routes.map((route) => {
