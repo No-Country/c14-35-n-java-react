@@ -9,7 +9,10 @@
 <br />
 
 **GitHub url:** [c14-35-n-java-react](https://github.com/No-Country/c14-35-n-java-react)
-**Deploy_1:** [**https://learning-simplified.netlify.app/courses**](https://learning-simplified.netlify.app/courses)
+
+**Deploy_1:** [**learning-simplified.netlify.app**](https://learning-simplified.netlify.app/courses)
+
+**Design:** [**preview**](https://www.figma.com/file/X0ViO0De7LKrIhwAtqu8cr/Untitled?type=design&node-id=57-76&mode=design)
 
 **Edtech** (tecnología educativa): Plataforma de entrenamiento en línea "Learning Simplified".
 
