@@ -6,7 +6,6 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   type?: FormInputType;
   errorMessage?: string;
-  required?: boolean;
 }
 
 const FormInput = ({
