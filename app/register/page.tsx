@@ -6,7 +6,7 @@ import FormInput from "@/components/forms/FormInput";
 import FormLayout from "@/components/forms/FormLayout";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 const RegisterPage = () => {
 
@@ -18,7 +18,7 @@ const RegisterPage = () => {
   const [error, setError] = useState(false);
   const router = useRouter();
 
-  const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!firstName || !lastName || !email || !password || !passwordConfirmation) return;
 
@@ -52,7 +52,7 @@ const RegisterPage = () => {
         <FormError>Ha ocurrido un error</FormError>
       }
       <FormHeader>Registrate</FormHeader>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
         <div>
           <FormInput label="Nombre"
             onChange={(event) => setFirstName(event.target.value)}

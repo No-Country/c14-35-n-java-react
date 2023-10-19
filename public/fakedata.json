@@ -1,32 +1,72 @@
-  [
-      {
-        "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-        "title": "Curso 1",
-        "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-      },
-      {
-          "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-        "title": "Curso 2",
-        "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-      },
-      {
-          "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-          "title": "Curso 3",
-          "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-        },
-        {
-          "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-          "title": "Curso 4",
-          "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-        },
-        {
-          "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-          "title": "Curso 5",
-          "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-        },
-        {
-          "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
-          "title": "Curso 6",
-          "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-        }
-    ]
+{
+  "courses": [
+    {
+      "id": 1,
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "name": "Curso Angular",
+      "duration": 48,
+      "title": "Domina angular desde cero en 48 horas",
+      "description": "En este curso aprenderás a desarrollar aplicaciones web con Angular desde cero. Aprenderás a crear componentes, servicios, rutas, módulos, directivas, pipes, etc. Aprenderás a crear aplicaciones web con Angular y Firebase.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "category": "Programación"
+    },
+    {
+      "id": 2,
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "name": "Curso PHP",
+      "duration": 48,
+      "title": "Aprende PHP 8.1 desde cero",
+      "description": "En este curso aprenderás a desarrollar aplicaciones web con PHP desde cero. Aprenderás a crear aplicaciones web con PHP y MySQL. Aprenderás a crear aplicaciones web con PHP y MongoDB. Aprenderás a crear aplicaciones web con PHP y NodeJS. Aprenderás a crear aplicaciones web con PHP y Java. Aprenderás a crear aplicaciones web con PHP y Python. Aprenderás a crear aplicaciones web con PHP y .NET. Aprenderás a crear aplicaciones web con PHP y Go. Aprenderás a crear aplicaciones web con PHP y Ruby. Aprenderás a crear aplicaciones web con PHP y Kotlin. Aprenderás a crear aplicaciones web con PHP y Swift. Aprenderás a crear aplicaciones web con PHP y Rust. Aprenderás a crear aplicaciones web con PHP y Dart.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "category": "Programación"
+    },
+    {
+      "id": 3,
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "name": "Curso de Photoshop",
+      "duration": 48,
+      "title": "Aprende a utilizar Photoshop",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "category": "Ciberseguridad"
+    },
+    {
+      "id": 3,
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "name": "Curso 4",
+      "duration": 48,
+      "title": "Aprendiendo a programar",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "category": "Psicología"
+    },
+    {
+      "id": 4,
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "name": "Curso 5",
+      "duration": 48,
+      "title": "Aprendiendo a programar",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "category": "Fotografía"
+    },
+    {
+      "id": 5,
+      "img": "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg",
+      "name": "Curso 6",
+      "duration": 48,
+      "title": "Aprendiendo a programar",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "url": "https://www.youtube.com/watch?v=L_jWHffIx5E",
+      "category": "Filosofía"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Juan",
+      "lastname": "Perez",
+      "email": "juan@perez"
+    }
+  ]
+}

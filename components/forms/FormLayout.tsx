@@ -4,7 +4,7 @@ const FormLayout = ({ className: additionalClasses, ...props }: FormHTMLAttribut
   return (
     <form
       {...props}
-      className={`mx-auto max-w-xl lg:mt-22 form-control md:px-8 ${additionalClasses}`}
+      className={`mx-auto max-w-lg lg:mt-22 form-control md:px-8 ${additionalClasses}`}
     />
   );
 };
