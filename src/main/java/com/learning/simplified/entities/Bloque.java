@@ -7,6 +7,7 @@ package com.learning.simplified.entities;
 import com.learning.simplified.dto.BloqueDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,8 +19,10 @@ import java.util.List;
  *
  * @author laura
  */
+
 @Entity
 @Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Bloque{
@@ -38,8 +41,6 @@ public class Bloque{
     }
     //@ManyToOne
     //private Curso curso;
-    
-    
-    
-    
+
+
 }

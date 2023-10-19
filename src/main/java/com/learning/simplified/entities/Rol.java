@@ -4,7 +4,7 @@
  */
 package com.learning.simplified.entities;
 
-import com.learning.simplified.dto.RolDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,10 +30,4 @@ public class Rol {
     private Boolean educador;
     private Boolean administrador;
 
-    public Rol(RolDTO rol) {
-        this.estudiante= rol.estudiante();
-        this.educador = rol.educador();
-        this.administrador=rol.administrador();
-
-    }
 }

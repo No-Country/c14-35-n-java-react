@@ -61,7 +61,7 @@ public class CursoService {
     }
 
     private boolean validateTeacher(Long id) {
-        return usuarioRepository.findUsuarioById(id).getRol().getEducador();
+        return usuarioRepository.findUsuarioById(id).getRol().toString().equals("ADMIN");
     }
 
     @Transactional
@@ -120,7 +120,7 @@ public class CursoService {
         }
         //Comprueba que el usuario que intenta crear el curso sea un usuario
         Usuario techer = usuarioRepository.findUsuarioById(course.id_profesor());
-        if(!techer.getRol().getEducador()){
+        if(!techer.getRol().toString().equals("ADMIN")){
             throw new RuntimeException("El usuario ingresado no es docente. " +
                     "No tiene permisos para crear cursos");
         }

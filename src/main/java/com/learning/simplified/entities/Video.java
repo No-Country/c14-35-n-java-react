@@ -11,6 +11,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -18,6 +21,9 @@ import java.util.List;
  * @author laura
  */
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Video {
 
    
@@ -27,5 +33,6 @@ public class Video {
     @OneToMany
     private List<Leccion> leccion;
 
+ 
    
 }
