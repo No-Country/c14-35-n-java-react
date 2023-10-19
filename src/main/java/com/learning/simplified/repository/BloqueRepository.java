@@ -1,6 +1,6 @@
 package com.learning.simplified.repository;
 
-import com.learning.simplified.entidades.Bloque;
+import com.learning.simplified.entities.Bloque;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

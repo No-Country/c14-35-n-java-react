@@ -1,7 +1,7 @@
 package com.learning.simplified.controllers;
 
 import com.learning.simplified.dto.CursoDTO;
-import com.learning.simplified.entidades.Curso;
+import com.learning.simplified.entities.Curso;
 import com.learning.simplified.services.CursoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

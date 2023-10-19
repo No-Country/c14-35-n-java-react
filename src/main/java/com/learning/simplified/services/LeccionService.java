@@ -1,7 +1,7 @@
 package com.learning.simplified.services;
 
 import com.learning.simplified.dto.LeccionDTO;
-import com.learning.simplified.entidades.Leccion;
+import com.learning.simplified.entities.Leccion;
 import com.learning.simplified.repository.LeccionRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

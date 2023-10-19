@@ -1,7 +1,7 @@
 package com.learning.simplified.controllers;
 
 import com.learning.simplified.dto.*;
-import com.learning.simplified.entidades.Usuario;
+import com.learning.simplified.entities.Usuario;
 import com.learning.simplified.services.UsuarioService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -38,7 +38,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<RespuestaUsuarioDTO> register(@RequestBody @Valid DatosLoginUsuarioDTO datosLoginUsuarioDTO){
+    public ResponseEntity<RespuestaUsuarioDTO> login(@RequestBody @Valid DatosLoginUsuarioDTO datosLoginUsuarioDTO){
         return ResponseEntity.ok(usuarioService.login(datosLoginUsuarioDTO));
     }
 

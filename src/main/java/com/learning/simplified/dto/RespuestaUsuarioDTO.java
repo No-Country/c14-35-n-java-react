@@ -1,10 +1,9 @@
 package com.learning.simplified.dto;
 
-import com.learning.simplified.entidades.Rol;
-
 import java.time.LocalDate;
 
 public record RespuestaUsuarioDTO(
+                                    Long id,
                                     String nombre,
                                   String apellido,
                                   String email,

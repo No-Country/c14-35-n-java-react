@@ -1,10 +1,9 @@
 package com.learning.simplified.dto;
 
-import com.learning.simplified.entidades.Bloque;
-import com.learning.simplified.entidades.Categoria;
-import com.learning.simplified.entidades.RutaAprendizaje;
-import com.learning.simplified.entidades.Usuario;
-import jakarta.persistence.*;
+import com.learning.simplified.entities.Bloque;
+import com.learning.simplified.entities.Categoria;
+import com.learning.simplified.entities.RutaAprendizaje;
+import com.learning.simplified.entities.Usuario;
 
 import java.time.LocalDate;
 import java.util.List;

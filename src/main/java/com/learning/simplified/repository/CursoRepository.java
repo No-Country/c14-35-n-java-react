@@ -1,6 +1,6 @@
 package com.learning.simplified.repository;
 
-import com.learning.simplified.entidades.Curso;
+import com.learning.simplified.entities.Curso;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

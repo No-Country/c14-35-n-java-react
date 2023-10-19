@@ -1,6 +1,6 @@
 package com.learning.simplified.repository;
 
-import com.learning.simplified.entidades.Categoria;
+import com.learning.simplified.entities.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

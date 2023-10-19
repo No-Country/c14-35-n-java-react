@@ -3,7 +3,7 @@ package com.learning.simplified.services;
 import com.learning.simplified.dto.BloqueDTO;
 import com.learning.simplified.dto.CursoDTO;
 import com.learning.simplified.dto.LeccionDTO;
-import com.learning.simplified.entidades.*;
+import com.learning.simplified.entities.*;
 import com.learning.simplified.repository.CategoriaRepository;
 import com.learning.simplified.repository.CursoRepository;
 import com.learning.simplified.repository.UsuarioRepository;
@@ -39,7 +39,7 @@ public class CursoService {
     public CursoDTO createCurso(CursoDTO course){
         Curso courseCreated = null;
         //si valida los datos, crea el curso y lo agrega a la base de datos
-        if(validateDataCreateCourse(course)){
+        if(validateDataCreateCourse(course) && validateTeacher(course.id_profesor())){
             Usuario teacher = usuarioRepository.findUsuarioById(course.id_profesor());
             courseCreated = new Curso(course, teacher);
             courseCreated = cursoRepository.save(addCategorias(courseCreated, course.categorias()));
@@ -59,6 +59,11 @@ public class CursoService {
                 courseCreated.getUrl_imagen_presentacion()
         );
     }
+
+    private boolean validateTeacher(Long id) {
+        return usuarioRepository.findUsuarioById(id).getRol().getEducador();
+    }
+
     @Transactional
     private Curso addCategorias(Curso courseCreated, List<Categoria> categorias) {
         categorias = validateListOfCourse(categorias);

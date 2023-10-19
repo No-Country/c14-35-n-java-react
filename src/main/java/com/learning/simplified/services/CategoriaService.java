@@ -1,7 +1,7 @@
 package com.learning.simplified.services;
 
 
-import com.learning.simplified.entidades.Categoria;
+import com.learning.simplified.entities.Categoria;
 import com.learning.simplified.repository.CategoriaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,17 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.learning.simplified.entidades;
+package com.learning.simplified.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.learning.simplified.dto.BloqueDTO;
+import com.learning.simplified.dto.LeccionDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -23,24 +19,19 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Bloque{
+public class Leccion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nombre;
+    private Integer num_leccion;
+    private String titulo;
+    private String url_recurso;
 
-    @OneToMany
-    private List<Leccion> lecciones;
 
-    public Bloque(BloqueDTO bloqueDTO) {
-        this.nombre= bloqueDTO.nombre();
-        this.lecciones= new ArrayList<>();
+    public Leccion(LeccionDTO leccionDTO) {
+        this.num_leccion= leccionDTO.num_leccion();
+        this.titulo = leccionDTO.titulo();
+        this.url_recurso= leccionDTO.url_recurso();
     }
-    //@ManyToOne
-    //private Curso curso;
-    
-    
-    
-    
 }
