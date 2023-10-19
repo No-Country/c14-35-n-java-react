@@ -148,17 +148,20 @@ public class UsuarioService implements UserDetailsService {
 
     public void validarLogin(String email, String password) throws MyException {
 
-        Usuario usuarioEncontrado = usuarioRepository.findByEmail(email);
 
-        if (email != usuarioEncontrado.getEmail()) {
+        Usuario usuarioEncontrado = usuarioRepository.findByEmail(email);
+        //desencripta el password guardado en base de datos
+        boolean p = new BCryptPasswordEncoder().matches(password, usuarioEncontrado.getPassword());
+
+        if (!email.equals(usuarioEncontrado.getEmail())) {
             throw new MyException("Usuario no encontrado en la base de datos");
         }
 
-        if (password != usuarioEncontrado.getPassword()) {
+        if (!p) {
             throw new RuntimeException("La contraseña ingresada es incorrecta");
         }
 
-        if (email == usuarioEncontrado.getEmail() & password == usuarioEncontrado.getPassword()) {
+        if (email.equals(usuarioEncontrado.getEmail())  & p) {
             throw new MyException("Login correcto, ingresando");
         }
     }
