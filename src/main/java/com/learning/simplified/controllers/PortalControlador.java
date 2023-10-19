@@ -1,5 +1,7 @@
 package com.learning.simplified.controllers;
 
+import com.learning.simplified.dto.CursoDTO;
+import com.learning.simplified.dto.DatosLoginDTO;
 import com.learning.simplified.entities.Usuario;
 import com.learning.simplified.exceptions.MyException;
 
@@ -9,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,12 +49,14 @@ public class PortalControlador {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam String email, String password) {
+    public ResponseEntity<DatosLoginDTO> login(@RequestParam String email, String password) {
         try {
-            usuarioService.validarLogin(email, password);
-            return "correcto";
+            Usuario usuario = usuarioService.validarLogin(email, password);
+            DatosLoginDTO datosLoginDTO= new DatosLoginDTO(usuario.getId(), usuario.getNombre(), usuario.getApellido(),
+                    usuario.getEmail(), usuario.getAlta(), usuario.getRol(), usuario.getCurso(), usuario.getImagen());
+            return ResponseEntity.ok().body(datosLoginDTO);
         } catch (MyException ex) {
-            return ex.getMessage();
+            return ResponseEntity.badRequest().build();
         }
 
     }

@@ -13,6 +13,7 @@ import com.learning.simplified.exceptions.MyException;
 import com.learning.simplified.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpSession;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +58,7 @@ public class UsuarioService implements UserDetailsService {
         usuario.setEmail(email);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setRol(Rol.ADMIN);
-
+        usuario.setAlta(LocalDate.now());
         Imagen imagen = imagenService.guardarImagen(archivo);
         usuario.setImagen(imagen);
 
@@ -153,7 +154,7 @@ public class UsuarioService implements UserDetailsService {
         }
     }
 
-    public void validarLogin(String email, String password) throws MyException {
+    public Usuario validarLogin(String email, String password) throws MyException {
 
 
         Usuario usuarioEncontrado = usuarioRepository.findByEmail(email);
@@ -167,10 +168,11 @@ public class UsuarioService implements UserDetailsService {
         if (!p) {
             throw new RuntimeException("La contraseña ingresada es incorrecta");
         }
-
+/*
         if (email.equals(usuarioEncontrado.getEmail())  & p) {
             throw new MyException("Login correcto, ingresando");
-        }
+        }*/
+        return usuarioEncontrado;
     }
 
     @Override
