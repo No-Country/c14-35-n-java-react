@@ -1,6 +1,10 @@
-import Image from "next/image";
-import { AiOutlineSearch } from "react-icons/ai";
-import Carousel from "../Carousel";
+import Image from 'next/image';
+import { redirect } from 'next/navigation';
+import { AiOutlineSearch } from 'react-icons/ai';
+import Carousel from '../Carousel';
+import Cero from '@/public/desde_Cero.svg'
+import Ritmo from '@/public/ritmo.svg'
+import Futuro from '@/public/futuro.svg'
 
 export interface Course {
   img: string;
@@ -69,69 +73,48 @@ const Home = async () => {
         </div>
       </h1>
 
-      <section className="container grid w-full grid-cols-1 mx-auto mt-2 card-body sm:grid-cols-1 lg:grid-cols-3">
-        <div className="card bg-base-100 sm:items-center sm:justify-center md:flex">
-          <figure>
-            <Image
-              src="/images/books.jpg"
-              alt="Books"
-              className="rounded-xl"
-              width={500}
-              height={250}
-            />
-          </figure>
-          <div className="items-center text-center card-body">
+            <section className="container grid w-full grid-cols-1 mx-auto border-4 border-solid sm:grid-cols-1 lg:grid-cols-3 mt-2">
+    <div className="card bg-base-100 sm:items-center sm:justify-center md:flex">
+        <figure className="px-10 pt-10">
+            <Image src={Cero} alt="..." className="rounded-xl w-[500px] h-[250px]" />
+        </figure>
+        <div className="items-center text-center card-body">
             <h2 className="card-title">Aprende desde Cero</h2>
             <p>
-              Aprender no tiene que ser tan difícil. Aprende los fundamentos
-              desde cero y obtén una base sólida.
+                Aprender no tiene que ser tan difícil. Aprende los fundamentos desde cero y obtén una base sólida.
             </p>
             <div className="card-actions"></div>
-          </div>
         </div>
+    </div>
 
-        <div className="card bg-base-100 sm:items-center sm:justify-center md:flex">
-          <figure>
-            <Image
-              src="/images/kindle.jpg"
-              alt="Kindle"
-              className="rounded-xl"
-              width={500}
-              height={250}
-            />
-          </figure>
-          <div className="items-center text-center card-body">
+    <div className="card bg-base-100 sm:items-center sm:justify-center md:flex">
+        <figure className="px-10 pt-10">
+            <Image src={Ritmo} alt="..." className="rounded-xl w-[500px] h-[250px]" />
+        </figure>
+        <div className="items-center text-center card-body">
             <h2 className="card-title">Aprende a tu ritmo</h2>
             <p>
-              Contamos con más de +1500 horas de contenido para que aprendas más
-              allá de lo básico. Cursos teóricos y prácticos con proyectos.
+                Contamos con más de +1500 horas de contenido para que aprendas más allá de lo básico. Cursos teóricos y prácticos con proyectos.
             </p>
             <div className="card-actions"></div>
-          </div>
         </div>
+    </div>
 
-        <div className="card bg-base-100 sm:items-center sm:justify-center md:flex">
-          <figure>
-            <Image
-              src="/images/manos.jpg"
-              alt="Manos"
-              className="rounded-xl"
-              width={500}
-              height={250}
-            />
-          </figure>
-          <div className="items-center text-center card-body">
+    <div className="card bg-base-100 sm:items-center sm:justify-center md:flex">
+        <figure className="px-10 pt-10">
+            <Image src={Futuro} alt="..." className="rounded-xl w-[500px] h-[250px]" />
+        </figure>
+        <div className="items-center text-center card-body">
             <h2 className="card-title">Prepárate para el futuro</h2>
             <p>
-              Consigue las habilidades que tu carrera profesional necesita e
-              impúlsate para un futuro próspero en tecnología.
+                Consigue las habilidades que tu carrera profesional necesita e impúlsate para un futuro próspero en tecnología.
             </p>
             <div className="card-actions"></div>
-          </div>
         </div>
-      </section>
     </div>
-  );
+</section>
+        </div>
+    );
 };
 
 export default Home;
