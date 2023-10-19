@@ -9,6 +9,7 @@
 <br />
 
 **GitHub url:** [c14-35-n-java-react](https://github.com/No-Country/c14-35-n-java-react)
+**Deploy_1:** [**https://learning-simplified.netlify.app/courses**](https://learning-simplified.netlify.app/courses)
 
 **Edtech** (tecnología educativa): Plataforma de entrenamiento en línea "Learning Simplified".
 

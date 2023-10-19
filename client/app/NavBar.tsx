@@ -13,10 +13,10 @@ export interface Route {
 
 const NavBar = () => {
   const routes: Route[] = [
-    { name: "Inicio", path: "/home" },
-    { name: "Cursos", path: "/home" },
+    { name: "Cursos", path: "/courses" },
     { name: "Contacto", path: "/contact" },
   ];
+
   const pathname = usePathname();
 
   const navLinks = routes.map((route) => {
@@ -73,7 +73,7 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="hidden navbar-center lg:flex">
-          <ul className="px-1 menu menu-horizontal">{navLinks}</ul>
+          <ul className="px-1 menu menu-horizontal space-x-2">{navLinks}</ul>
         </div>
         <div className="space-x-2 navbar-end">
           <Link
