@@ -11,24 +11,24 @@ import MyCourses from "@/components/containers/MyCourses";
 
 const Home = async () => {
   // const courses: Course[] = await response.json();
-  const courses = []
+  const courses = [];
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_COURSES}`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_COURSES}`,
+      { cache: "no-store" }
+    );
     // const data = await response.json();
     // courses.push(...data);
-    courses.push(...await response.json());
+    courses.push(...(await response.json()));
 
-   // console.log(courses);
+    // console.log(courses);
   } catch (error) {
     // console.error("An error happened");
     // redirect('/404');
   }
 
-
   //*console.log(process.env.NEXT_PUBLIC_TEST_MESSAGE)
-
-
 
   return (
     <div className="mt-10">
@@ -51,20 +51,18 @@ const Home = async () => {
       <Carousel />
 
       <h1 className="mt-10 -mb-6 text-3xl font-bold text-center">
-        Nuestros Cursos: { courses.length }
+        Nuestros Cursos: {courses.length}
       </h1>
 
       {/**
-       * 
-       *  CURSOS 
-       * 
-       * 
-       * 
+       *
+       *  CURSOS
+       *
+       *
+       *
        * */}
       <div className="container w-full py-10 mx-auto">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
-
-
           {
             /**
              * 
@@ -73,13 +71,10 @@ const Home = async () => {
             (courses.length != 0) &&
              */
 
-
-
-            courses.map((course: any, index: number) =>
+            courses.map((course: any, index: number) => (
               <MyCourses key={index} data={course} />
-            )}
-
-
+            ))
+          }
         </div>
       </div>
 
