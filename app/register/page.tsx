@@ -22,7 +22,7 @@ const RegisterPage = () => {
     event.preventDefault();
     if (!firstName || !lastName || !email || !password || !passwordConfirmation) return;
 
-    fetch("http://localhost:8080/usuario", {
+    fetch( `${process.env.NEXT_PUBLIC_API_URL}/registro`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

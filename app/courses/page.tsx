@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -6,19 +8,88 @@ import Cero from "@/public/desde_Cero.svg";
 import Ritmo from "@/public/ritmo.svg";
 import Futuro from "@/public/futuro.svg";
 import Link from "next/link";
+import { MyCourseType } from "@/types";
+import MyCourses from "@/components/containers/MyCourses";
+import { useEffect } from "react";
 
-export interface Course {
-  id: number;
-  img: string;
-  name: string;
-  duration: number;
-  title: string;
-  description: string;
-}
 
 const Home = async () => {
-  const response = await fetch(`${process.env.API_URL}/courses`);
-  const courses: Course[] = await response.json();
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_COURSES}`  );
+
+ // const courses: Course[] = await response.json();
+  const courses = response.json
+
+
+  useEffect(()=>{
+    console.log( {courses} )
+  })
+  
+  /*
+  
+  [
+    
+    {
+      id: 1,
+      img: "/vercel.svg",
+      name: "HTML pro",
+      duration: 31,
+      title: "Hello world HTML",
+      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
+      os protocolos necesarios para desplegarla.`
+    },
+
+    {
+      id: 2,
+      img: "/vercel.svg",
+      name: "Full Git/Hub",
+      duration: 25,
+      title: "Hello world HTML",
+      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
+      os protocolos necesarios para desplegarla.`
+    },
+
+    {
+      id: 3,
+      img: "/vercel.svg",
+      name: "Practicando NEXT",
+      duration: 25,
+      title: "Hello world HTML",
+      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
+      os protocolos necesarios para desplegarla.`
+    },
+  {
+      id: 4,
+      img: "/next.svg",
+      name: "HTML pro",
+      duration: 31,
+      title: "Hello world HTML",
+      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
+      os protocolos necesarios para desplegarla.`
+    },
+
+    {
+      id: 5,
+      img: "/ritmo.svg",
+      name: "Full Git/Hub",
+      duration: 25,
+      title: "Hello world HTML",
+      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
+      os protocolos necesarios para desplegarla.`
+    },
+
+    {
+      id: 6,
+      img: "/vercel.svg",
+      name: "Linux desde cero",
+      duration: 25,
+      title: "Hello world HTML",
+      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
+      os protocolos necesarios para desplegarla.`
+    }
+
+
+  ] */ 
 
   return (
     <div className="mt-10">
@@ -46,28 +117,11 @@ const Home = async () => {
       {/* CURSOS */}
       <div className="container w-full py-10 mx-auto">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
-          {courses.map((course, index) => (
-            <Link
-              href={`/courses/${course.id}`}
-              key={index}
-              className="rounded-lg shadow-lg overflow-hidden"
-            >
-              <Image
-                src={course.img}
-                alt={course.name}
-                width={600}
-                height={250}
-              />
-              <div className="p-5">
-                <h3 className="text-xl font-bold text-slate-700">
-                  {course.name}
-                </h3>
-                <p className="mt-2 font-normal text-gray-600 line-clamp-3">
-                  {course.description}
-                </p>
-              </div>
-            </Link>
-          ))}
+          {/*
+          { courses.map((course: MyCourseType  , index: number) => 
+            <MyCourses key={index}  name={ course.name } description={ course.description } />
+          )}
+          */}
         </div>
       </div>
 
