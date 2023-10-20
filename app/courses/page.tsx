@@ -1,5 +1,3 @@
-"use client"
-
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -10,89 +8,31 @@ import Futuro from "@/public/futuro.svg";
 import Link from "next/link";
 import { MyCourseType } from "@/types";
 import MyCourses from "@/components/containers/MyCourses";
-import { useEffect } from "react";
-
 
 const Home = async () => {
+  // const courses: Course[] = await response.json();
+  const courses = []
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_COURSES}`  );
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_COURSES}`);
+    // const data = await response.json();
+    // courses.push(...data);
+    courses.push(...await response.json());
 
- // const courses: Course[] = await response.json();
-  const courses = response.json
-
-
-  useEffect(()=>{
-    console.log( {courses} )
-  })
-  
-  /*
-  
-  [
-    
-    {
-      id: 1,
-      img: "/vercel.svg",
-      name: "HTML pro",
-      duration: 31,
-      title: "Hello world HTML",
-      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
-      os protocolos necesarios para desplegarla.`
-    },
-
-    {
-      id: 2,
-      img: "/vercel.svg",
-      name: "Full Git/Hub",
-      duration: 25,
-      title: "Hello world HTML",
-      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
-      os protocolos necesarios para desplegarla.`
-    },
-
-    {
-      id: 3,
-      img: "/vercel.svg",
-      name: "Practicando NEXT",
-      duration: 25,
-      title: "Hello world HTML",
-      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
-      os protocolos necesarios para desplegarla.`
-    },
-  {
-      id: 4,
-      img: "/next.svg",
-      name: "HTML pro",
-      duration: 31,
-      title: "Hello world HTML",
-      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
-      os protocolos necesarios para desplegarla.`
-    },
-
-    {
-      id: 5,
-      img: "/ritmo.svg",
-      name: "Full Git/Hub",
-      duration: 25,
-      title: "Hello world HTML",
-      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
-      os protocolos necesarios para desplegarla.`
-    },
-
-    {
-      id: 6,
-      img: "/vercel.svg",
-      name: "Linux desde cero",
-      duration: 25,
-      title: "Hello world HTML",
-      description: `En este curso aprederás cómo empenzar a diseñar desde cero una página wueb y l
-      os protocolos necesarios para desplegarla.`
-    }
+   // console.log(courses);
+  } catch (error) {
+    // console.error("An error happened");
+    // redirect('/404');
+  }
 
 
-  ] */ 
+  //*console.log(process.env.NEXT_PUBLIC_TEST_MESSAGE)
+
+
 
   return (
     <div className="mt-10">
+      {/* <h1>{JSON.stringify(courses)}</h1> */}
       {/* Buscador */}
       <form className="relative flex items-center w-500">
         <input
@@ -111,17 +51,35 @@ const Home = async () => {
       <Carousel />
 
       <h1 className="mt-10 -mb-6 text-3xl font-bold text-center">
-        Nuestros Cursos
+        Nuestros Cursos: { courses.length }
       </h1>
 
-      {/* CURSOS */}
+      {/**
+       * 
+       *  CURSOS 
+       * 
+       * 
+       * 
+       * */}
       <div className="container w-full py-10 mx-auto">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
-          {/*
-          { courses.map((course: MyCourseType  , index: number) => 
-            <MyCourses key={index}  name={ course.name } description={ course.description } />
-          )}
-          */}
+
+
+          {
+            /**
+             * 
+             * En caso de que no existan cursos
+             * 
+            (courses.length != 0) &&
+             */
+
+
+
+            courses.map((course: any, index: number) =>
+              <MyCourses key={index} data={course} />
+            )}
+
+
         </div>
       </div>
 

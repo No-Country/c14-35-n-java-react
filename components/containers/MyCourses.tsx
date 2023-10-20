@@ -5,24 +5,25 @@ import { MyCourseType } from '@/types';
 
 
 const MyCourses: FC<MyCourseType> = ( props ) => {
-  const {  name, description } = props
+  const {  data } = props
+  const { id, nombre,  descripcion } = data
   return (
     <Link
-    href={ "/" }
+    href={ '/'  }
     className="rounded-lg shadow-lg overflow-hidden"
   >
     <Image
-      src={ "/vercel.svg" }
-      alt={ name}
+      src={ "/favicon.jpg" }
+      alt={ nombre}
       width={600}
-      height={250}
+      height={110}
     />
     <div className="p-5">
       <h3 className="text-xl font-bold text-slate-700">
-        { name}
+        { `${id}. ${nombre}`  }
       </h3>
       <p className="mt-2 font-normal text-gray-600 line-clamp-3">
-        {description}
+        {descripcion}
       </p>
     </div>
   </Link>
