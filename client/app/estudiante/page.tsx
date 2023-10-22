@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from "react";
+import Pestudiante from "@/public/avatar_famale.svg"
+import Image from "next/image";
 
-const Docente = () => {
+const Estudiante = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -9,6 +11,19 @@ const Docente = () => {
     if (files && files.length > 0) {
       setSelectedFile(files[0]);
     }
+  };
+
+  const [editing, setEditing] = useState(false);
+const [nombre, setNombre] = useState(""); 
+const [apellido, setApellido] = useState("");
+const [titulo, setTitulo] = useState("");
+
+const handleEditClick = () => {
+    setEditing(!editing);
+  };
+
+  const handleSaveClick = () => {
+    setEditing(false); //
   };
 
   const handleUpload = () => {
@@ -30,8 +45,11 @@ const Docente = () => {
     <div>
       <h1> Bienvenido</h1>
 
-      {/* Foto de perfil  */}
-
+      <div className="avatar flex justify-center items-center">
+  <div className="w-60 rounded-full items-center">
+    <Image src={Pestudiante} alt="" />
+  </div>
+</div>
 
 {/* DATOS */}
       <div className="collapse collapse-arrow bg-base-200 mt-8">
@@ -40,22 +58,43 @@ const Docente = () => {
           Informacion Básica
         </div>
         <div className="collapse-content">
-          <input
-            type="text"
-            className="w-full text-center"
-            placeholder="Nombre"
-          />
-          <input
-            type="text"
-            className="w-full text-center mt-3"
-            placeholder="Apellido"
-          />
-          <input
-            type="text"
-            className="w-full text-center mt-3"
-            placeholder="Titulo o Profesión"
-          />
+        <input
+  type="text"
+  className="w-full text-center"
+  placeholder="Nombre"
+  value={nombre}
+  onChange={(e) => setNombre(e.target.value)}
+  readOnly={!editing} // 
+/>
+<input
+  type="text"
+  className="w-full text-center mt-3"
+  placeholder="Apellido"
+  value={apellido}
+  onChange={(e) => setApellido(e.target.value)}
+  readOnly={!editing}
+/>
+<input
+  type="text"
+  className="w-full text-center mt-3"
+  placeholder="Título o Profesión"
+  value={titulo}
+  onChange={(e) => setTitulo(e.target.value)}
+  readOnly={!editing}
+/>
+{editing ? (
+  <button className="mt-3" onClick={handleSaveClick}>
+    Guardar
+  </button>
+) : (
+  <button className="mt-3" onClick={handleEditClick}>
+    Editar
+  </button>
+)}
         </div>
+
+
+
       </div>
       <div className="collapse collapse-arrow bg-base-200 mt-8">
         <input type="radio" name="my-accordion-2" />
@@ -84,16 +123,9 @@ const Docente = () => {
           <p>aca deben estar los cursos</p>
         </div>
       </div>
-
-      <div className="collapse collapse-arrow bg-base-200 mt-8">
-        <input type="radio" name="my-accordion-2" />
-        <div className="collapse-title text-xl font-medium">Mis Cursos</div>
-        <div className="collapse-content">
-          <p>hello</p>
-        </div>
-      </div>
     </div>
   );
 };
 
-export default Docente;
+export default Estudiante;
+    

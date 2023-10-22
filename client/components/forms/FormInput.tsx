@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from "react";
 import PasswordInput from "./FormPassword";
 type FormInputType = "email" | "password" | "text" | "tel" | "textarea";
 
@@ -19,7 +19,7 @@ const FormInput = ({
   const inputClasses = "input input-bordered input-success w-full";
 
   return (
-    <React.Fragment>
+    <>
       <label className="mt-4 lg:mt-10 label">
         <span className="font-semibold label-text">
           {label}
@@ -37,7 +37,7 @@ const FormInput = ({
         />
       )}
       <div className="text-error">{errorMessage}</div>
-    </React.Fragment>
+    </>
   );
 };
 
