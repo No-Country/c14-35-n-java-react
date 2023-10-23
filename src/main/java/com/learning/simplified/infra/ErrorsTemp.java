@@ -19,9 +19,7 @@ public class ErrorsTemp {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity err400(MethodArgumentNotValidException e){
-        //var err = e.getFieldError(); //Muestra solo el ultimo error
         List err = e.getFieldErrors().stream().map(errorResponseDTO::new).toList();
-
         return ResponseEntity.badRequest().body(err);
     }
 
@@ -30,9 +28,6 @@ public class ErrorsTemp {
         String err = e.getMessage(); //Mensaje de error
         return ResponseEntity.badRequest().body(new errorResponseDTO("datos", "El body con los datos recibidos está vacío"));
     }
-
-
-
     private record errorResponseDTO(String campo, String err_message){
         public errorResponseDTO(FieldError error){
             this(error.getField(), error.getDefaultMessage());

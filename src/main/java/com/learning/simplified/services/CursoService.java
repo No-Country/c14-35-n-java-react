@@ -87,7 +87,6 @@ public class CursoService {
                     count++;
                 }
             }
-            //validación para nombre de categoría nulo o una cadena vacía
             if (count==0 && cat.getNombre()!=null && !cat.getNombre().equals("")) {
                 aux.add(cat);
             }
@@ -138,30 +137,11 @@ public class CursoService {
 
     //Agrega bloques al curso
     public CursoDTO addBloqueToCurso(BloqueDTO bloqueDTO) {
-        //validar los datos ingresados
-
-        //validar el curso
-
-        //validar el rol del usuario, que sea docente y sea el docente a cargo de este curso
-
-        //creo el bloque
-        //agrego el bloque a la base de datos
-        // devuelvo el bloque
+        validateBlockDataAdd(bloqueDTO);
         Bloque bloque = bloqueService.createBloque(bloqueDTO);
-
-        
-        //traigo el curso y le agrego el bloque
         Curso course = cursoRepository.getReferenceById(bloqueDTO.id_curso());
         course.getBloques().add(bloque);
-
-        //actializo el curso en la base de datos
         course = cursoRepository.save(course);
-
-
-        //creo el dto del curso y lo devuelvo
-
-
-
         return new CursoDTO(
                 course.getId(),
                 course.getNombre(),
@@ -176,52 +156,35 @@ public class CursoService {
                 course.getUrl_video_presentacion(),
                 course.getUrl_imagen_presentacion()
         );
-
     }
-@Transactional
-    public CursoDTO addLeccionToCurso(LeccionDTO leccionDTO) {
-        //validar los datos ingresados
 
-        //validar el curso
-
-        //validar el bloque
-
-        //validar el rol del usuario, que sea docente y sea el docente a cargo de este curso
-
-        //creo la leccion
-        //agrego la leccion a la base de datos
-        //devuelvo la leccion
-
-        Leccion lesson = leccionService.createLeccion(leccionDTO);
-
-        //agrego la leccion al bloque y actualizo en servicios
-        //devuelvo el bloque
-
-        Bloque block = bloqueService.addLeccion(lesson, leccionDTO.id_bloque());
-
-        //devuelvo el curso con el bloque
-
-        //TODO probar si sin actualizar el curso se actualiza al agregar la lección
-    //Curso course = cursoRepository.getCursoById(leccionDTO.id_curso());
-    Curso course = cursoRepository.getReferenceById(leccionDTO.id_curso());
-        /*for (Bloque b : course.getBloques()) {
-            if(b.getId()==block.getId()){
-                course.getBloques().remove(b);
-                course.getBloques().add(block);
-
+    private void validateBlockDataAdd(BloqueDTO bloqueDTO) {
+        if(bloqueDTO==null){
+            throw new RuntimeException("Error en el traspaso de datos. El conjunto de datos llegó vacío");
+        }
+        if(bloqueDTO.id_curso()==null){
+            throw new RuntimeException("Error en el traspaso de datos. No se reconoció el curso al que se desea agregar el Bloque");
+        }
+        if(bloqueDTO.nombre().isEmpty() ||bloqueDTO.nombre()==null){
+            throw new RuntimeException("Error en el traspaso de datos. No puede ingresarse un bloque sin nombre");
+        }
+        Curso course = cursoRepository.getCursoById(bloqueDTO.id_curso());
+        if (course == null){
+            throw new RuntimeException("No existe el curso al que desea ingresarse el bloque");
+        }
+        for (Bloque b: course.getBloques()) {
+            if(b.getNombre().equals(bloqueDTO.nombre())){
+                throw new RuntimeException("Dentro del curso, ya existe un bloque con el nombre que desea ingresar");
             }
-        }*/
+        }
+    }
 
-
-    //TODO REVISAR POR QUË NO MUESTRA LOS CAMBIOS HASTA AGREGAR EL GET NOMBRE . TRANSACTIONAL?
-    //System.out.println("ID CURSO: " + leccionDTO.id_curso());
-    //System.out.println("CURSO" + course.getNombre());
-        //course = cursoRepository.save(course);
-
-
-        //actializo el curso en la base de datos
-        //course = cursoRepository.save(course);
-
+    @Transactional
+    public CursoDTO addLeccionToCurso(LeccionDTO leccionDTO) {
+        validateLessonData(leccionDTO);
+        Leccion lesson = leccionService.createLeccion(leccionDTO);
+        Bloque block = bloqueService.addLeccion(lesson, leccionDTO.id_bloque());
+        Curso course = cursoRepository.getReferenceById(leccionDTO.id_curso());
         return new CursoDTO(
                 course.getId(),
                 course.getNombre(),
@@ -238,7 +201,54 @@ public class CursoService {
         );
 
     }
-//Lista todos los cursos creados
+
+    private void validateLessonData(LeccionDTO leccionDTO) {
+        if(leccionDTO==null){
+            throw new RuntimeException("Error de transferencia de datos. Los datos están vacíos o no se pudieron transportar");
+        }
+        if(leccionDTO.id_curso()==null){
+            throw new RuntimeException("El id del curso al cual desea ingresar la lección se encuentra vacío");
+        }
+        if(leccionDTO.id_bloque()==null){
+            throw new RuntimeException("El id del bloque al cual desea ingresar la lección se encuentra vacío");
+        }
+        if (leccionDTO.num_leccion()==null){
+            throw new RuntimeException("El número de la lección se encuentra vacío");
+        }
+        if (leccionDTO.titulo()==null || leccionDTO.titulo().isBlank() || leccionDTO.titulo().isEmpty()){
+            throw new RuntimeException("El título de la lección se encuentra vacío");
+        }
+        if (leccionDTO.url_recurso()==null || leccionDTO.url_recurso().isBlank() || leccionDTO.url_recurso().isEmpty()){
+            throw new RuntimeException("No se ingresó un recurso para la lección");
+        }
+        Curso course = cursoRepository.getCursoById(leccionDTO.id_curso());
+        if (course==null){
+            throw new RuntimeException("No existe en la base de datos un curso con el id ingresado");
+        }
+
+
+        //TODO Revisar
+        Bloque block;
+
+        block = bloqueService.getBloqueById(leccionDTO.id_bloque());
+
+        if(block == null){
+            throw new RuntimeException("No existe en la base de datos un curso con el id ingresado");
+        }
+        for (Leccion l: block.getLecciones()) {
+            if(l.getTitulo().equals(leccionDTO.titulo())){
+                throw new RuntimeException("El bloque ya posee una lección con el título indicado");
+            }
+            if(l.getNum_leccion()==leccionDTO.num_leccion()){
+                throw new RuntimeException("Ya existe una lección con el número ingresado");
+            }
+            if(l.getUrl_recurso().equals(leccionDTO.url_recurso())){
+                throw new RuntimeException("El recurso ingresado ya se encuentra en otra lección de este bloque");
+            }
+        }
+    }
+
+    //Lista todos los cursos creados
     public List<Curso> findAll() {
         return cursoRepository.findAll();
     }

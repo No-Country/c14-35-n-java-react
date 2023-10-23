@@ -59,14 +59,9 @@ public class CursoController {
         return ResponseEntity.ok(cursoService.findActiveCourses(paginacion));
 
     }
-
-
-
-
-
     //Busca los cursos activos de un profesor por id, los devuelve ordenados de a 10
     @GetMapping("/active-teacher/{id}")
-    public ResponseEntity<Page<Curso>> activeCourseByTeacher(@PageableDefault(size = 10) Pageable paginacion, @PathVariable Long id) {
+    public ResponseEntity<Page<Curso>> findActiveCoursesByTeacher(@PageableDefault(size = 10) Pageable paginacion, @PathVariable Long id) {
         return ResponseEntity.ok(cursoService.findByActivoTrue(paginacion, id));
 
     }
@@ -74,17 +69,8 @@ public class CursoController {
     //Buscar todos los cursos de un profesor, activos e inactivos
 
     @GetMapping("/teacher/{id}")
-    public ResponseEntity<Page<Curso>> showAllCursosByTeacher(@PageableDefault(size = 10) Pageable paginacion, @PathVariable Long id) {
+    public ResponseEntity<Page<Curso>> findAllCoursesByTeacher(@PageableDefault(size = 10) Pageable paginacion, @PathVariable Long id) {
         return ResponseEntity.ok(cursoService.findByTeacher(paginacion, id));
 
     }
-
-
-
-
-
-
-
-
-
 }

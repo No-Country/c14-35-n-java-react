@@ -24,4 +24,8 @@ public class BloqueService {
         block.getLecciones().add(lesson);
         return bloqueRepository.save(block);
     }
+
+    public Bloque getBloqueById(Long id) {
+        return bloqueRepository.getReferenceById(id);
+    }
 }
