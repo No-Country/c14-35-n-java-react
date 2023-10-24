@@ -1,6 +1,6 @@
 package com.learning.simplified.services;
 
-import com.learning.simplified.entidades.Rol;
+import com.learning.simplified.entities.Rol;
 import com.learning.simplified.repository.RolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
