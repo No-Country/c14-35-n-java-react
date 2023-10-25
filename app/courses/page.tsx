@@ -8,12 +8,13 @@ import Futuro from "@/public/futuro.svg";
 import Link from "next/link";
 import { CourseData } from "@/types/courses.types";
 import CourseCard from "@/components/CourseCard";
+import { ReduxController, ReduxView } from "@/components/ReduxTest";
 
 const Home = async () => {
   const courses: CourseData[] = [];
   try {
     const response = await fetch(
-      `${process.env.NEXT_API_BASE_URL}/cursos/allCourses?sort=alta,DESC`,
+      `${process.env.NEXT_API_BASE_URL}/cursos/allCourses?sort=alta`,
       { cache: "no-store" }
     );
     const data = await response.json();
@@ -119,6 +120,8 @@ const Home = async () => {
           </div>
         </div>
       </section>
+      <ReduxView/>
+      <ReduxController/>
     </div>
   );
 };

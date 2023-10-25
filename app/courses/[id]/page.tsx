@@ -5,6 +5,8 @@ import { RiFileDownloadLine } from "react-icons/ri";
 import { PiVideoDuotone } from "react-icons/pi";
 import { AiOutlineMobile } from "react-icons/ai";
 import { CourseData } from "@/types/courses.types";
+import { ReduxController, ReduxView } from "@/components/ReduxTest";
+
 
 interface Props {
   params: {
@@ -145,6 +147,8 @@ const CoursesPage = async ({ params: { id } }: Props) => {
           Añadir a mi colección
         </div>
       </div>
+      <ReduxView/>
+      <ReduxController/>
     </div>
   );
 };

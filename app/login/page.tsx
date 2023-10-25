@@ -6,6 +6,7 @@ import FormHeader from "@/components/forms/FormHeader";
 import FormButton from "@/components/forms/FormButton";
 import FormError from "@/components/forms/FormError";
 import { FormEvent, useState } from "react";
+import { ReduxController, ReduxView } from "@/components/ReduxTest";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -81,6 +82,8 @@ const LoginPage = () => {
           </a>
         </p>
       </FormLayout>
+      <ReduxView/>
+      <ReduxController/>
     </>
   );
 };

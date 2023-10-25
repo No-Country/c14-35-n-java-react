@@ -7,6 +7,7 @@ import FormLayout from "@/components/forms/FormLayout";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { ReduxController, ReduxView } from "@/components/ReduxTest";
 
 const RegisterPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -51,6 +52,7 @@ const RegisterPage = () => {
   };
 
   return (
+    <>
     <FormLayout onSubmit={(event) => handleOnSubmit(event)}>
       {displayError && (
         <FormError onClick={() => setDisplayError(false)}>
@@ -71,7 +73,7 @@ const RegisterPage = () => {
             label="Apellido"
             required
             onChange={(event) => setLastName(event.target.value)}
-          />
+            />
         </div>
       </div>
       <FormInput
@@ -79,13 +81,13 @@ const RegisterPage = () => {
         type="email"
         onChange={(event) => setEmail(event.target.value)}
         required
-      />
+        />
       <FormInput
         label="Contraseña"
         type="password"
         onChange={(event) => setPassword(event.target.value)}
         required
-      />
+        />
       {password !== passwordConfirmation && (
         <p className="text-error mt-2 -mb-7 font-medium text-sm">
           Las contraseñas no coinciden
@@ -96,7 +98,7 @@ const RegisterPage = () => {
         type="password"
         onChange={(event) => setPasswordConfirmation(event.target.value)}
         required
-      />
+        />
       <p className="mt-5 text-sm text-center text-info">
         Al registrarte, aceptas nuestras
         <br />
@@ -118,6 +120,9 @@ const RegisterPage = () => {
         </Link>
       </p>
     </FormLayout>
+    <ReduxView/>
+    <ReduxController/>
+    </>
   );
 };
 
