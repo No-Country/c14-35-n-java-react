@@ -6,39 +6,32 @@ import Cero from "@/public/desde_Cero.svg";
 import Ritmo from "@/public/ritmo.svg";
 import Futuro from "@/public/futuro.svg";
 import Link from "next/link";
-import { MyCourseType } from "@/types";
-import MyCourses from "@/components/containers/MyCourses";
+import { CourseData } from "@/types/courses.types";
+import CourseCard from "@/components/CourseCard";
+import { ReduxController, ReduxView } from "@/components/ReduxTest";
 
 const Home = async () => {
-  // const courses: Course[] = await response.json();
-  const courses = [];
-
+  const courses: CourseData[] = [];
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_COURSES}`,
+      `${process.env.NEXT_API_BASE_URL}/cursos/allCourses?sort=alta`,
       { cache: "no-store" }
     );
-    // const data = await response.json();
-    // courses.push(...data);
-    courses.push(...(await response.json()));
-
-    // console.log(courses);
+    const data = await response.json();
+    courses.push(...data["content"]);
   } catch (error) {
-    // console.error("An error happened");
-    // redirect('/404');
+    console.error("An error occurred while fetching the API: " + error);
+    redirect("/502");
   }
-
-  //*console.log(process.env.NEXT_PUBLIC_TEST_MESSAGE)
 
   return (
     <div className="mt-10">
-      {/* <h1>{JSON.stringify(courses)}</h1> */}
       {/* Buscador */}
       <form className="relative flex items-center w-500">
         <input
           type="search"
           placeholder="Buscar por categoria"
-          className="w-full p-4 rounded-full bg-slate-300"
+          className="w-full p-4 rounded-full bg-base-300 placeholder:text-neutral"
         />
         <button className="absolute bg-transparent rounded-full right-4 bg-slate-300">
           <AiOutlineSearch size={28} />
@@ -51,30 +44,16 @@ const Home = async () => {
       <Carousel />
 
       <h1 className="mt-10 -mb-6 text-3xl font-bold text-center">
-        Nuestros Cursos: {courses.length}
+        Nuestros Cursos
       </h1>
 
-      {/**
-       *
-       *  CURSOS
-       *
-       *
-       *
-       * */}
+      {/* CURSOS */}
       <div className="container w-full py-10 mx-auto">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
-          {
-            /**
-             * 
-             * En caso de que no existan cursos
-             * 
-            (courses.length != 0) &&
-             */
-
-            courses.map((course: any, index: number) => (
-              <MyCourses key={index} data={course} />
-            ))
-          }
+          {courses.length > 0 &&
+            courses.map((course) => (
+              <CourseCard course={course} key={course.id} />
+            ))}
         </div>
       </div>
 
@@ -141,6 +120,8 @@ const Home = async () => {
           </div>
         </div>
       </section>
+      <ReduxView/>
+      <ReduxController/>
     </div>
   );
 };
