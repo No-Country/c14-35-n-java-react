@@ -83,10 +83,23 @@ public class CursoController {
         return ResponseEntity.ok(cursoService.findByTeacher(paginacion, id));
 
     }
+
+    //Buscar un curso por id
     @GetMapping("/{id}")
     public ResponseEntity<Curso>  findCourseById(@PathVariable Long id) {
         return ResponseEntity.ok().body(cursoService.findCourseById(id));
 
     }
+
+    //Buscador por nombre o descripción. Parámetros requeridos name y description
+
+    @GetMapping("/find")
+    public ResponseEntity<Page<Curso>>  findCourseByNameOrDescription(@PageableDefault(size = 10) Pageable paginacion, @RequestParam String name, @RequestParam String description) {
+        System.out.println("nombre" + name);
+        System.out.println("Descripción" + description);
+        return ResponseEntity.ok(cursoService.findByNameOrDescription(paginacion, name, description));
+    }
+
+
 
 }

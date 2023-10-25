@@ -20,7 +20,9 @@ public record CursoDTO(
         List <Bloque> bloques,
         LocalDate alta,
         String url_video_presentacion,
-        String url_imagen_presentacion
+        String url_imagen_presentacion,
+        Boolean auto_activate,
+        String subtitle
 
 ) {
 }

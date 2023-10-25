@@ -56,7 +56,9 @@ public class CursoService {
                 courseCreated.getBloques(),
                 courseCreated.getAlta(),
                 courseCreated.getUrl_video_presentacion(),
-                courseCreated.getUrl_imagen_presentacion()
+                courseCreated.getUrl_imagen_presentacion(),
+                courseCreated.getAuto_activate(),
+                courseCreated.getSubtitle()
         );
     }
 
@@ -132,6 +134,9 @@ public class CursoService {
         if(course.categorias()==null|| course.categorias().isEmpty()){
             throw new RuntimeException("Debe ingresar al menos una categoría para el curso");
         }
+        if(course.subtitle().isEmpty()||course.subtitle().isBlank()){
+            throw  new RuntimeException("El subtitulo del curso no puede ser nulo");
+        }
         return true;
     }
 
@@ -154,7 +159,9 @@ public class CursoService {
                 course.getBloques(),
                 course.getAlta(),
                 course.getUrl_video_presentacion(),
-                course.getUrl_imagen_presentacion()
+                course.getUrl_imagen_presentacion(),
+                course.getAuto_activate(),
+                course.getSubtitle()
         );
     }
 
@@ -185,6 +192,11 @@ public class CursoService {
         Leccion lesson = leccionService.createLeccion(leccionDTO);
         Bloque block = bloqueService.addLeccion(lesson, leccionDTO.id_bloque());
         Curso course = cursoRepository.getReferenceById(leccionDTO.id_curso());
+        if(course.getAuto_activate()){
+            course.setActivo(true);
+            course.setAuto_activate(false);
+            cursoRepository.save(course);
+        }
         return new CursoDTO(
                 course.getId(),
                 course.getNombre(),
@@ -197,7 +209,9 @@ public class CursoService {
                 course.getBloques(),
                 course.getAlta(),
                 course.getUrl_video_presentacion(),
-                course.getUrl_imagen_presentacion()
+                course.getUrl_imagen_presentacion(),
+                course.getAuto_activate(),
+                course.getSubtitle()
         );
 
     }
@@ -269,22 +283,24 @@ public class CursoService {
                 course.getBloques(),
                 course.getAlta(),
                 course.getUrl_video_presentacion(),
-                course.getUrl_imagen_presentacion()
+                course.getUrl_imagen_presentacion(),
+                course.getAuto_activate(),
+                course.getSubtitle()
         );
 
     }
 
     public List<Curso> findAllActiveCourses() {
-        List <Curso> courses = cursoRepository.findByProfesorandActivoTrue(true);
+        List <Curso> courses = cursoRepository.findByNameOrDescription(true);
         return courses;
     }
 
     public Page<Curso> findByActivoTrue(Pageable paginacion, Long id) {
-        return cursoRepository.findByProfesorandActivoTrue(paginacion, true, id);
+        return cursoRepository.findByNameOrDescription(paginacion, true, id);
     }
 
     public Page<Curso> findByTeacher(Pageable paginacion, Long id) {
-        return cursoRepository.findByProfesorandActivoTrue(paginacion, id);
+        return cursoRepository.findByNameOrDescription(paginacion, id);
     }
 
     public Page<Curso> findActiveCourses(Pageable paginacion) {
@@ -308,12 +324,21 @@ public class CursoService {
                 course.getBloques(),
                 course.getAlta(),
                 course.getUrl_video_presentacion(),
-                course.getUrl_imagen_presentacion()
+                course.getUrl_imagen_presentacion(),
+                course.getAuto_activate(),
+                course.getSubtitle()
         );
     }
 
     public Curso findCourseById(Long id) {
         return cursoRepository.getReferenceById(id);
 
+    }
+    //Buscador
+    public Page<Curso> findByNameOrDescription(Pageable paginacion, String name, String description) {
+        if(name==null||name.isEmpty()||name.isBlank()||description==null||description.isBlank()||description.isEmpty()){
+            throw new RuntimeException("El campo de búsqueda está vacío");
+        }
+        return cursoRepository.findByNameOrDescription(paginacion, name, description);
     }
 }
