@@ -31,7 +31,13 @@ const CoursesPage = async ({ params: { id } }: Props) => {
       `${process.env.NEXT_API_BASE_URL}/cursos/allCourses`,
       { cache: "no-store" }
     );
+    // const response = await fetch(
+    //   `${process.env.NEXT_API_BASE_URL}/cursos/${id}`,
+    //   { cache: "no-store" }
+    // );
     const data = await response.json();
+    // if (data.status !== 200) throw new Error(data.message);
+
     const courses: CourseData[] = data["content"];
     course = courses.find((course) => course.id === Number(id));
   } catch (error) {
@@ -89,7 +95,10 @@ const CoursesPage = async ({ params: { id } }: Props) => {
           </h2>
           <div className="space-y-0.5 mt-1">
             {features.map((feature) => (
-              <FeatureItem icon={feature.icon} key={feature.text}>
+              <FeatureItem
+                icon={feature.icon}
+                key={feature.text}
+              >
                 {feature.text}
               </FeatureItem>
             ))}
@@ -105,21 +114,30 @@ const CoursesPage = async ({ params: { id } }: Props) => {
         </div>
         <div className="w-full space-y-2 lg:-mt-16">
           <div className="collapse collapse-arrow bg-base-200 text-md">
-            <input type="radio" name="accordion" />
+            <input
+              type="radio"
+              name="accordion"
+            />
             <div className="collapse-title text-xl font-medium">Bienvenida</div>
             <div className="collapse-content">
               <p>Presentación del curso</p>
             </div>
           </div>
           <div className="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="accordion" />
+            <input
+              type="radio"
+              name="accordion"
+            />
             <div className="collapse-title text-xl font-medium">Lección 1</div>
             <div className="collapse-content">
               <p>En esta lección te enseñaremos a hacer un sitio web</p>
             </div>
           </div>
           <div className="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="accordion" />
+            <input
+              type="radio"
+              name="accordion"
+            />
             <div className="collapse-title text-xl font-medium">Lección 2</div>
             <div className="collapse-content">
               <p>
@@ -129,7 +147,10 @@ const CoursesPage = async ({ params: { id } }: Props) => {
             </div>
           </div>
           <div className="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="accordion" />
+            <input
+              type="radio"
+              name="accordion"
+            />
             <div className="collapse-title text-xl font-medium">Lección 3</div>
             <div className="collapse-content">
               <p>

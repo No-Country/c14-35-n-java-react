@@ -1,6 +1,12 @@
 import { InputHTMLAttributes } from "react";
 import PasswordInput from "./FormPassword";
-type FormInputType = "email" | "password" | "text" | "tel" | "textarea";
+type FormInputType =
+  | "email"
+  | "password"
+  | "text"
+  | "tel"
+  | "textarea"
+  | "file";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -8,33 +14,53 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
 }
 
-const FormInput = ({
-  label,
-  type = "text",
-  errorMessage,
-  placeholder,
-  ...props
-}: Props) => {
-  const inputPlaceholder = placeholder ?? label;
-  const className = "input input-bordered input-success w-full";
+const FormInput = ({ label, type = "text", errorMessage, ...props }: Props) => {
+  const className = "w-full input input-bordered input-success";
 
-  const inputProps = {
+  props = {
     ...props,
-    placeholder: inputPlaceholder,
+    placeholder: props.placeholder ?? label,
+    className,
   };
+
+  let inputElement: React.ReactNode;
+  switch (type) {
+    case "textarea":
+      inputElement = (
+        <textarea className="h-24 textarea textarea-bordered textarea-success"></textarea>
+      );
+      break;
+    case "password":
+      inputElement = <PasswordInput {...props} />;
+      break;
+    case "file":
+      inputElement = (
+        <input
+          {...props}
+          type="file"
+          className="file-input file-input-bordered file-input-success w-full"
+        />
+      );
+      break;
+    default:
+      inputElement = (
+        <input
+          {...props}
+          type={type}
+        />
+      );
+      break;
+  }
 
   return (
     <>
-      <label className="mt-4 lg:mt-10 label">
+      <label
+        className="mt-4 lg:mt-10 label"
+        htmlFor={label}
+      >
         <span className="font-semibold label-text">{label}</span>
       </label>
-      {type === "textarea" ? (
-        <textarea className="h-24 textarea textarea-bordered textarea-success"></textarea>
-      ) : type === "password" ? (
-        <PasswordInput {...inputProps} className={className} />
-      ) : (
-        <input {...inputProps} type={type} className={className} />
-      )}
+      {inputElement}
       <div className="text-error">{errorMessage}</div>
     </>
   );

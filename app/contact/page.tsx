@@ -1,4 +1,5 @@
 import FormButton from "@/components/forms/FormButton";
+import FormHeader from "@/components/forms/FormHeader";
 import FormInput from "@/components/forms/FormInput";
 import FormLayout from "@/components/forms/FormLayout";
 import React from "react";
@@ -6,7 +7,8 @@ import React from "react";
 const ContactPage = () => {
   return (
     <FormLayout>
-      <h1 className="mx-auto text-4xl font-bold lg:text-5xl">Contáctanos</h1>
+      {/* <h1 className="mx-auto text-4xl font-bold lg:text-5xl">Contáctanos</h1> */}
+      <FormHeader>Contáctanos</FormHeader>
       <FormInput label="Nombre" />
       <FormInput label="Correo" type="email" />
       <FormInput label="Teléfono" type="tel" />

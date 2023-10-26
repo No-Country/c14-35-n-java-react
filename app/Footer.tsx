@@ -5,7 +5,7 @@ import Image from "next/image";
 const Footer = () => {
     return (
         <div className="bg-neutral">
-            <footer className="footer p-10 bg-neutral text-neutral-content font-bold [&>*]:mx-auto lg:p-20 max-w-5xl mx-auto">
+            <footer className="footer p-10 bg-neutral text-neutral-content font-bold [&>*]:mx-auto max-w-5xl mx-auto">
                 <Image src={whiteLogo} alt="Logo" className="w-52 -ml-7" />
                 <nav className="">
                     <header className="footer-title">Información General</header>

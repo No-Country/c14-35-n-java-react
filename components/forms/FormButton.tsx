@@ -4,7 +4,7 @@ const FormButton = ({ children = "Iniciar sesión", ...props }: ButtonHTMLAttrib
   return (
     <button
       {...props}
-      className="w-full mt-8 text-lg normal-case rounded-lg lg:mt-18 btn btn-success hover:bg-success-content hover:text-white hover">
+      className="w-full mt-10 text-lg normal-case rounded-lg lg:mt-18 btn btn-success hover:bg-success-content hover:text-white hover">
       {children}
     </button>
   )

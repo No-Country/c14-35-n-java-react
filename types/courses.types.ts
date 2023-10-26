@@ -10,16 +10,15 @@ interface EducatorData {
   email: string;
   password: string;
   alta: Date;
-  rol?: "ADMIN" | "PROFESOR" | "ESTUDIANTE";
+  rol?: "ADMIN" | "USER";
   curso: [];
   imagen?: string;
 }
 
 export interface CourseData {
-  // duration: number;
-  // title: string;
   id: number;
   nombre: string;
+  // subtitle?: string;
   descripcion: string;
   rutaAprendizaje?: string;
   usuario?: [];
