@@ -22,21 +22,9 @@ const RegisterPage = () => {
     if (!firstName || !lastName || !email || !password || !passwordConfirmation)
       return;
 
-    fetch(process.env.NEXT_API_BASE_URL + "/usuario", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        rol: {
-          estudiante: true,
-          educador: false,
-          administrador: false,
-        },
-      }),
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/registro?nombre=${firstName} ${lastName}&correo=${email}&password=${password}$password1=${passwordConfirmation}`
+    )
       .then((res) => {
         if (res.status === 201) {
           router.push("/");

@@ -13,7 +13,7 @@ const Home = async () => {
   const courses: CourseData[] = [];
   try {
     const response = await fetch(
-      `${process.env.NEXT_API_BASE_URL}/cursos/allCourses?sort=alta,DESC`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/allCourses?sort=alta,DESC`,
       { cache: "no-store" }
     );
     const data = await response.json();

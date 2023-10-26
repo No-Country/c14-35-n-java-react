@@ -19,16 +19,9 @@ const LoginPage = () => {
       return;
     }
 
-    fetch(process.env.NEXT_API_BASE_URL + "/usuario/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/login?email=${email}&password=${password}`
+    )
       .then((res) => {
         if (res.status === 201) {
           router.push("/");
@@ -72,11 +65,17 @@ const LoginPage = () => {
         </a>
         <p className="mt-5 text-sm text-center text-info">
           Al continuar con tu correo o tu red social aceptas los{" "}
-          <a href="" className="font-bold hover:underline">
+          <a
+            href=""
+            className="font-bold hover:underline"
+          >
             terminos y condiciones
           </a>{" "}
           y el{" "}
-          <a href="" className="font-bold hover:underline">
+          <a
+            href=""
+            className="font-bold hover:underline"
+          >
             aviso de privacidad.
           </a>
         </p>
