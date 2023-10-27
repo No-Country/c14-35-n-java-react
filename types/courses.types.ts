@@ -15,11 +15,28 @@ interface EducatorData {
   imagen?: string;
 }
 
-export interface CourseData {
-  // duration: number;
-  // title: string;
+export type Section = "BLOCK" | "LECTURE";
+
+export interface LectureData {
+  // num_leccion: number;
+  title: string;
+  // url_recurso: string;
+  content: string;
+  // id_curso: number;
+  // id_bloque: number;
+}
+
+export interface BlockData {
   id: number;
   nombre: string;
+  lectures?: LectureData[];
+}
+
+export interface CourseData {
+  // duration: number;
+  id: number;
+  nombre: string;
+  subtitle: string;
   descripcion: string;
   rutaAprendizaje?: string;
   usuario?: [];
@@ -31,7 +48,6 @@ export interface CourseData {
   url_imagen_presentacion: string;
   url_video_presentacion?: string;
 }
-
 
 interface Pageable {
   pageNumber: number;
@@ -51,7 +67,6 @@ interface Sort {
   sorted: boolean;
   unsorted: boolean;
 }
-
 
 export interface CourseResponseData {
   content: CourseData[];

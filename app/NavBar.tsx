@@ -14,6 +14,7 @@ export interface Route {
 const NavBar = () => {
   const routes: Route[] = [
     { name: "Cursos", path: "/courses" },
+    { name: "Crear curso", path: "/courses/create" },
     { name: "Contáctanos", path: "/contact" },
   ];
 
