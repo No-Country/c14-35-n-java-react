@@ -23,10 +23,12 @@ const RegisterPage = () => {
       return;
 
     fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/registro?nombre=${firstName} ${lastName}&correo=${email}&password=${password}$password1=${passwordConfirmation}`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/registro?nombre=${firstName}&email=${email}&password=${password}&password2=${passwordConfirmation}`,
+      { method: "POST" }
     )
       .then((res) => {
-        if (res.status === 201) {
+        console.log(res);
+        if (res.status === 200) {
           router.push("/");
         } else {
           setDisplayError(true);
@@ -88,20 +90,32 @@ const RegisterPage = () => {
       <p className="mt-5 text-sm text-center text-info">
         Al registrarte, aceptas nuestras
         <br />
-        <a href="" className="font-bold hover:underline">
+        <a
+          href=""
+          className="font-bold hover:underline"
+        >
           Condiciones de uso
         </a>{" "}
         y nuestra{" "}
-        <a href="" className="font-bold hover:underline">
+        <a
+          href=""
+          className="font-bold hover:underline"
+        >
           Politica de privacidad.
         </a>
       </p>
-      <FormButton disabled={password !== passwordConfirmation} type="submit">
+      <FormButton
+        disabled={password !== passwordConfirmation}
+        type="submit"
+      >
         Crear cuenta
       </FormButton>
       <p className="mt-6 text-center text-info">
         ¿Ya tienes cuenta?{" "}
-        <Link href="/login" className="font-bold hover:underline">
+        <Link
+          href="/login"
+          className="font-bold hover:underline"
+        >
           Inicia sesión
         </Link>
       </p>

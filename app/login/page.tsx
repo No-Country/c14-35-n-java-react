@@ -23,7 +23,7 @@ const LoginPage = () => {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/login?email=${email}&password=${password}`
     )
       .then((res) => {
-        if (res.status === 201) {
+        if (res.status === 200) {
           router.push("/");
         } else {
           setDisplayError(true);

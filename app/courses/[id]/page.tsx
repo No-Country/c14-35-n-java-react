@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { LuTimer } from "react-icons/lu";
 import { RiFileDownloadLine } from "react-icons/ri";
 import { PiVideoDuotone } from "react-icons/pi";
@@ -25,27 +25,14 @@ const FeatureItem = ({ icon, children }: FeatureItem) => (
 );
 
 const CoursesPage = async ({ params: { id } }: Props) => {
-  let course: CourseData | undefined = undefined;
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/allCourses`,
-      { cache: "no-store" }
-    );
-    // const response = await fetch(
-    //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/${id}`,
-    //   { cache: "no-store" }
-    // );
-    const data = await response.json();
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/${id}`,
+    { cache: "no-store" }
+  );
+  const course: CourseData = await res.json();
 
-    const courses: CourseData[] = data["content"];
-    course = courses.find((course) => course.id === Number(id));
-  } catch (error) {
-    console.error("An error occurred while fetching the API: " + error);
-    redirect("/502");
-  }
-
-  if (typeof course === "undefined") {
-    return <div>Course not found</div>;
+  if (!course) {
+    return notFound();
   }
 
   const features = [
@@ -104,9 +91,10 @@ const CoursesPage = async ({ params: { id } }: Props) => {
           </div>
           <h2 className="text-lg mt-6 font-bold">Categorías</h2>
           <ul className="list-disc list-inside">
-            {course.categorias.map((categoria) => (
-              <li key={categoria.id}>{categoria.nombre}</li>
-            ))}
+            {course &&
+              course.categorias.map((categoria) => (
+                <li key={categoria.id}>{categoria.nombre}</li>
+              ))}
           </ul>
           <h2 className="text-lg mt-6 font-bold">Descripción</h2>
           <p>{course.descripcion}</p>
