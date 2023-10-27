@@ -10,7 +10,13 @@
 
 **GitHub url:** [c14-35-n-java-react](https://github.com/No-Country/c14-35-n-java-react)
 
-**Deploy_1:** [**learning-simplified.netlify.app**](https://learning-simplified.netlify.app/courses)
+**Deploy_1:** [**learning-simplified.vercel.app**](https://learning-simplified.vercel.app/courses)
+
+**Deploy_2:** [**learning-simplified.netlify.app**](https://learning-simplified.netlify.app/courses)
+
+Nota para hacer los deploys no funciona si no se le hace una serie de configuraciones a la plataforma y tener el repositorio autorizado para ello. (para cada servidor la forma de hacerlo puede variar).
+
+<br />
 
 **Design:** [**preview**](https://www.figma.com/file/X0ViO0De7LKrIhwAtqu8cr/Untitled?type=design&node-id=57-76&mode=design)
 
