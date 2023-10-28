@@ -7,7 +7,6 @@ import FormLayout from "@/components/forms/FormLayout";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import { ReduxController, ReduxView } from "@/components/ReduxTest";
 
 const RegisterPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -22,24 +21,13 @@ const RegisterPage = () => {
     event.preventDefault();
     if (!firstName || !lastName || !email || !password || !passwordConfirmation)
       return;
-
-    fetch(process.env.NEXT_API_BASE_URL + "/usuario", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        rol: {
-          estudiante: true,
-          educador: false,
-          administrador: false,
-        },
-      }),
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/registro?nombre=${firstName}&email=${email}&password=${password}&password2=${passwordConfirmation}`,
+      { method: "POST" }
+    )
       .then((res) => {
-        if (res.status === 201) {
+        console.log(res);
+        if (res.status === 200) {
           router.push("/");
         } else {
           setDisplayError(true);
@@ -52,7 +40,6 @@ const RegisterPage = () => {
   };
 
   return (
-    <>
     <FormLayout onSubmit={(event) => handleOnSubmit(event)}>
       {displayError && (
         <FormError onClick={() => setDisplayError(false)}>
@@ -73,7 +60,7 @@ const RegisterPage = () => {
             label="Apellido"
             required
             onChange={(event) => setLastName(event.target.value)}
-            />
+          />
         </div>
       </div>
       <FormInput
@@ -81,13 +68,13 @@ const RegisterPage = () => {
         type="email"
         onChange={(event) => setEmail(event.target.value)}
         required
-        />
+      />
       <FormInput
         label="Contraseña"
         type="password"
         onChange={(event) => setPassword(event.target.value)}
         required
-        />
+      />
       {password !== passwordConfirmation && (
         <p className="text-error mt-2 -mb-7 font-medium text-sm">
           Las contraseñas no coinciden
@@ -98,31 +85,40 @@ const RegisterPage = () => {
         type="password"
         onChange={(event) => setPasswordConfirmation(event.target.value)}
         required
-        />
+      />
       <p className="mt-5 text-sm text-center text-info">
         Al registrarte, aceptas nuestras
         <br />
-        <a href="" className="font-bold hover:underline">
+        <a
+          href=""
+          className="font-bold hover:underline"
+        >
           Condiciones de uso
         </a>{" "}
         y nuestra{" "}
-        <a href="" className="font-bold hover:underline">
+        <a
+          href=""
+          className="font-bold hover:underline"
+        >
           Politica de privacidad.
         </a>
       </p>
-      <FormButton disabled={password !== passwordConfirmation} type="submit">
+      <FormButton
+        disabled={password !== passwordConfirmation}
+        type="submit"
+      >
         Crear cuenta
       </FormButton>
       <p className="mt-6 text-center text-info">
         ¿Ya tienes cuenta?{" "}
-        <Link href="/login" className="font-bold hover:underline">
+        <Link
+          href="/login"
+          className="font-bold hover:underline"
+        >
           Inicia sesión
         </Link>
       </p>
     </FormLayout>
-    <ReduxView/>
-    <ReduxController/>
-    </>
   );
 };
 

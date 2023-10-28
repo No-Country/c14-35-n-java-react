@@ -6,7 +6,6 @@ import FormHeader from "@/components/forms/FormHeader";
 import FormButton from "@/components/forms/FormButton";
 import FormError from "@/components/forms/FormError";
 import { FormEvent, useState } from "react";
-import { ReduxController, ReduxView } from "@/components/ReduxTest";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -20,18 +19,11 @@ const LoginPage = () => {
       return;
     }
 
-    fetch(process.env.NEXT_API_BASE_URL + "/usuario/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/login?email=${email}&password=${password}`
+    )
       .then((res) => {
-        if (res.status === 201) {
+        if (res.status === 200) {
           router.push("/");
         } else {
           setDisplayError(true);
@@ -73,17 +65,21 @@ const LoginPage = () => {
         </a>
         <p className="mt-5 text-sm text-center text-info">
           Al continuar con tu correo o tu red social aceptas los{" "}
-          <a href="" className="font-bold hover:underline">
+          <a
+            href=""
+            className="font-bold hover:underline"
+          >
             terminos y condiciones
           </a>{" "}
           y el{" "}
-          <a href="" className="font-bold hover:underline">
+          <a
+            href=""
+            className="font-bold hover:underline"
+          >
             aviso de privacidad.
           </a>
         </p>
       </FormLayout>
-      <ReduxView/>
-      <ReduxController/>
     </>
   );
 };

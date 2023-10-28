@@ -1,12 +1,10 @@
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { LuTimer } from "react-icons/lu";
 import { RiFileDownloadLine } from "react-icons/ri";
 import { PiVideoDuotone } from "react-icons/pi";
 import { AiOutlineMobile } from "react-icons/ai";
 import { CourseData } from "@/types/courses.types";
-import { ReduxController, ReduxView } from "@/components/ReduxTest";
-
 
 interface Props {
   params: {
@@ -27,22 +25,14 @@ const FeatureItem = ({ icon, children }: FeatureItem) => (
 );
 
 const CoursesPage = async ({ params: { id } }: Props) => {
-  let course: CourseData | undefined = undefined;
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_API_BASE_URL}/cursos/allCourses`,
-      { cache: "no-store" }
-    );
-    const data = await response.json();
-    const courses: CourseData[] = data["content"];
-    course = courses.find((course) => course.id === Number(id));
-  } catch (error) {
-    console.error("An error occurred while fetching the API: " + error);
-    redirect("/502");
-  }
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/${id}`,
+    { cache: "no-store" }
+  );
+  const course: CourseData = await res.json();
 
-  if (typeof course === "undefined") {
-    return <div>Course not found</div>;
+  if (!course) {
+    return notFound();
   }
 
   const features = [
@@ -91,37 +81,50 @@ const CoursesPage = async ({ params: { id } }: Props) => {
           </h2>
           <div className="space-y-0.5 mt-1">
             {features.map((feature) => (
-              <FeatureItem icon={feature.icon} key={feature.text}>
+              <FeatureItem
+                icon={feature.icon}
+                key={feature.text}
+              >
                 {feature.text}
               </FeatureItem>
             ))}
           </div>
           <h2 className="text-lg mt-6 font-bold">Categorías</h2>
           <ul className="list-disc list-inside">
-            {course.categorias.map((categoria) => (
-              <li key={categoria.id}>{categoria.nombre}</li>
-            ))}
+            {course &&
+              course.categorias.map((categoria) => (
+                <li key={categoria.id}>{categoria.nombre}</li>
+              ))}
           </ul>
           <h2 className="text-lg mt-6 font-bold">Descripción</h2>
           <p>{course.descripcion}</p>
         </div>
         <div className="w-full space-y-2 lg:-mt-16">
           <div className="collapse collapse-arrow bg-base-200 text-md">
-            <input type="radio" name="accordion" />
+            <input
+              type="radio"
+              name="accordion"
+            />
             <div className="collapse-title text-xl font-medium">Bienvenida</div>
             <div className="collapse-content">
               <p>Presentación del curso</p>
             </div>
           </div>
           <div className="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="accordion" />
+            <input
+              type="radio"
+              name="accordion"
+            />
             <div className="collapse-title text-xl font-medium">Lección 1</div>
             <div className="collapse-content">
               <p>En esta lección te enseñaremos a hacer un sitio web</p>
             </div>
           </div>
           <div className="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="accordion" />
+            <input
+              type="radio"
+              name="accordion"
+            />
             <div className="collapse-title text-xl font-medium">Lección 2</div>
             <div className="collapse-content">
               <p>
@@ -131,7 +134,10 @@ const CoursesPage = async ({ params: { id } }: Props) => {
             </div>
           </div>
           <div className="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="accordion" />
+            <input
+              type="radio"
+              name="accordion"
+            />
             <div className="collapse-title text-xl font-medium">Lección 3</div>
             <div className="collapse-content">
               <p>
@@ -147,8 +153,6 @@ const CoursesPage = async ({ params: { id } }: Props) => {
           Añadir a mi colección
         </div>
       </div>
-      <ReduxView/>
-      <ReduxController/>
     </div>
   );
 };
