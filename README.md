@@ -14,6 +14,8 @@
 
 **Deploy_2:** [**learning-simplified.netlify.app**](https://learning-simplified.netlify.app/courses)
 
+**Deploy_3:** [**c14-35-n-java-react.vercel.app**](https://c14-35-n-java-react.vercel.app)
+
 Nota para hacer los deploys no funciona si no se le hace una serie de configuraciones a la plataforma y tener el repositorio autorizado para ello. (para cada servidor la forma de hacerlo puede variar).
 
 <br />
