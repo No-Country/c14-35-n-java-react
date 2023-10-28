@@ -2,6 +2,8 @@ package com.learning.simplified.controllers;
 
 import com.learning.simplified.dto.CursoDTO;
 import com.learning.simplified.dto.DatosLoginDTO;
+import com.learning.simplified.dto.UsuarioLoginDTO;
+import com.learning.simplified.dto.UsuarioRegistroDTO;
 import com.learning.simplified.entities.Usuario;
 import com.learning.simplified.exceptions.MyException;
 
@@ -14,13 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -40,9 +37,14 @@ public class PortalControlador {
         return "probando postman";
     }
 
+
+    //registro viejo "params"
+
+    /*
+
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, MultipartFile archivo) {
+            @RequestParam String password, @RequestParam String password2, ) {
         try {
             usuarioService.registrar(nombre, email, password, password2, archivo);
 
@@ -53,6 +55,26 @@ public class PortalControlador {
         }
     }
 
+     */
+
+    @PostMapping("/registro")
+    public String registro(@RequestBody UsuarioRegistroDTO usuarioRegistroDTO) {
+
+        try {
+            usuarioService.registrar(
+                    usuarioRegistroDTO.getNombre(),usuarioRegistroDTO.getApellido(), usuarioRegistroDTO.getEmail(),
+                    usuarioRegistroDTO.getPassword(), usuarioRegistroDTO.getPassword2(),usuarioRegistroDTO.getRol());
+
+            return "registro exitoso";
+        } catch (MyException ex) {
+
+            return ex.getMessage();
+        }
+    }
+
+
+    //login con params
+    /*
     @GetMapping("/login")
     public ResponseEntity<DatosLoginDTO> login(@RequestParam String email, String password) {
         try {
@@ -65,6 +87,25 @@ public class PortalControlador {
         }
 
     }
+
+     */
+
+    //login usando el body
+    @PostMapping("/login")
+    public ResponseEntity<DatosLoginDTO> login(@RequestBody UsuarioLoginDTO usuarioLoginDTO) {
+        try {
+            Usuario usuarioValidado = usuarioService.validarLogin(usuarioLoginDTO.getEmail(), usuarioLoginDTO.getPassword());
+            //martin: no entiendo esta parte
+            DatosLoginDTO datosLoginDTO = new DatosLoginDTO(usuarioValidado.getId(), usuarioValidado.getNombre(), usuarioValidado.getApellido(),
+                    usuarioValidado.getEmail(), usuarioValidado.getAlta(), usuarioValidado.getRol(), usuarioValidado.getCurso(), usuarioValidado.getImagen());
+            return ResponseEntity.ok().body(datosLoginDTO);
+        } catch (MyException ex) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
+
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/perfil")

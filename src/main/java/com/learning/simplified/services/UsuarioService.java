@@ -49,18 +49,19 @@ public class UsuarioService implements UserDetailsService {
     private ImagenService imagenService;
 
     @Transactional
-    public void registrar(String nombre, String email, String password, String password2, MultipartFile archivo) throws MyException {
+    public void registrar(String nombre,String apellido, String email, String password, String password2, Rol rol) throws MyException {
 
         validar(nombre, email, password, password2);
 
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
         usuario.setEmail(email);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(Rol.ADMIN);
+        usuario.setRol(rol);
         usuario.setAlta(LocalDate.now());
-        Imagen imagen = imagenService.guardarImagen(archivo);
-        usuario.setImagen(imagen);
+        //Imagen imagen = imagenService.guardarImagen(archivo);
+        // usuario.setImagen(imagen);
 
         usuarioRepository.save(usuario);
     }
