@@ -5,45 +5,44 @@ import { useRouter } from "next/navigation";
 import FormHeader from "@/components/forms/FormHeader";
 import FormButton from "@/components/forms/FormButton";
 import FormError from "@/components/forms/FormError";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [displayError, setDisplayError] = useState(false);
   const router = useRouter();
 
-  const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!email || !password) {
       return;
     }
 
-    fetch("http://localhost:8080/usuario/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    }).then((res) => {
-      if (res.status === 201) {
-        router.push("/");
-      }
-    }).catch((error) => {
-      console.error(error);
-      setError(true);
-    });
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/login?email=${email}&password=${password}`
+    )
+      .then((res) => {
+        if (res.status === 200) {
+          router.push("/");
+        } else {
+          setDisplayError(true);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setDisplayError(true);
+      });
   };
 
   return (
     <>
       <FormLayout onSubmit={(event) => handleOnSubmit(event)}>
-        {error &&
-          <FormError>Ha ocurrido un error</FormError>
-        }
+        {displayError && (
+          <FormError onClick={() => setDisplayError(false)}>
+            Ha ocurrido un error
+          </FormError>
+        )}
         <FormHeader>Iniciar sesión</FormHeader>
         <FormInput
           label="Correo electrónico"
@@ -51,7 +50,8 @@ const LoginPage = () => {
           onChange={(event) => setEmail(event.target.value)}
           required
         />
-        <FormInput label="Contraseña"
+        <FormInput
+          label="Contraseña"
           type="password"
           onChange={(event) => setPassword(event.target.value)}
           required
@@ -65,11 +65,17 @@ const LoginPage = () => {
         </a>
         <p className="mt-5 text-sm text-center text-info">
           Al continuar con tu correo o tu red social aceptas los{" "}
-          <a href="" className="font-bold hover:underline">
+          <a
+            href=""
+            className="font-bold hover:underline"
+          >
             terminos y condiciones
           </a>{" "}
           y el{" "}
-          <a href="" className="font-bold hover:underline">
+          <a
+            href=""
+            className="font-bold hover:underline"
+          >
             aviso de privacidad.
           </a>
         </p>

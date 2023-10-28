@@ -9,95 +9,116 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 const RegisterPage = () => {
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [error, setError] = useState(false);
+  const [displayError, setDisplayError] = useState(false);
   const router = useRouter();
 
   const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!firstName || !lastName || !email || !password || !passwordConfirmation) return;
-
-    fetch("http://localhost:8080/usuario", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        rol: {
-          "estudiante": true,
-          "educador": false,
-          "administrador": false,
+    if (!firstName || !lastName || !email || !password || !passwordConfirmation)
+      return;
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/registro?nombre=${firstName}&email=${email}&password=${password}&password2=${passwordConfirmation}`,
+      { method: "POST" }
+    )
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          router.push("/");
+        } else {
+          setDisplayError(true);
         }
-      }),
-    }).then((res) => {
-      if (res.status === 201) {
-        router.push("/");
-      }
-    }).catch((error) => {
-      console.error(error);
-      setError(true);
-    });
+      })
+      .catch((error) => {
+        console.error(error);
+        setDisplayError(true);
+      });
   };
 
   return (
     <FormLayout onSubmit={(event) => handleOnSubmit(event)}>
-      {error &&
-        <FormError>Ha ocurrido un error</FormError>
-      }
+      {displayError && (
+        <FormError onClick={() => setDisplayError(false)}>
+          Ha ocurrido un error
+        </FormError>
+      )}
       <FormHeader>Registrate</FormHeader>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
         <div>
-          <FormInput label="Nombre"
+          <FormInput
+            label="Nombre"
             onChange={(event) => setFirstName(event.target.value)}
             required
           />
         </div>
         <div>
-          <FormInput label="Apellido"
+          <FormInput
+            label="Apellido"
             required
             onChange={(event) => setLastName(event.target.value)}
           />
         </div>
       </div>
-      <FormInput label="Correo"
+      <FormInput
+        label="Correo"
         type="email"
         onChange={(event) => setEmail(event.target.value)}
         required
       />
-      <FormInput label="Contraseña"
+      <FormInput
+        label="Contraseña"
         type="password"
         onChange={(event) => setPassword(event.target.value)}
         required
       />
-      <FormInput label="Confirmar contraseña"
+      {password !== passwordConfirmation && (
+        <p className="text-error mt-2 -mb-7 font-medium text-sm">
+          Las contraseñas no coinciden
+        </p>
+      )}
+      <FormInput
+        label="Confirmar contraseña"
         type="password"
         onChange={(event) => setPasswordConfirmation(event.target.value)}
         required
       />
       <p className="mt-5 text-sm text-center text-info">
-        Al registrarte, aceptas nuestras<br />
-        <a href="" className="font-bold hover:underline">
+        Al registrarte, aceptas nuestras
+        <br />
+        <a
+          href=""
+          className="font-bold hover:underline"
+        >
           Condiciones de uso
         </a>{" "}
         y nuestra{" "}
-        <a href="" className="font-bold hover:underline">
+        <a
+          href=""
+          className="font-bold hover:underline"
+        >
           Politica de privacidad.
         </a>
       </p>
-      <FormButton disabled={password !== passwordConfirmation} type="submit">Crear cuenta</FormButton>
+      <FormButton
+        disabled={password !== passwordConfirmation}
+        type="submit"
+      >
+        Crear cuenta
+      </FormButton>
       <p className="mt-6 text-center text-info">
-        ¿Ya tienes cuenta? <Link href="/login" className="font-bold hover:underline">
+        ¿Ya tienes cuenta?{" "}
+        <Link
+          href="/login"
+          className="font-bold hover:underline"
+        >
           Inicia sesión
         </Link>
       </p>
-    </FormLayout >
+    </FormLayout>
   );
 };
 

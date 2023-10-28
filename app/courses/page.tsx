@@ -6,19 +6,23 @@ import Cero from "@/public/desde_Cero.svg";
 import Ritmo from "@/public/ritmo.svg";
 import Futuro from "@/public/futuro.svg";
 import Link from "next/link";
-
-export interface Course {
-  id: number;
-  img: string;
-  name: string;
-  duration: number;
-  title: string;
-  description: string;
-}
+import { CourseData } from "@/types/courses.types";
+import CourseCard from "@/components/CourseCard";
 
 const Home = async () => {
-  const response = await fetch(`${process.env.API_URL}/courses`);
-  const courses: Course[] = await response.json();
+  const courses: CourseData[] = [];
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/allCourses?sort=alta,DESC`,
+      { cache: "no-store" }
+      
+    );
+    const data = await response.json();
+    courses.push(...data["content"]);
+  } catch (error) {
+    console.error("An error occurred while fetching the API: " + error);
+    redirect("/502");
+  }
 
   return (
     <div className="mt-10">
@@ -27,7 +31,7 @@ const Home = async () => {
         <input
           type="search"
           placeholder="Buscar por categoria"
-          className="w-full p-4 rounded-full bg-slate-300"
+          className="w-full p-4 rounded-full bg-base-300 placeholder:text-neutral"
         />
         <button className="absolute bg-transparent rounded-full right-4 bg-slate-300">
           <AiOutlineSearch size={28} />
@@ -46,28 +50,10 @@ const Home = async () => {
       {/* CURSOS */}
       <div className="container w-full py-10 mx-auto">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
-          {courses.map((course, index) => (
-            <Link
-              href={`/courses/${course.id}`}
-              key={index}
-              className="rounded-lg shadow-lg overflow-hidden"
-            >
-              <Image
-                src={course.img}
-                alt={course.name}
-                width={600}
-                height={250}
-              />
-              <div className="p-5">
-                <h3 className="text-xl font-bold text-slate-700">
-                  {course.name}
-                </h3>
-                <p className="mt-2 font-normal text-gray-600 line-clamp-3">
-                  {course.description}
-                </p>
-              </div>
-            </Link>
-          ))}
+          {courses.length > 0 &&
+            courses.map((course) => (
+              <CourseCard course={course} key={course.id} />
+            ))}
         </div>
       </div>
 

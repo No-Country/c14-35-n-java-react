@@ -14,7 +14,8 @@ export interface Route {
 const NavBar = () => {
   const routes: Route[] = [
     { name: "Cursos", path: "/courses" },
-    { name: "Contacto", path: "/contact" },
+    { name: "Crear curso", path: "/courses/create" },
+    { name: "Contáctanos", path: "/contact" },
   ];
 
   const pathname = usePathname();
@@ -25,8 +26,9 @@ const NavBar = () => {
         <Link
           href={route.path}
           className={
+            // Check if the base of the current path matches the route path
             `/${pathname.split("/")[1]}` === route.path
-              ? "font-bold underline bg-base-200"
+              ? "font-bold bg-base-300"
               : "font-semibold"
           }
         >

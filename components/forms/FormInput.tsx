@@ -15,26 +15,25 @@ const FormInput = ({
   placeholder,
   ...props
 }: Props) => {
-  placeholder = placeholder ?? label;
-  const inputClasses = "input input-bordered input-success w-full";
+  const inputPlaceholder = placeholder ?? label;
+  const className = "input input-bordered input-success w-full";
+
+  const inputProps = {
+    ...props,
+    placeholder: inputPlaceholder,
+  };
 
   return (
     <>
       <label className="mt-4 lg:mt-10 label">
-        <span className="font-semibold label-text">
-          {label}
-        </span>
+        <span className="font-semibold label-text">{label}</span>
       </label>
       {type === "textarea" ? (
         <textarea className="h-24 textarea textarea-bordered textarea-success"></textarea>
       ) : type === "password" ? (
-        <PasswordInput {...props} className={inputClasses} />
+        <PasswordInput {...inputProps} className={className} />
       ) : (
-        <input
-          {...props}
-          type={type}
-          className={inputClasses}
-        />
+        <input {...inputProps} type={type} className={className} />
       )}
       <div className="text-error">{errorMessage}</div>
     </>
