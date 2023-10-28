@@ -30,6 +30,11 @@ public class PortalControlador {
     @Autowired
     private UsuarioService usuarioService;
 
+    @GetMapping("/test")
+    public String pruebaMartin() {
+        return "api en funcionamiento";
+    }
+
     @GetMapping("/prueba")
     public String prueba() {
         return "probando postman";
