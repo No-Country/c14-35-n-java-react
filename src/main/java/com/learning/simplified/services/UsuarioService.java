@@ -1,7 +1,9 @@
 package com.learning.simplified.services;
 
 
+import com.learning.simplified.entities.Curso;
 import com.learning.simplified.entities.Usuario;
+import com.learning.simplified.repository.CursoRepository;
 import com.learning.simplified.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -42,8 +44,14 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class UsuarioService implements UserDetailsService {
 
+
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private CursoRepository cursoRepository;
+    @Autowired
+    private CursoService cursoService;
 
     @Autowired
     private ImagenService imagenService;
@@ -199,6 +207,18 @@ public class UsuarioService implements UserDetailsService {
         } else {
             return null;
         }
+    }
+
+    @Transactional
+    public Usuario inscripcion(Long idCurso, Long idUsuario) {
+        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
+        // Curso curso = cursoService.findCourseById(idCurso);
+        Curso curso = cursoRepository.getReferenceById(idCurso);
+        usuario.getCurso().add(curso);
+
+        usuario= usuarioRepository.save(usuario);
+
+        return usuario;
     }
 }
 
