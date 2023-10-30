@@ -22,7 +22,7 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
     @Query("SELECT c FROM Curso c WHERE c.activo=:activo AND c.profesor.id=:id")
     Page<Curso> findByNameOrDescription(Pageable paginacion, @Param("activo") boolean b, @Param("id") Long id);
     @Query("SELECT c FROM Curso c WHERE c.profesor.id=:id")
-    Page<Curso> findByNameOrDescription(Pageable paginacion, @Param("id") Long id);
+    Page<Curso> findByTeacher(Pageable paginacion, @Param("id") Long id);
     @Query("SELECT c FROM Curso c WHERE c.activo=:activo")
     Page<Curso> findAllActiveCourses(Pageable paginacion,  @Param("activo")boolean b);
 

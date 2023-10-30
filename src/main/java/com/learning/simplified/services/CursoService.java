@@ -7,6 +7,7 @@ import com.learning.simplified.entities.*;
 import com.learning.simplified.repository.CategoriaRepository;
 import com.learning.simplified.repository.CursoRepository;
 import com.learning.simplified.repository.UsuarioRepository;
+import com.learning.simplified.wrappers.CursoWrapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,44 +32,45 @@ public class CursoService {
     @Autowired
     private LeccionService leccionService;
 
+    @Autowired
+    private CursoWrapper cursoWrapper;
+
 
     /**
-     * TODO implementar método para guardar cursp
+     * Crea un curso y lo guarda en la base de datos. Retorna el DTO del curso creado.
      */
     @Transactional
     public CursoDTO createCurso(CursoDTO course){
         Curso courseCreated = null;
         //si valida los datos, crea el curso y lo agrega a la base de datos
-        if(validateDataCreateCourse(course) && validateTeacher(course.id_profesor())){
-            Usuario teacher = usuarioRepository.findUsuarioById(course.id_profesor());
+        if(validateDataCreateCourse(course) && validateTeacher(course.profesor().id())){
+            Usuario teacher = usuarioRepository.findUsuarioById(course.profesor().id());
             courseCreated = new Curso(course, teacher);
             courseCreated = cursoRepository.save(addCategorias(courseCreated, course.categorias()));
         }
-        return new CursoDTO(
-                courseCreated.getId(),
-                courseCreated.getNombre(),
-                courseCreated.getDescripcion(),
-                courseCreated.getRutaAprendizaje(),
-                courseCreated.getUsuario(),
-                courseCreated.getProfesor().getId(),
-                courseCreated.getActivo(),
-                courseCreated.getCategorias(),
-                courseCreated.getBloques(),
-                courseCreated.getAlta(),
-                courseCreated.getUrl_video_presentacion(),
-                courseCreated.getUrl_imagen_presentacion(),
-                courseCreated.getAuto_activate(),
-                courseCreated.getSubtitle()
-        );
+        return cursoWrapper.cursoToCursoDTO(courseCreated);
     }
 
+    /**
+     * Validaa que el usuario sea profesor
+     * @param id Id del profesor
+     * @return retorna true si el usuario es profesor, falso en caso contrario
+     */
     private boolean validateTeacher(Long id) {
         return usuarioRepository.findUsuarioById(id).getRol().toString().equals("ADMIN");
     }
 
+    /**
+     * Recibe el curso al que agregar las categorías, y una lista de categorías. Llama a los métodos para validar 
+     * todas las categorías y valida que la categoría no se encuentre en la base de datos. Si se encuentra, agrega
+     * la que encontró al curso, si no, la crea y luego la agrega al curso. 
+     * @param courseCreated curso al que agregar las categorías
+     * @param categorias lista de categorías que se quiere agregar al curso
+     * @return curso con las categorías agregadas
+     */
     @Transactional
     private Curso addCategorias(Curso courseCreated, List<Categoria> categorias) {
-        categorias = validateListOfCourse(categorias);
+        categorias = validateListOfCategories(categorias);
         for (Categoria cat: categorias) {
             Categoria category = categoriaRepository.findCategoriaByNombre(cat.getNombre());
             if(category == null){
@@ -78,18 +80,22 @@ public class CursoService {
         }
         return courseCreated;
     }
-    //Validación para eliminar categorías repetidas de un curso
-    private List<Categoria> validateListOfCourse(List<Categoria> categorias) {
+
+    /**
+     * Validación para eliminar categorías repetidas de un curso.
+     * Retorna una lista con las categorías sin repetir, no nulas, no string vacíos
+     *
+     */
+    private List<Categoria> validateListOfCategories(List<Categoria> categorias) {
         List<Categoria> aux = new ArrayList<>();
         for (Categoria cat: categorias) {
             int count = 0;
             for (Categoria c: aux) {
                 if(c.getNombre().equals(cat.getNombre())){
-
                     count++;
                 }
             }
-            if (count==0 && cat.getNombre()!=null && !cat.getNombre().equals("")) {
+            if (count==0 && cat.getNombre()!=null && !cat.getNombre().isEmpty()) {
                 aux.add(cat);
             }
         }
@@ -116,11 +122,11 @@ public class CursoService {
             throw new RuntimeException("La descripción del curso no puede estar vacío");
         }
         //Comprueba que el id del profesor no sea nulo
-        if(course.id_profesor() == null ){
+        if(course.profesor().id() == null ){
             throw new RuntimeException("Error con el id del profesor");
         }
         //Comprueba que el usuario que intenta crear el curso sea un usuario
-        Usuario techer = usuarioRepository.findUsuarioById(course.id_profesor());
+        Usuario techer = usuarioRepository.findUsuarioById(course.profesor().id());
         if(!techer.getRol().toString().equals("ADMIN")){
             throw new RuntimeException("El usuario ingresado no es docente. " +
                     "No tiene permisos para crear cursos");
@@ -147,22 +153,7 @@ public class CursoService {
         Curso course = cursoRepository.getReferenceById(bloqueDTO.id_curso());
         course.getBloques().add(bloque);
         course = cursoRepository.save(course);
-        return new CursoDTO(
-                course.getId(),
-                course.getNombre(),
-                course.getDescripcion(),
-                course.getRutaAprendizaje(),
-                course.getUsuario(),
-                course.getProfesor().getId(),
-                course.getActivo(),
-                course.getCategorias(),
-                course.getBloques(),
-                course.getAlta(),
-                course.getUrl_video_presentacion(),
-                course.getUrl_imagen_presentacion(),
-                course.getAuto_activate(),
-                course.getSubtitle()
-        );
+        return cursoWrapper.cursoToCursoDTO(course);
     }
 
     private void validateBlockDataAdd(BloqueDTO bloqueDTO) {
@@ -197,22 +188,7 @@ public class CursoService {
             course.setAuto_activate(false);
             cursoRepository.save(course);
         }
-        return new CursoDTO(
-                course.getId(),
-                course.getNombre(),
-                course.getDescripcion(),
-                course.getRutaAprendizaje(),
-                course.getUsuario(),
-                course.getProfesor().getId(),
-                course.getActivo(),
-                course.getCategorias(),
-                course.getBloques(),
-                course.getAlta(),
-                course.getUrl_video_presentacion(),
-                course.getUrl_imagen_presentacion(),
-                course.getAuto_activate(),
-                course.getSubtitle()
-        );
+        return cursoWrapper.cursoToCursoDTO(course);
 
     }
 
@@ -271,22 +247,7 @@ public class CursoService {
         Curso course = cursoRepository.getReferenceById(cursoDTO.id());
         course.setActivo(true);
         cursoRepository.save(course);
-        return new CursoDTO(
-                course.getId(),
-                course.getNombre(),
-                course.getDescripcion(),
-                course.getRutaAprendizaje(),
-                course.getUsuario(),
-                course.getProfesor().getId(),
-                course.getActivo(),
-                course.getCategorias(),
-                course.getBloques(),
-                course.getAlta(),
-                course.getUrl_video_presentacion(),
-                course.getUrl_imagen_presentacion(),
-                course.getAuto_activate(),
-                course.getSubtitle()
-        );
+        return cursoWrapper.cursoToCursoDTO(course);
 
     }
 
@@ -300,7 +261,7 @@ public class CursoService {
     }
 
     public Page<Curso> findByTeacher(Pageable paginacion, Long id) {
-        return cursoRepository.findByNameOrDescription(paginacion, id);
+        return cursoRepository.findByTeacher(paginacion, id);
     }
 
     public Page<Curso> findActiveCourses(Pageable paginacion) {
@@ -312,27 +273,12 @@ public class CursoService {
         Curso course = cursoRepository.getReferenceById(cursoDTO.id());
         course.setActivo(false);
         cursoRepository.save(course);
-        return new CursoDTO(
-                course.getId(),
-                course.getNombre(),
-                course.getDescripcion(),
-                course.getRutaAprendizaje(),
-                course.getUsuario(),
-                course.getProfesor().getId(),
-                course.getActivo(),
-                course.getCategorias(),
-                course.getBloques(),
-                course.getAlta(),
-                course.getUrl_video_presentacion(),
-                course.getUrl_imagen_presentacion(),
-                course.getAuto_activate(),
-                course.getSubtitle()
-        );
+        return cursoWrapper.cursoToCursoDTO(course);
     }
 
-    public Curso findCourseById(Long id) {
-        return cursoRepository.getReferenceById(id);
-
+    public CursoDTO findCourseById(Long id) {
+        Curso course = cursoRepository.getReferenceById(id);
+        return cursoWrapper.cursoToCursoDTO(course);
     }
     //Buscador
     public Page<Curso> findByNameOrDescription(Pageable paginacion, String name, String description) {
@@ -340,5 +286,17 @@ public class CursoService {
             throw new RuntimeException("El campo de búsqueda está vacío");
         }
         return cursoRepository.findByNameOrDescription(paginacion, name, description);
+    }
+    @Transactional
+    public String deleteCourseById(Long id) {
+        Curso course = cursoRepository.getReferenceById(id);
+        for (Bloque b: course.getBloques()) {
+            for (Leccion l: b.getLecciones()) {
+                leccionService.deleteLeccionById(l.getId());
+            }
+            bloqueService.deleteBloqueById(b.getId());
+        }
+        cursoRepository.deleteById(id);
+        return "Curso eliminado";
     }
 }
