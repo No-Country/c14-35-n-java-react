@@ -1,7 +1,9 @@
 package com.learning.simplified.services;
 
 
+import com.learning.simplified.entities.Curso;
 import com.learning.simplified.entities.Usuario;
+import com.learning.simplified.repository.CursoRepository;
 import com.learning.simplified.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -42,25 +44,32 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class UsuarioService implements UserDetailsService {
 
+
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private CursoRepository cursoRepository;
+    @Autowired
+    private CursoService cursoService;
 
     @Autowired
     private ImagenService imagenService;
 
     @Transactional
-    public void registrar(String nombre, String email, String password, String password2, MultipartFile archivo) throws MyException {
+    public void registrar(String nombre,String apellido, String email, String password, String password2, Rol rol) throws MyException {
 
         validar(nombre, email, password, password2);
 
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
         usuario.setEmail(email);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(Rol.ADMIN);
+        usuario.setRol(rol);
         usuario.setAlta(LocalDate.now());
-        Imagen imagen = imagenService.guardarImagen(archivo);
-        usuario.setImagen(imagen);
+        //Imagen imagen = imagenService.guardarImagen(archivo);
+        // usuario.setImagen(imagen);
 
         usuarioRepository.save(usuario);
     }
@@ -198,6 +207,18 @@ public class UsuarioService implements UserDetailsService {
         } else {
             return null;
         }
+    }
+
+    @Transactional
+    public Usuario inscripcion(Long idCurso, Long idUsuario) {
+        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
+        // Curso curso = cursoService.findCourseById(idCurso);
+        Curso curso = cursoRepository.getReferenceById(idCurso);
+        usuario.getCurso().add(curso);
+
+        usuario= usuarioRepository.save(usuario);
+
+        return usuario;
     }
 }
 
