@@ -13,6 +13,7 @@ const Home = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/allCourses?sort=alta,DESC`,
       { cache: "no-store" }
+      
     );
     const data = await response.json();
     courses.push(...data["content"]);

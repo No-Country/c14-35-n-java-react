@@ -15,9 +15,10 @@ const nextConfig = {
             'd11cuk1a0j5b57.cloudfront.net',
             's24534.pcdn.co',
             'prod-discovery.edx-cdn.org',
-            'i.blogs.es',
+            "i.ytimg.com",
             "i3.ytimg.com",
-            "i.ytimg.com"
+            'i.blogs.es',
+            'i.ytimg.com'
         ]
 
     },

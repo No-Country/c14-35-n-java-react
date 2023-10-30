@@ -21,7 +21,6 @@ const RegisterPage = () => {
     event.preventDefault();
     if (!firstName || !lastName || !email || !password || !passwordConfirmation)
       return;
-
     fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/registro?nombre=${firstName}&email=${email}&password=${password}&password2=${passwordConfirmation}`,
       { method: "POST" }
