@@ -1,7 +1,6 @@
 package com.learning.simplified.controllers;
 
 import com.learning.simplified.dto.CursoDTO;
-import com.learning.simplified.dto.CursoDTOtemp;
 import com.learning.simplified.entities.Curso;
 import com.learning.simplified.services.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,6 @@ public class CursoController {
         CursoDTO course = cursoService.createCurso(cursoDTO);
         URI url = uriComponentsBuilder.path("/curso/{id}").buildAndExpand(course.id()).toUri();
         return ResponseEntity.created(url).body(course);
-
     }
 
     /**
@@ -85,8 +83,8 @@ public class CursoController {
      * primeros 10 resultados
      */
     @GetMapping("/allCourses")
-    public ResponseEntity<Page<Curso>> showActiveCourses(@PageableDefault(size = 10) Pageable paginacion) {
-        return ResponseEntity.ok(cursoService.findActiveCourses(paginacion));
+    public ResponseEntity<Page<CursoDTO>> showActiveCourses(@PageableDefault(size = 10) Pageable paginacion) {
+        return ResponseEntity.ok(cursoService.findActiveCourses(paginacion).map(CursoDTO::new));
     }
     /**
      * Metodo que retorna todos los cursos activos de un profesor por su id
@@ -96,8 +94,8 @@ public class CursoController {
      *primeros 10 resultados
      */
     @GetMapping("/active-teacher/{id}")
-    public ResponseEntity<Page<Curso>> findActiveCoursesByTeacher(@PageableDefault(size = 10) Pageable paginacion, @PathVariable Long id) {
-        return ResponseEntity.ok(cursoService.findByActivoTrue(paginacion, id));
+    public ResponseEntity<Page<CursoDTO>> findActiveCoursesByTeacher(@PageableDefault(size = 10) Pageable paginacion, @PathVariable Long id) {
+        return ResponseEntity.ok(cursoService.findByActivoTrue(paginacion, id).map(CursoDTO::new));
     }
     /**
      * Metodo que retorna todos los cursos,  activos e inactivos, de un profesor por su id
@@ -128,8 +126,8 @@ public class CursoController {
      * @return retorna los cursos encontrados en la base de datos en forma de paginación.
      */
     @GetMapping("/find")
-    public ResponseEntity<Page<Curso>>  findCourseByNameOrDescription(@PageableDefault(size = 10) Pageable paginacion, @RequestParam String name, @RequestParam String description) {
-        return ResponseEntity.ok(cursoService.findByNameOrDescription(paginacion, name, description));
+    public ResponseEntity<Page<CursoDTO>>  findCourseByNameOrDescription(@PageableDefault(size = 10) Pageable paginacion, @RequestParam String name, @RequestParam String description) {
+        return ResponseEntity.ok(cursoService.findByNameOrDescription(paginacion, name, description).map(CursoDTO::new));
     }
 
     /**

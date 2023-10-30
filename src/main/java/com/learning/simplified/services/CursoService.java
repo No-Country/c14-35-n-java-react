@@ -289,7 +289,18 @@ public class CursoService {
     }
     @Transactional
     public String deleteCourseById(Long id) {
+        validateCourseId(id);
         Curso course = cursoRepository.getReferenceById(id);
+        validateCourse(course);
+        //Antes de eliminar el curso es necesario sacarlo de cada usuario que esté inscripto al curso
+        //Provisoriamente voy a hacer la consulta acá, cuando terminemos la hago en el usuarioService y de forma
+        //más eficiente que traer todos los usuarios
+        List<Usuario> users = usuarioRepository.findAll();
+        for (Usuario u: users) {
+            u.getCurso().remove(course);
+            usuarioRepository.save(u);
+       }
+
         for (Bloque b: course.getBloques()) {
             for (Leccion l: b.getLecciones()) {
                 leccionService.deleteLeccionById(l.getId());
@@ -298,5 +309,17 @@ public class CursoService {
         }
         cursoRepository.deleteById(id);
         return "Curso eliminado";
+    }
+
+    private void validateCourse(Curso course) {
+        if (course==null){
+            throw new RuntimeException("No existe un curso con el id ingresado");
+        }
+    }
+
+    private void validateCourseId(Long id) {
+        if(id==null){
+            throw new RuntimeException("El id ingresado es nulo");
+        }
     }
 }

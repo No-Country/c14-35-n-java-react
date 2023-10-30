@@ -26,8 +26,6 @@ public class UserControlador {
     public ResponseEntity<Usuario> inscripcionCurso(@RequestBody InscripcionDTO inscripcionDTO){
         Usuario usuario = null;
         usuario = usuarioService.inscripcion(inscripcionDTO.getId_curso(),inscripcionDTO.getId_usuario());
-
         return ResponseEntity.ok(usuario);
-
     }
 }
