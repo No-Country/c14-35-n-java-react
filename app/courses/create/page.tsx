@@ -2,31 +2,47 @@
 import AddBlockForm from "@/components/sections/AddBlockForm";
 import AddCourseForm from "@/components/sections/AddCourseForm";
 import BlockComponent from "@/components/sections/BlockComponent";
-import { BlockData, LectureData } from "@/types/courses.types";
-import { FormEvent, useState } from "react";
+import { BlockData, CourseData, LectureData } from "@/types/courses.types";
+import { activateCourse, addBlock, addCourse, addLecture } from "@/utils/api";
+import { useState } from "react";
 
 const CreateCoursesPage = () => {
   const [blocks, setBlocks] = useState<BlockData[]>([]);
-
+  const [lectures, setLectures] = useState<LectureData[]>([]);
   const handleCourseCreation = async (
     name: string,
-    subtitle: string,
     description: string,
+    videoUrl: string,
     imageUrl: string
   ) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/add`, {
-      method: 'POST',
-      body: JSON.stringify({
-        nombre: name,
-        subtitulo: subtitle,
-        descripcion: description,
-        usuario: 1,
-        id_profesor: 1,
+    const course: CourseData = await addCourse({
+      name,
+      description,
+      videoUrl,
+      imageUrl,
+    });
+    console.log(course);
+    for (const block of blocks) {
+      // Wait for a block to be created before assigning a lecture
+      const newBlock = await addBlock({
+        name: block.nombre,
+        courseId: course.id,
+      });
 
-        imagen: imageUrl,
-        bloques: blocks,
-      }),
-    })
+      // Start creating a lecture and inmediatly create the next one
+      for (const lecture of lectures.filter(
+        (lecture) => lecture.id_bloque === block.id
+      )) {
+        const newLecture = addLecture({
+          courseId: course.id,
+          blockId: newBlock.id,
+          lectureNum: lecture.num_leccion,
+          title: lecture.title,
+          urlResource: lecture.url_recurso,
+        });
+      }
+    }
+    activateCourse(course.id);
   };
 
   const handleBlockCreation = (title: string) => {
@@ -35,22 +51,24 @@ const CreateCoursesPage = () => {
       {
         id: blocks.length + 1,
         nombre: title,
-        lectures: [],
       },
     ]);
   };
 
-  const handleLectureCreation = (blockId: number, lecture: LectureData) => {
-    const newBlocks = blocks.map((block) => {
-      if (block.id === blockId) {
-        return {
-          ...block,
-          lectures: block.lectures ? [...block.lectures, lecture] : [lecture],
-        };
-      }
-      return block;
-    });
-    setBlocks(newBlocks);
+  const handleLectureCreation = (
+    blockId: number,
+    title: string,
+    url_recurso: string
+  ) => {
+    setLectures([
+      ...lectures,
+      {
+        id_bloque: blockId,
+        num_leccion: lectures.length + 1,
+        title,
+        url_recurso: url_recurso,
+      },
+    ]);
   };
 
   return (
@@ -64,7 +82,10 @@ const CreateCoursesPage = () => {
                 id={block.id}
                 key={block.id}
                 nombre={block.nombre}
-                lectures={block.lectures}
+                lectures={
+                  lectures &&
+                  lectures.filter((lecture) => lecture.id_bloque === block.id)
+                }
                 onLectureSave={handleLectureCreation}
               />
             ))}

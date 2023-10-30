@@ -16,7 +16,8 @@ const nextConfig = {
             's24534.pcdn.co',
             'prod-discovery.edx-cdn.org',
             'i.blogs.es',
-            "i3.ytimg.com"
+            "i3.ytimg.com",
+            "i.ytimg.com"
         ]
 
     },
