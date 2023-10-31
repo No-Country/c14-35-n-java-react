@@ -18,12 +18,11 @@ interface EducatorData {
 export type Section = "BLOCK" | "LECTURE";
 
 export interface LectureData {
-  // num_leccion: number;
+  id_curso?: number;
+  id_bloque: number;
+  num_leccion: number;
   title: string;
-  // url_recurso: string;
-  content: string;
-  // id_curso: number;
-  // id_bloque: number;
+  url_recurso: string;
 }
 
 export interface BlockData {
@@ -33,10 +32,9 @@ export interface BlockData {
 }
 
 export interface CourseData {
-  // duration: number;
   id: number;
   nombre: string;
-  subtitle: string;
+  subtitle?: string;
   descripcion: string;
   rutaAprendizaje?: string;
   usuario?: [];

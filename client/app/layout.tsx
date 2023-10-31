@@ -19,9 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light">
       <body className={inter.className}>
-        <div className="px-6 mx-auto mb-8 max-w-5xl" >
+        <div className="flex flex-col max-w-5xl min-h-screen px-6 mx-auto mb-8" >
           <NavBar />
-          <main className="mt-4">{children}</main>
+          <main className="h-full mt-4">{children}</main>
         </div>
         <Footer />
       </body>

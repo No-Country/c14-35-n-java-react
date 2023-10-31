@@ -1,11 +1,9 @@
 import Image from "next/image";
-import { redirect } from "next/navigation";
 import { AiOutlineSearch } from "react-icons/ai";
 import Carousel from "../Carousel";
 import Cero from "@/public/desde_Cero.svg";
 import Ritmo from "@/public/ritmo.svg";
 import Futuro from "@/public/futuro.svg";
-import Link from "next/link";
 import { CourseData } from "@/types/courses.types";
 import CourseCard from "@/components/CourseCard";
 
@@ -21,7 +19,6 @@ const Home = async () => {
     courses.push(...data["content"]);
   } catch (error) {
     console.error("An error occurred while fetching the API: " + error);
-    redirect("/502");
   }
 
   return (
