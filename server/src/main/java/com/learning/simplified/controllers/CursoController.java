@@ -46,6 +46,16 @@ public class CursoController {
 
     }
 
+    @PutMapping("/disable")
+    public ResponseEntity<CursoDTO> disableCourse(@RequestBody @Valid CursoDTO cursoDTO,
+                                                  UriComponentsBuilder uriComponentsBuilder){
+        CursoDTO course = cursoService.disableCourse(cursoDTO);
+        return ResponseEntity.ok().body(course);
+
+    }
+
+
+
     //Muestra todos los cursos activos. Devuelve una lista de cursos, no está paginado
 
     @GetMapping("/allActive")
@@ -73,4 +83,10 @@ public class CursoController {
         return ResponseEntity.ok(cursoService.findByTeacher(paginacion, id));
 
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Curso>  findCourseById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(cursoService.findCourseById(id));
+
+    }
+
 }

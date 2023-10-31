@@ -233,7 +233,7 @@ public class CursoService {
         block = bloqueService.getBloqueById(leccionDTO.id_bloque());
 
         if(block == null){
-            throw new RuntimeException("No existe en la base de datos un curso con el id ingresado");
+            throw new RuntimeException("No existe en la base de datos un bloque  con el id ingresado");
         }
         for (Leccion l: block.getLecciones()) {
             if(l.getTitulo().equals(leccionDTO.titulo())){
@@ -289,6 +289,31 @@ public class CursoService {
 
     public Page<Curso> findActiveCourses(Pageable paginacion) {
         return cursoRepository.findAllActiveCourses(paginacion, true);
+
+    }
+
+    public CursoDTO disableCourse(CursoDTO cursoDTO) {
+        Curso course = cursoRepository.getReferenceById(cursoDTO.id());
+        course.setActivo(false);
+        cursoRepository.save(course);
+        return new CursoDTO(
+                course.getId(),
+                course.getNombre(),
+                course.getDescripcion(),
+                course.getRutaAprendizaje(),
+                course.getUsuario(),
+                course.getProfesor().getId(),
+                course.getActivo(),
+                course.getCategorias(),
+                course.getBloques(),
+                course.getAlta(),
+                course.getUrl_video_presentacion(),
+                course.getUrl_imagen_presentacion()
+        );
+    }
+
+    public Curso findCourseById(Long id) {
+        return cursoRepository.getReferenceById(id);
 
     }
 }
