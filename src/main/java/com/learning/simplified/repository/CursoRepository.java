@@ -26,6 +26,6 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
     @Query("SELECT c FROM Curso c WHERE c.activo=:activo")
     Page<Curso> findAllActiveCourses(Pageable paginacion,  @Param("activo")boolean b);
 
-    @Query("SELECT c FROM Curso c WHERE c.nombre LIKE CONCAT('%',:name,'%') OR c.descripcion LIKE CONCAT('%',:description,'%')")
-    Page<Curso> findByNameOrDescription(Pageable paginacion, @Param("name") String name, @Param("description") String description);
+    @Query("SELECT c FROM Curso c WHERE c.activo=:activo AND (c.nombre LIKE CONCAT('%',:name,'%') OR c.descripcion LIKE CONCAT('%',:description,'%'))")
+    Page<Curso> findByNameOrDescription(Pageable paginacion, @Param("name") String name, @Param("description") String description,  @Param("activo") boolean b);
 }

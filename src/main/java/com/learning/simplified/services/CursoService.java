@@ -298,7 +298,7 @@ public class CursoService {
         if(name==null||name.isEmpty()||name.isBlank()||description==null||description.isBlank()||description.isEmpty()){
             throw new RuntimeException("El campo de búsqueda está vacío");
         }
-        return cursoRepository.findByNameOrDescription(paginacion, name, description);
+        return cursoRepository.findByNameOrDescription(paginacion, name, description, true);
     }
     @Transactional
     public String deleteCourseById(Long id) {
