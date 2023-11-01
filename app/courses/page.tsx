@@ -6,6 +6,7 @@ import Ritmo from "@/public/ritmo.svg";
 import Futuro from "@/public/futuro.svg";
 import { CourseData } from "@/types/courses.types";
 import CourseCard from "@/components/CourseCard";
+import CoursesList from "@/components/Courses/CoursesList";
 
 const Home = async () => {
   const courses: CourseData[] = [];
@@ -23,7 +24,7 @@ const Home = async () => {
 
   return (
     <div className="mt-10">
-      {/* Buscador */}
+      {/* Buscador *
       <form className="relative flex items-center w-500">
         <input
           type="search"
@@ -35,7 +36,7 @@ const Home = async () => {
         </button>
       </form>
 
-      {/* Destacados */}
+      {/* Destacados 
       <h2 className="mt-10 text-3xl font-bold">Destacados</h2>
 
       <Carousel />
@@ -44,7 +45,7 @@ const Home = async () => {
         Nuestros Cursos
       </h1>
 
-      {/* CURSOS */}
+      {/* CURSOS *
       <div className="container w-full py-10 mx-auto">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
           {courses.length > 0 &&
@@ -55,6 +56,10 @@ const Home = async () => {
       </div>
 
       {/* OBTENER */}
+
+
+      <CoursesList />
+
       <h1 className="mt-8 text-3xl font-semibold text-center">
         <p>Esto es lo que obtienes en</p>
         <div className="[&>p]:first-letter:font-extrabold [&>p]:inline-block">
