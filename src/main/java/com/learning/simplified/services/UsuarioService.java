@@ -210,10 +210,30 @@ public class UsuarioService implements UserDetailsService {
     }
 
     @Transactional
-    public Usuario inscripcion(Long idCurso, Long idUsuario) {
-        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
-        // Curso curso = cursoService.findCourseById(idCurso);
-        Curso curso = cursoRepository.getReferenceById(idCurso);
+    public Usuario inscripcion(Long idCurso, Long idUsuario) throws Exception {
+
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
+        Curso curso = cursoRepository.findById(idCurso).orElse(null);
+
+
+
+
+        if (usuario == null) {
+            throw new Exception("El usuario no existe.");
+        }
+
+        if (curso == null) {
+            throw new Exception("El curso no existe.");
+        }
+
+        if(usuario.getRol().equals(Rol.ADMIN)){
+            throw new Exception("Solo los alumnos pueden inscribirse a un curso");
+        }
+
+        if (usuario.getCurso().contains(curso)) {
+            throw new Exception("El usuario ya está inscripto en este curso.");
+        }
+
         usuario.getCurso().add(curso);
 
         usuario= usuarioRepository.save(usuario);

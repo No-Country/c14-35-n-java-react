@@ -83,8 +83,8 @@ public class CursoController {
      * primeros 10 resultados
      */
     @GetMapping("/allCourses")
-    public ResponseEntity<Page<CursoDTO>> showActiveCourses(@PageableDefault(size = 10) Pageable paginacion) {
-        return ResponseEntity.ok(cursoService.findActiveCourses(paginacion).map(CursoDTO::new));
+    public ResponseEntity<Page<Curso>> showActiveCourses(@PageableDefault(size = 9) Pageable paginacion) {
+        return ResponseEntity.ok(cursoService.findActiveCourses(paginacion));
     }
     /**
      * Metodo que retorna todos los cursos activos de un profesor por su id
