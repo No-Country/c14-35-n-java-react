@@ -65,7 +65,7 @@ public class CursoController {
 
     //TODO Armar un método para devolver todos los cursos activos paginados
     @GetMapping("/allCourses")
-    public ResponseEntity<Page<Curso>> showActiveCourses(@PageableDefault(size = 10) Pageable paginacion) {
+    public ResponseEntity<Page<Curso>> showActiveCourses(@PageableDefault(size = 9) Pageable paginacion) {
         return ResponseEntity.ok(cursoService.findActiveCourses(paginacion));
 
     }
