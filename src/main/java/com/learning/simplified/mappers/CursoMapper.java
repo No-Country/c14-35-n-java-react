@@ -1,4 +1,4 @@
-package com.learning.simplified.wrappers;
+package com.learning.simplified.mappers;
 
 import com.learning.simplified.dto.CursoDTO;
 import com.learning.simplified.dto.UsuarioDTOTemp;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CursoWrapper {
+public class CursoMapper {
     @Autowired
     private UsuarioRepository usuarioRepository;
     public Curso dtoToCurso(CursoDTO cursoDTO){

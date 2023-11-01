@@ -7,7 +7,7 @@ import com.learning.simplified.entities.*;
 import com.learning.simplified.repository.CategoriaRepository;
 import com.learning.simplified.repository.CursoRepository;
 import com.learning.simplified.repository.UsuarioRepository;
-import com.learning.simplified.wrappers.CursoWrapper;
+import com.learning.simplified.mappers.CursoMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +33,7 @@ public class CursoService {
     private LeccionService leccionService;
 
     @Autowired
-    private CursoWrapper cursoWrapper;
+    private CursoMapper cursoMapper;
 
 
     /**
@@ -48,7 +48,7 @@ public class CursoService {
             courseCreated = new Curso(course, teacher);
             courseCreated = cursoRepository.save(addCategorias(courseCreated, course.categorias()));
         }
-        return cursoWrapper.cursoToCursoDTO(courseCreated);
+        return cursoMapper.cursoToCursoDTO(courseCreated);
     }
 
     /**
@@ -153,7 +153,7 @@ public class CursoService {
         Curso course = cursoRepository.getReferenceById(bloqueDTO.id_curso());
         course.getBloques().add(bloque);
         course = cursoRepository.save(course);
-        return cursoWrapper.cursoToCursoDTO(course);
+        return cursoMapper.cursoToCursoDTO(course);
     }
 
     private void validateBlockDataAdd(BloqueDTO bloqueDTO) {
@@ -183,12 +183,25 @@ public class CursoService {
         Leccion lesson = leccionService.createLeccion(leccionDTO);
         Bloque block = bloqueService.addLeccion(lesson, leccionDTO.id_bloque());
         Curso course = cursoRepository.getReferenceById(leccionDTO.id_curso());
+        /**
+         * Función para activar automáticamente un curso al agregar la primera lección
+         * El primer condicional es para evitar errores en la base de datos, los cursos que ya
+         * fueron introducidos no van a tener esta función, deberán usar el endpoint para activar el curso.
+         * El segundo condiciona, revisa el campo auto_activate para comprobar que al agregar la lección
+         * sea verdadero. Si cuando se ingresa la primera lección, el campo continúa verdadero,
+         * se activa el curso, se cambia su valor a falso por lo que no se volverá a ingresar al condicional,
+         * y se actualizará ese valor en el curso.
+         */
+        if(course.getAuto_activate()==null){
+            course.setAuto_activate(false);
+            cursoRepository.save(course);
+        }
         if(course.getAuto_activate()){
             course.setActivo(true);
             course.setAuto_activate(false);
             cursoRepository.save(course);
         }
-        return cursoWrapper.cursoToCursoDTO(course);
+        return cursoMapper.cursoToCursoDTO(course);
 
     }
 
@@ -247,7 +260,7 @@ public class CursoService {
         Curso course = cursoRepository.getReferenceById(cursoDTO.id());
         course.setActivo(true);
         cursoRepository.save(course);
-        return cursoWrapper.cursoToCursoDTO(course);
+        return cursoMapper.cursoToCursoDTO(course);
 
     }
 
@@ -273,12 +286,12 @@ public class CursoService {
         Curso course = cursoRepository.getReferenceById(cursoDTO.id());
         course.setActivo(false);
         cursoRepository.save(course);
-        return cursoWrapper.cursoToCursoDTO(course);
+        return cursoMapper.cursoToCursoDTO(course);
     }
 
     public CursoDTO findCourseById(Long id) {
         Curso course = cursoRepository.getReferenceById(id);
-        return cursoWrapper.cursoToCursoDTO(course);
+        return cursoMapper.cursoToCursoDTO(course);
     }
     //Buscador
     public Page<Curso> findByNameOrDescription(Pageable paginacion, String name, String description) {
