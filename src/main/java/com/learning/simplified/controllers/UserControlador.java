@@ -23,7 +23,7 @@ public class UserControlador {
     @Autowired
     UsuarioService usuarioService;
     @PostMapping("/inscripcion")
-    public ResponseEntity<Usuario> inscripcionCurso(@RequestBody InscripcionDTO inscripcionDTO){
+    public ResponseEntity<Usuario> inscripcionCurso(@RequestBody InscripcionDTO inscripcionDTO) throws Exception {
         Usuario usuario = null;
         usuario = usuarioService.inscripcion(inscripcionDTO.getId_curso(),inscripcionDTO.getId_usuario());
 

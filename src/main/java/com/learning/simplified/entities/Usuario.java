@@ -47,10 +47,11 @@ public class Usuario {
     private List<Curso> curso;
     
     @OneToOne
-    private Imagen imagen; 
+    private Imagen imagen;
 
-    
-    
+
+
+}
     
 
     /*public Usuario(DatosCrearUsuarioDTO datosCrearUsuarioDTO) {
@@ -81,5 +82,3 @@ public class Usuario {
     
     
     
-    
-}
