@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RequestMapping("/estudiante")
-@Controller
+@RestController
 public class UserControlador {
 
     @Autowired
