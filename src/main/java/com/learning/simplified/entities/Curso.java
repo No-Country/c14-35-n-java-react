@@ -51,6 +51,8 @@ public class Curso {
     private LocalDate alta;
     private String url_imagen_presentacion;
     private String url_video_presentacion;
+    private Boolean auto_activate;
+    private String subtitle;
 
 
 
@@ -66,6 +68,8 @@ public class Curso {
         this.alta=LocalDate.now();
         this.url_imagen_presentacion=curso.url_imagen_presentacion();
         this.url_video_presentacion=curso.url_video_presentacion();
+        this.auto_activate=true;
+        this.subtitle=curso.subtitle();
 
 
     }

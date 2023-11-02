@@ -1,9 +1,6 @@
 package com.learning.simplified.dto;
 
-import com.learning.simplified.entities.Bloque;
-import com.learning.simplified.entities.Categoria;
-import com.learning.simplified.entities.RutaAprendizaje;
-import com.learning.simplified.entities.Usuario;
+import com.learning.simplified.entities.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,13 +11,20 @@ public record CursoDTO(
         String descripcion,
         RutaAprendizaje rutaAprendizaje,
         List<Usuario> usuario,
-        Long id_profesor,
+        UsuarioDTOTemp profesor,
         Boolean activo,
         List<Categoria> categorias,
         List <Bloque> bloques,
         LocalDate alta,
         String url_video_presentacion,
-        String url_imagen_presentacion
+        String url_imagen_presentacion,
+        Boolean auto_activate,
+        String subtitle
 
 ) {
+    public CursoDTO(Curso course) {
+        this(course.getId(), course.getNombre(), course.getDescripcion(), course.getRutaAprendizaje(), course.getUsuario(), new UsuarioDTOTemp(course.getProfesor()),
+                course.getActivo(), course.getCategorias(), course.getBloques(), course.getAlta(), course.getUrl_imagen_presentacion(),
+                course.getUrl_video_presentacion(), course.getAuto_activate(), course.getSubtitle());
+    }
 }
