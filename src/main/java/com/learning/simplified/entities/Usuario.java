@@ -2,18 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.learning.simplified.entidades;
+package com.learning.simplified.entities;
 
-import com.learning.simplified.dto.DatosCrearUsuarioDTO;
-import com.learning.simplified.dto.DatosLoginUsuarioDTO;
+
+
+import com.learning.simplified.enumeraciones.Rol;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.List;
+import lombok.Data;
+import lombok.Setter;
 
 
 /**
@@ -21,7 +24,7 @@ import java.util.List;
  * @author laura
  */
 @Entity
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
@@ -33,20 +36,31 @@ public class Usuario {
     private String apellido;
     private String email;
     private String password; 
+    
     @Temporal(TemporalType.DATE)
     private LocalDate alta;
-    @OneToOne
+    
+    @Enumerated(EnumType.STRING)
     private Rol rol;
+    
     @ManyToMany
     private List<Curso> curso;
+    
+    @OneToOne
+    private Imagen imagen;
 
-    public Usuario(DatosCrearUsuarioDTO datosCrearUsuarioDTO) {
+
+
+}
+    
+
+    /*public Usuario(DatosCrearUsuarioDTO datosCrearUsuarioDTO) {
         this.nombre="";
         this.apellido="";
         this.email=datosCrearUsuarioDTO.email();
         this.password=datosCrearUsuarioDTO.password();
         this.alta=LocalDate.now();
-        this.rol= new Rol(datosCrearUsuarioDTO.rol());
+     
         this.curso= new ArrayList<>();
 
     }
@@ -59,12 +73,12 @@ public class Usuario {
         this.alta=null;
         this.rol= null;
         this.curso= new ArrayList<>();
-    }
+    }*/
 
-    ;
+   
+
+    
 
     
     
     
-    
-}
