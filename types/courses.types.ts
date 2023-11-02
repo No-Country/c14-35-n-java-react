@@ -10,7 +10,7 @@ interface EducatorData {
   email: string;
   password: string;
   alta: Date;
-  rol?: "ADMIN" | "PROFESOR" | "ESTUDIANTE";
+  rol?: "ADMIN" | "USER";
   curso: [];
   imagen?: string;
 }
@@ -21,14 +21,14 @@ export interface LectureData {
   id_curso?: number;
   id_bloque: number;
   num_leccion: number;
-  title: string;
+  titulo: string;
   url_recurso: string;
 }
 
 export interface BlockData {
   id: number;
   nombre: string;
-  lectures?: LectureData[];
+  lecciones?: LectureData[];
 }
 
 export interface CourseData {
@@ -41,7 +41,7 @@ export interface CourseData {
   profesor?: EducatorData;
   activo: boolean;
   categorias: Category[];
-  bloques?: [];
+  bloques?: BlockData[];
   alta?: Date;
   url_imagen_presentacion: string;
   url_video_presentacion?: string;

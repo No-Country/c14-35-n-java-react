@@ -18,9 +18,9 @@ const nextConfig = {
             "i.ytimg.com",
             "i3.ytimg.com",
             'i.blogs.es',
-            'i.ytimg.com'
+            'i.ytimg.com',
+            'img.youtube.com'
         ]
-
     },
 
 }

@@ -1,10 +1,64 @@
 import { BlockData, CourseData } from "@/types/courses.types";
 
+interface AddUserParams {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  role: "ADMIN" | "USER";
+}
+
+const addUser = async ({
+  firstName,
+  lastName,
+  email,
+  password,
+  passwordConfirmation,
+  role,
+}: AddUserParams): Promise<any> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/registro`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nombre: firstName,
+      apellido: lastName,
+      email,
+      password,
+      password2: passwordConfirmation,
+      rol: role,
+    }),
+  });
+  return res;
+};
+
+interface LoginParams {
+  email: string;
+  password: string;
+}
+
+const loginUser = async ({ email, password }: LoginParams): Promise<any> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
+  return res;
+};
+
 interface AddCourseParams {
   name: string;
   description: string;
   videoUrl: string;
   imageUrl: string;
+  categories: { nombre: string }[];
 }
 
 const addCourse = async ({
@@ -12,6 +66,7 @@ const addCourse = async ({
   description,
   videoUrl,
   imageUrl,
+  categories,
 }: AddCourseParams): Promise<CourseData> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/add`,
@@ -26,11 +81,7 @@ const addCourse = async ({
         usuario: [],
         id_profesor: 1,
         subtitle: "",
-        categorias: [
-          { nombre: "Tecnología" },
-          { nombre: "Desarrollo Web" },
-          { nombre: "Programación" },
-        ],
+        categorias: categories,
         url_video_presentacion: videoUrl,
         url_imagen_presentacion: imageUrl,
       }),
@@ -107,4 +158,11 @@ const activateCourse = async (courseId: number) => {
   return res.json();
 };
 
-export { addCourse, addBlock, addLecture, activateCourse };
+export {
+  addUser,
+  loginUser,
+  addCourse,
+  addBlock,
+  addLecture,
+  activateCourse,
+};

@@ -3,7 +3,7 @@ import AddItemButton from "./AddItemButton";
 import { useForm } from "react-hook-form";
 
 interface Props {
-  onCancel: () => void;
+  onCancel?: () => void;
   onSave: (title: string) => void;
 }
 
@@ -11,7 +11,7 @@ interface FormData {
   title: string;
 }
 
-const AddBlockForm: React.FC<Props> = ({ onCancel, onSave }) => {
+const AddBlockForm: React.FC<Props> = ({ onCancel = () => {}, onSave }) => {
   const [displayForm, setDisplaForm] = useState(false);
   const { register, handleSubmit, reset } = useForm<FormData>();
   const onSubmit = (data: FormData) => {
@@ -38,7 +38,8 @@ const AddBlockForm: React.FC<Props> = ({ onCancel, onSave }) => {
           tabIndex={3}
           type="button"
           onClick={() => {
-            setDisplaForm(false), onCancel();
+            setDisplaForm(false);
+            onCancel();
           }}
           className="btn btn-sm btn-error btn-outline"
         >
