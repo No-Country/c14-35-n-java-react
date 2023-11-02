@@ -16,4 +16,8 @@ public class LeccionService {
     public Leccion createLeccion(LeccionDTO leccionDTO) {
         return leccionRepository.save(new Leccion(leccionDTO));
     }
+
+    public void deleteLeccionById(Long id) {
+        leccionRepository.deleteById(id);
+    }
 }

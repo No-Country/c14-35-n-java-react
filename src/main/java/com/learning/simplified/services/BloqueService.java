@@ -28,4 +28,8 @@ public class BloqueService {
     public Bloque getBloqueById(Long id) {
         return bloqueRepository.getReferenceById(id);
     }
+
+    public void deleteBloqueById(Long id) {
+        bloqueRepository.deleteById(id);
+    }
 }
