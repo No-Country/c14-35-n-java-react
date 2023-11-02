@@ -16,6 +16,7 @@ const CoursesList =  () => {
     { page: '?page=2&?sort=alta,DESC' },
     { page: '?page=3&?sort=alta,DESC' },
     { page: '?page=4&?sort=alta,DESC' },
+    { page: '?page=5&?sort=alta,DESC' },
   ], []);
   // ##   
   const [ apiPageNumber, setApiPageNumber ] = useState<number>(0)
@@ -42,7 +43,6 @@ const CoursesList =  () => {
       }
     setMyCourses(courses)
   }
-
   // # Leer los datos al momento de cargar
   useEffect(()=>{
     loadData(`${baseUrlCoursesList}${coursePagesList[apiPageNumber].page}`)
@@ -57,6 +57,10 @@ const CoursesList =  () => {
       loadData(`${baseUrlCoursesList}${coursePagesList[apiPageNumber -1].page}`)
     }
   }
+
+  /**
+   * 
+   */
   const handleClickNext = () => {
     if (apiPageNumber == (coursePagesList.length -1)) {
       setApiPageNumber(0)
@@ -77,7 +81,7 @@ const CoursesList =  () => {
           placeholder="Buscar"
           className="w-full p-4 rounded-full bg-base-300 placeholder:text-neutral"
         />
-        <button className="absolute bg-transparent rounded-full right-4 bg-slate-300">
+        <button disabled className="absolute bg-transparent rounded-full right-4 bg-slate-300">
           <AiOutlineSearch size={28} />
         </button>
       </form>
@@ -105,7 +109,7 @@ const CoursesList =  () => {
         </div>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">  
           {
-            myCourses?.map((item, index) => (
+            myCourses.map((item, index) => (
               // Habilitado para definir un criterio de busqueda 
             <CourseCard key={index} id={item.id} nombre={item.nombre} descripcion={item.descripcion} url_imagen_presentacion={ item.url_imagen_presentacion } />
           ))}

@@ -1,8 +1,6 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import Link from "next/link";
 import Image from "next/image";
-import Carousel from '@/app/Carousel';
-import { AiOutlineSearch } from 'react-icons/ai';
 
 const MyCourseCard:FC<CoursesType> = ( props ) => {
   const { id, nombre, descripcion, url_imagen_presentacion } = props

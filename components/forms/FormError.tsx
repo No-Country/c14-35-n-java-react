@@ -10,7 +10,7 @@ const FormError = ({
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
   return (
-    <div className="mb-8 alert alert-error">
+    <div className="alert alert-error">
       <span onClick={onClick} className="hover:font-bold">
         <svg
           xmlns="http://www.w3.org/2000/svg"

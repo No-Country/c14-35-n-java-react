@@ -14,14 +14,15 @@ const initialCourses: CoursesType[] = [
 
 export default initialCourses
 
-export const initialCoursesTest: CoursesType[] = [
-  {
-    id:1, 
-    activo:false, 
-    alta:"2023-10-29", 
-    descripcion:"En este video, estaremos hablando sobre TypeScript para principiantes un peque\u00f1o curso intensivo.", 
-    nombre:"Aprende TypeScript - curso intensivo", 
-    url_imagen_presentacion:"https://i.ytimg.com/vi/fUgxxhI_bvc/maxresdefault.jpg", 
-    url_video_presentacion:"https://www.youtube.com/watch?v=fUgxxhI_bvc", 
-  },
-]
+export const initialCoursesTest: CoursesType[] = []
+
+/*
+{
+  id:22, 
+  activo:false, 
+  alta:"2023-10-29", 
+  descripcion:"En este video, estaremos hablando sobre TypeScript para principiantes un peque\u00f1o curso intensivo.", 
+  nombre:"Aprende TypeScript - curso intensivo", 
+  url_imagen_presentacion:"https://i.ytimg.com/vi/fUgxxhI_bvc/maxresdefault.jpg", 
+  url_video_presentacion:"https://www.youtube.com/watch?v=fUgxxhI_bvc", 
+},*/

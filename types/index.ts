@@ -1,5 +1,4 @@
 // No es necesario exportar los types
-
 type ProfesorType = {
   id: number,
   nombre:string,

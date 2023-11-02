@@ -11,20 +11,18 @@ const CourseCard = ({ course }: Props) => {
   return (
     <Link
       href={`/courses/${course.id}`}
-      className="rounded-lg shadow-lg overflow-hidden"
+      className="overflow-hidden rounded-lg shadow-lg"
     >
-      {/*//! HARCODED URL  */}
       <Image
-        src={
-          course.url_imagen_presentacion ??
-          "https://laquintaemprende.cl/wp-content/uploads/2021/01/cursos-online.jpg"
-        }
+        src={course.url_imagen_presentacion}
         alt={course.nombre}
         width={600}
         height={250}
       />
       <div className="p-5">
-        <h3 className="text-xl font-bold text-slate-700">{course.nombre}</h3>
+        <h3 className="text-xl font-bold truncate text-slate-700">
+          {course.nombre}
+        </h3>
         <p className="mt-2 font-normal text-gray-600 line-clamp-3">
           {course.descripcion}
         </p>
