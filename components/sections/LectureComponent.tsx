@@ -3,10 +3,10 @@ import Collapse from "./Collapse";
 
 export interface Props extends LectureData {}
 
-const LectureComponent: React.FC<Props> = ({ title, url_recurso }) => {
+const LectureComponent: React.FC<Props> = ({ titulo, url_recurso }) => {
   return (
     <Collapse
-      title={title}
+      title={titulo}
       openByDefault={true}
     >
       <p>URL: {url_recurso}</p>

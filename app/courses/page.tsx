@@ -46,7 +46,7 @@ const Home = async () => {
 
       {/* CURSOS */}
       <div className="container w-full py-10 mx-auto">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 sm:grid-cols-2">
           {courses.length > 0 &&
             courses.map((course) => (
               <CourseCard course={course} key={course.id} />
