@@ -5,55 +5,71 @@ import { useRouter } from "next/navigation";
 import FormHeader from "@/components/forms/FormHeader";
 import FormButton from "@/components/forms/FormButton";
 import FormError from "@/components/forms/FormError";
-import { FormEvent, useState } from "react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { loginUser } from "@/utils/api";
+
+interface FormData {
+  email: string;
+  password: string;
+}
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [displayError, setDisplayError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { register, handleSubmit } = useForm<FormData>();
   const router = useRouter();
 
-  const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!email || !password) {
-      return;
+  useEffect(() => {
+    if (isLoading) {
+      setDisplayError(false);
     }
+  }, [isLoading]);
 
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/login?email=${email}&password=${password}`
-    )
-      .then((res) => {
-        if (res.status === 200) {
-          router.push("/");
-        } else {
-          setDisplayError(true);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
+  const onSubmit = async (data: FormData) => {
+    setIsLoading(true);
+    console.log(data);
+
+    try {
+      const res = await loginUser(data);
+      if (res.status === 200) {
+        router.push("/");
+      } else {
         setDisplayError(true);
-      });
+      }
+    } catch (error) {
+      console.error(error);
+      setDisplayError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <>
-      <FormLayout onSubmit={(event) => handleOnSubmit(event)}>
-        {displayError && (
-          <FormError onClick={() => setDisplayError(false)}>
-            Ha ocurrido un error
-          </FormError>
-        )}
+      <FormLayout onSubmit={handleSubmit(onSubmit)}>
         <FormHeader>Iniciar sesión</FormHeader>
+        {isLoading && (
+          <span className="loading loading-spinner text-info mx-auto mt-10 w-10"></span>
+        )}
+        {displayError && (
+          <div className="mt-7">
+            <FormError onClick={() => setDisplayError(false)} />
+          </div>
+        )}
+
         <FormInput
+          {...register("email")}
           label="Correo electrónico"
           type="email"
-          onChange={(event) => setEmail(event.target.value)}
+          maxLength={40}
           required
         />
         <FormInput
+          {...register("password")}
           label="Contraseña"
           type="password"
-          onChange={(event) => setPassword(event.target.value)}
+          maxLength={20}
           required
         />
         <FormButton type="submit">Iniciar sesión</FormButton>

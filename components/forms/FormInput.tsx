@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, forwardRef } from "react";
 import PasswordInput from "./FormPassword";
 type FormInputType = "email" | "password" | "text" | "tel" | "textarea";
 
@@ -8,36 +8,33 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
 }
 
-const FormInput = ({
-  label,
-  type = "text",
-  errorMessage,
-  placeholder,
-  ...props
-}: Props) => {
-  const inputPlaceholder = placeholder ?? label;
-  const className = "input input-bordered input-success w-full";
+const FormInput = forwardRef<HTMLInputElement, Props>(function FormInput(
+  { errorMessage, ...props },
+  ref
+) {
+  const className = `input input-bordered input-success w-full ${props.className}`;
 
   const inputProps = {
     ...props,
-    placeholder: inputPlaceholder,
+    placeholder: props.placeholder ?? props.label,
   };
 
   return (
     <>
       <label className="mt-4 lg:mt-10 label">
-        <span className="font-semibold label-text">{label}</span>
+        <span className="font-semibold label-text">{props.label}</span>
       </label>
-      {type === "textarea" ? (
-        <textarea className="h-24 textarea textarea-bordered textarea-success"></textarea>
-      ) : type === "password" ? (
-        <PasswordInput {...inputProps} className={className} />
+      {props.type === "password" ? (
+        <PasswordInput {...inputProps} ref={ref} />
       ) : (
-        <input {...inputProps} type={type} className={className} />
+        <input
+          {...inputProps}
+          className={className}
+          ref={ref}
+        />
       )}
-      <div className="text-error">{errorMessage}</div>
     </>
   );
-};
+});
 
 export default FormInput;
