@@ -113,6 +113,10 @@ public class UsuarioService implements UserDetailsService {
         return usuarioRepository.getOne(id);
     }
 
+    public Usuario findUserById(Long id) {
+        return usuarioRepository.getReferenceById(id);
+    }
+
     @Transactional //(readOnly=true) //TODO Revisar por qué da error
     public List<Usuario> listarUsuarios() {
 
@@ -215,21 +219,15 @@ public class UsuarioService implements UserDetailsService {
         Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
         Curso curso = cursoRepository.findById(idCurso).orElse(null);
 
-
-
-
         if (usuario == null) {
             throw new Exception("El usuario no existe.");
         }
-
         if (curso == null) {
             throw new Exception("El curso no existe.");
         }
-
         if(usuario.getRol().equals(Rol.ADMIN)){
             throw new Exception("Solo los alumnos pueden inscribirse a un curso");
         }
-
         if (usuario.getCurso().contains(curso)) {
             throw new Exception("El usuario ya está inscripto en este curso.");
         }
@@ -240,7 +238,36 @@ public class UsuarioService implements UserDetailsService {
 
         return usuario;
     }
+
+    @Transactional
+    public Usuario desinscripcion(Long idCurso, Long idUsuario) throws Exception {
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
+        Curso curso = cursoRepository.findById(idCurso).orElse(null);
+
+        if (usuario == null) {
+            throw new Exception("El usuario no existe.");
+        }
+
+        if (curso == null) {
+            throw new Exception("El curso no existe.");
+        }
+
+        if (!usuario.getCurso().contains(curso)) {
+            throw new Exception("El usuario no está inscripto en este curso.");
+        }
+        if(usuario.getRol().equals(Rol.ADMIN)){
+            throw new Exception("Solo los alumnos pueden desuscribirse a un curso");
+        }
+
+        usuario.getCurso().remove(curso);
+
+        usuario = usuarioRepository.save(usuario);
+
+        return usuario;
+    }
 }
+
+
 
 /*
    public RespuestaUsuarioDTO login(DatosLoginUsuarioDTO datosLoginUsuarioDTO) {

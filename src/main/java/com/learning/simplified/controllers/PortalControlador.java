@@ -38,6 +38,18 @@ public class PortalControlador {
     }
 
 
+
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<Usuario> getUserById(@PathVariable Long id) {
+        Usuario usuario = usuarioService.findUserById(id);
+        // System.out.println(usuario);
+        return ResponseEntity.ok().body(usuario);
+    }
+
+
+
+
+
     //registro viejo "params"
 
     /*
@@ -95,7 +107,6 @@ public class PortalControlador {
     public ResponseEntity<DatosLoginDTO> login(@RequestBody UsuarioLoginDTO usuarioLoginDTO) {
         try {
             Usuario usuarioValidado = usuarioService.validarLogin(usuarioLoginDTO.getEmail(), usuarioLoginDTO.getPassword());
-            //martin: no entiendo esta parte
             DatosLoginDTO datosLoginDTO = new DatosLoginDTO(usuarioValidado.getId(), usuarioValidado.getNombre(), usuarioValidado.getApellido(),
                     usuarioValidado.getEmail(), usuarioValidado.getAlta(), usuarioValidado.getRol(), usuarioValidado.getCurso(), usuarioValidado.getImagen());
             return ResponseEntity.ok().body(datosLoginDTO);
