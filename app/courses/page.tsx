@@ -1,58 +1,13 @@
 import Image from "next/image";
-import { AiOutlineSearch } from "react-icons/ai";
-import Carousel from "../Carousel";
 import Cero from "@/public/desde_Cero.svg";
 import Ritmo from "@/public/ritmo.svg";
 import Futuro from "@/public/futuro.svg";
-import { CourseData } from "@/types/courses.types";
-import CourseCard from "@/components/CourseCard";
+import CoursesList from "@/components/courses/CoursesList";
 
-const Home = async () => {
-  const courses: CourseData[] = [];
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/allCourses?sort=alta,DESC`,
-      { cache: "no-store" }
-      
-    );
-    const data = await response.json();
-    courses.push(...data["content"]);
-  } catch (error) {
-    console.error("An error occurred while fetching the API: " + error);
-  }
-
+const Home =() => {
   return (
     <div className="mt-10">
-      {/* Buscador */}
-      <form className="relative flex items-center w-500">
-        <input
-          type="search"
-          placeholder="Buscar por categoria"
-          className="w-full p-4 rounded-full bg-base-300 placeholder:text-neutral"
-        />
-        <button className="absolute bg-transparent rounded-full right-4 bg-slate-300">
-          <AiOutlineSearch size={28} />
-        </button>
-      </form>
-
-      {/* Destacados */}
-      <h2 className="mt-10 text-3xl font-bold">Destacados</h2>
-
-      <Carousel />
-
-      <h1 className="mt-10 -mb-6 text-3xl font-bold text-center">
-        Nuestros Cursos
-      </h1>
-
-      {/* CURSOS */}
-      <div className="container w-full py-10 mx-auto">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 sm:grid-cols-2">
-          {courses.length > 0 &&
-            courses.map((course) => (
-              <CourseCard course={course} key={course.id} />
-            ))}
-        </div>
-      </div>
+      <CoursesList />
 
       {/* OBTENER */}
       <h1 className="mt-8 text-3xl font-semibold text-center">
