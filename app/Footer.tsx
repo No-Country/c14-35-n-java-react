@@ -1,6 +1,7 @@
 import whiteLogo from "@/public/white-logo.svg";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -13,7 +14,7 @@ const Footer = () => {
         />
         <nav className="">
           <header className="footer-title">Información General</header>
-          <a className="link link-hover">Contacto</a>
+          <Link href="/contact" className="link link-hover">Contacto</Link>
         </nav>
         <nav className="">
           <header className="footer-title">Legal</header>

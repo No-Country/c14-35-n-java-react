@@ -1,23 +1,36 @@
 "use client";
-import AddBlockForm from "@/components/sections/AddBlockForm";
-import AddCourseForm from "@/components/sections/AddCourseForm";
+import BlockForm from "@/components/sections/BlockForm";
+import CourseForm from "@/components/sections/CourseForm";
 import BlockComponent from "@/components/sections/BlockComponent";
 import { BlockData, CourseData, LectureData } from "@/types/courses.types";
 import { activateCourse, addBlock, addCourse, addLecture } from "@/utils/api";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export interface CourseFormData {
+  name: string;
+  subtitle: string;
+  description: string;
+  videoUrl: string;
+  imageUrl: string;
+  categories: { nombre: string }[];
+}
 
 const CreateCoursesPage = () => {
+  const router = useRouter();
   const [blocks, setBlocks] = useState<BlockData[]>([]);
   const [lectures, setLectures] = useState<LectureData[]>([]);
-  const handleCourseCreation = async (
-    name: string,
-    description: string,
-    videoUrl: string,
-    imageUrl: string,
-    categories: { nombre: string }[]
-  ) => {
+  const handleCourseCreation = async ({
+    name,
+    subtitle,
+    description,
+    videoUrl,
+    imageUrl,
+    categories,
+  }: CourseFormData) => {
     const course: CourseData = await addCourse({
       name,
+      subtitle,
       description,
       videoUrl,
       imageUrl,
@@ -44,6 +57,7 @@ const CreateCoursesPage = () => {
       }
     }
     activateCourse(course.id);
+    router.push(`/courses/${course.id}`);
   };
 
   const handleBlockCreation = (title: string) => {
@@ -74,7 +88,7 @@ const CreateCoursesPage = () => {
 
   return (
     <div className="grid grid-cols-2">
-      <AddCourseForm onSave={handleCourseCreation} />
+      <CourseForm onSave={handleCourseCreation} />
       <div>
         {blocks && (
           <div className="space-y-4">
@@ -93,7 +107,7 @@ const CreateCoursesPage = () => {
           </div>
         )}
 
-        <AddBlockForm onSave={handleBlockCreation} />
+        <BlockForm onSave={handleBlockCreation} />
       </div>
     </div>
   );

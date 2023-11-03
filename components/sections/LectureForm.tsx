@@ -13,7 +13,7 @@ interface FormData {
   url_recurso: string;
 }
 
-const AddLectureForm: React.FC<Props> = ({ blockId, onCancel, onSave }) => {
+const LectureForm: React.FC<Props> = ({ blockId, onCancel, onSave }) => {
   const [displayForm, setDisplaForm] = useState(false);
   const { register, handleSubmit, reset } = useForm<FormData>();
 
@@ -79,4 +79,4 @@ const AddLectureForm: React.FC<Props> = ({ blockId, onCancel, onSave }) => {
   );
 };
 
-export default AddLectureForm;
+export default LectureForm;

@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { notFound, redirect } from "next/navigation";
-import { LuTimer } from "react-icons/lu";
+import { notFound } from "next/navigation";
 import { RiFileDownloadLine } from "react-icons/ri";
 import { PiVideoDuotone } from "react-icons/pi";
 import { AiOutlineMobile } from "react-icons/ai";
@@ -72,9 +71,8 @@ const CoursesPage = async ({ params: { id } }: Props) => {
           className="w-full shadow-lg"
         />
         <h1 className="font-semibold text-2xl mt-6">{course.nombre}</h1>
-        {/* //! HARDCODED subtitle */}
         <h2 className="text-lg text-base-content">
-          Domina la tecnología con nuestro curso
+        {course.subtitle}
         </h2>
       </div>
 

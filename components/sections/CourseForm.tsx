@@ -7,44 +7,33 @@ import FormTextarea from "../forms/FormTextarea";
 import { Controller, useForm } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import makeAnimated from "react-select/animated";
-import { GroupBase } from "react-select";
+import { CourseFormData } from "@/app/courses/create/page";
 
-interface FormData {
-  name: string;
-  description: string;
-  videoUrl: string;
+interface FormData extends Omit<CourseFormData, "categories"> {
   categories: { label: string; value: string }[];
 }
 
 interface Props {
-  onSave: (
-    name: string,
-    description: string,
-    videoUrl: string,
-    imageUrl: string,
-    categories: { nombre: string }[]
-  ) => void;
+  onSave: (data: CourseFormData) => void;
 }
 
-const AddCourseForm: React.FC<Props> = ({ onSave }) => {
+const CourseForm: React.FC<Props> = ({ onSave }) => {
   const { register, handleSubmit, control } = useForm<FormData>();
-  const onSubmit = (data: FormData) => {
+  const onSubmit = ({ ...data }: FormData) => {
     const match = data.videoUrl.match(/v=([^&]+)/);
     if (!match) {
       throw new Error("Invalid YouTube URL");
     }
     const videoId = match[1];
     const imageUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-    onSave(
-      data.name,
-      data.description,
-      data.videoUrl,
+    onSave({
+      ...data,
       imageUrl,
-      data.categories.map((category) => ({
+      categories: data.categories.map((category) => ({
         nombre:
           category.value.charAt(0).toUpperCase() + category.value.slice(1),
-      }))
-    );
+      })),
+    });
   };
 
   const defaultCategories = [
@@ -65,6 +54,13 @@ const AddCourseForm: React.FC<Props> = ({ onSave }) => {
         {...register("name")}
         label="Nombre del curso"
         required
+        maxLength={60}
+      />
+      <FormTextarea
+        {...register("subtitle")}
+        label="Subtítulo del curso"
+        required
+        maxLength={125}
       />
       <FormTextarea
         {...register("description")}
@@ -105,10 +101,11 @@ const AddCourseForm: React.FC<Props> = ({ onSave }) => {
         label="URL del vídeo de la presentación"
         placeholder="URL del vídeo"
         required
+        maxLength={100}
       />
       <FormButton type="submit">Crear curso</FormButton>
     </FormLayout>
   );
 };
 
-export default AddCourseForm;
+export default CourseForm;

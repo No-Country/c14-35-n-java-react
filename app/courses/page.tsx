@@ -13,7 +13,6 @@ const Home = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/allCourses?sort=alta,DESC`,
       { cache: "no-store" }
-      
     );
     const data = await response.json();
     courses.push(...data["content"]);
@@ -49,7 +48,10 @@ const Home = async () => {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 sm:grid-cols-2">
           {courses.length > 0 &&
             courses.map((course) => (
-              <CourseCard course={course} key={course.id} />
+              <CourseCard
+                course={course}
+                key={course.id}
+              />
             ))}
         </div>
       </div>

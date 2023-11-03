@@ -11,7 +11,7 @@ interface FormData {
   title: string;
 }
 
-const AddBlockForm: React.FC<Props> = ({ onCancel = () => {}, onSave }) => {
+const BLockForm: React.FC<Props> = ({ onCancel = () => {}, onSave }) => {
   const [displayForm, setDisplaForm] = useState(false);
   const { register, handleSubmit, reset } = useForm<FormData>();
   const onSubmit = (data: FormData) => {
@@ -62,4 +62,4 @@ const AddBlockForm: React.FC<Props> = ({ onCancel = () => {}, onSave }) => {
   );
 };
 
-export default AddBlockForm;
+export default BLockForm;

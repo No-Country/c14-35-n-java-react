@@ -1,6 +1,6 @@
 import Collapse from "./Collapse";
 import LectureComponent from "./LectureComponent";
-import AddLectureForm from "./AddLectureForm";
+import LectureForm from "./LectureForm";
 import { BlockData, LectureData } from "@/types/courses.types";
 
 interface Props extends BlockData {
@@ -28,7 +28,7 @@ const BlockComponent: React.FC<Props> = ({
           />
         ))}
 
-      <AddLectureForm
+      <LectureForm
         blockId={blockId}
         onSave={onLectureSave}
         onCancel={() => {}}

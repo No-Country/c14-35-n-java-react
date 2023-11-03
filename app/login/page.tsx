@@ -4,10 +4,12 @@ import FormInput from "@/components/forms/FormInput";
 import { useRouter } from "next/navigation";
 import FormHeader from "@/components/forms/FormHeader";
 import FormButton from "@/components/forms/FormButton";
-import FormError from "@/components/forms/FormError";
+import FormAlert from "@/components/forms/FormAlert";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { loginUser } from "@/utils/api";
+import { apiLoginUser } from "@/utils/api";
+import { UserData } from "@/types/courses.types";
+import { useAuthStore } from "@/state/authStore";
 
 interface FormData {
   email: string;
@@ -15,10 +17,15 @@ interface FormData {
 }
 
 const LoginPage = () => {
+  const { logIn, logOut } = useAuthStore();
   const [displayError, setDisplayError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm<FormData>();
   const router = useRouter();
+
+  useEffect(() => {
+    logOut();
+  }, [logOut]);
 
   useEffect(() => {
     if (isLoading) {
@@ -28,15 +35,10 @@ const LoginPage = () => {
 
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
-    console.log(data);
-
     try {
-      const res = await loginUser(data);
-      if (res.status === 200) {
-        router.push("/");
-      } else {
-        setDisplayError(true);
-      }
+      const user: UserData = await apiLoginUser(data);
+      logIn(user);
+      router.push("/");
     } catch (error) {
       console.error(error);
       setDisplayError(true);
@@ -54,7 +56,12 @@ const LoginPage = () => {
         )}
         {displayError && (
           <div className="mt-7">
-            <FormError onClick={() => setDisplayError(false)} />
+            <FormAlert
+              dismissible={true}
+              onClick={() => setDisplayError(false)}
+            >
+              Las credenciales ingresadas son incorrectas
+            </FormAlert>
           </div>
         )}
 

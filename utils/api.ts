@@ -1,4 +1,5 @@
-import { BlockData, CourseData } from "@/types/courses.types";
+import { CourseFormData } from "@/app/courses/create/page";
+import { BlockData, CourseData, UserData } from "@/types/courses.types";
 
 interface AddUserParams {
   firstName: string;
@@ -38,8 +39,10 @@ interface LoginParams {
   email: string;
   password: string;
 }
-
-const loginUser = async ({ email, password }: LoginParams): Promise<any> => {
+const apiLoginUser = async ({
+  email,
+  password,
+}: LoginParams): Promise<UserData> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, {
     method: "POST",
     headers: {
@@ -50,24 +53,18 @@ const loginUser = async ({ email, password }: LoginParams): Promise<any> => {
       password,
     }),
   });
-  return res;
+  if (!res.ok) throw new Error("Error al iniciar sesión");
+  return await res.json();
 };
-
-interface AddCourseParams {
-  name: string;
-  description: string;
-  videoUrl: string;
-  imageUrl: string;
-  categories: { nombre: string }[];
-}
 
 const addCourse = async ({
   name,
+  subtitle,
   description,
   videoUrl,
   imageUrl,
   categories,
-}: AddCourseParams): Promise<CourseData> => {
+}: CourseFormData): Promise<CourseData> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/cursos/add`,
     {
@@ -79,12 +76,14 @@ const addCourse = async ({
         nombre: name,
         descripcion: description,
         usuario: [],
-        id_profesor: 1,
-        subtitle: "",
+        profesor: {
+          id: 1,
+        },
+        subtitle,
         categorias: categories,
         url_video_presentacion: videoUrl,
         url_imagen_presentacion: imageUrl,
-      }),
+      } as CourseData),
     }
   );
   return res.json();
@@ -158,11 +157,40 @@ const activateCourse = async (courseId: number) => {
   return res.json();
 };
 
+interface sendContactFormParams {
+  name: string;
+  email: string;
+  message: string;
+  phoneNumber: string;
+}
+
+const sendContactForm = async ({
+  name,
+  email,
+  message,
+  phoneNumber,
+}: sendContactFormParams) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/contact`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      mje: message,
+      phoneNumber,
+    }),
+  });
+  return res.json();
+};
+
 export {
   addUser,
-  loginUser,
+  apiLoginUser,
   addCourse,
   addBlock,
   addLecture,
   activateCourse,
+  sendContactForm,
 };

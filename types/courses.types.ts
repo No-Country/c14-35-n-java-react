@@ -3,14 +3,14 @@ interface Category {
   nombre: string;
 }
 
-interface EducatorData {
+export interface UserData {
   id: number;
   nombre: string;
-  apellido?: string;
+  apellido: string;
   email: string;
   password: string;
-  alta: Date;
-  rol?: "ADMIN" | "USER";
+  alta?: Date;
+  rol: "ADMIN" | "USER";
   curso: [];
   imagen?: string;
 }
@@ -34,17 +34,17 @@ export interface BlockData {
 export interface CourseData {
   id: number;
   nombre: string;
-  subtitle?: string;
+  subtitle: string;
   descripcion: string;
   rutaAprendizaje?: string;
   usuario?: [];
-  profesor?: EducatorData;
+  profesor: UserData;
   activo: boolean;
   categorias: Category[];
-  bloques?: BlockData[];
+  bloques: BlockData[] | [];
   alta?: Date;
   url_imagen_presentacion: string;
-  url_video_presentacion?: string;
+  url_video_presentacion: string;
 }
 
 interface Pageable {

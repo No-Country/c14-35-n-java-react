@@ -1,6 +1,6 @@
 "use client";
 import FormButton from "@/components/forms/FormButton";
-import FormError from "@/components/forms/FormError";
+import FormAlert from "@/components/forms/FormAlert";
 import FormHeader from "@/components/forms/FormHeader";
 import FormInput from "@/components/forms/FormInput";
 import FormLayout from "@/components/forms/FormLayout";
@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UseFormRegister, useForm } from "react-hook-form";
+import { useAuthStore } from "@/state/authStore";
 
 interface FormData {
   firstName: string;
@@ -57,6 +58,7 @@ const RoleSelector: React.FC<{
 };
 
 const RegisterPage: React.FC = () => {
+  const { logIn } = useAuthStore();
   const [displayError, setDisplayError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit, watch } = useForm<FormData>({
@@ -80,10 +82,17 @@ const RegisterPage: React.FC = () => {
 
     try {
       const res = await addUser(data);
-      if (res.status === 200) {
+      if (res.ok) {
+        logIn({
+          id: 1,
+          nombre: data.firstName,
+          apellido: data.lastName,
+          email: data.email,
+          password: data.password,
+          rol: data.role,
+          curso: [],
+        });
         router.push("/");
-      } else {
-        setDisplayError(true);
       }
     } catch (error) {
       console.error(error);
@@ -101,7 +110,12 @@ const RegisterPage: React.FC = () => {
       )}
       {displayError && (
         <div className="mt-7">
-          <FormError onClick={() => setDisplayError(false)} />
+          <FormAlert
+            dismissible={true}
+            onClick={() => setDisplayError(false)}
+          >
+            Ha ocurrido un error
+          </FormAlert>
         </div>
       )}
 
