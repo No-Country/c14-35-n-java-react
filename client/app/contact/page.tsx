@@ -3,6 +3,14 @@ import FormInput from "@/components/forms/FormInput";
 import FormLayout from "@/components/forms/FormLayout";
 import React from "react";
 
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Edtech project by c14-35-n-java-react team.",
+};
+
+
 const ContactPage = () => {
   return (
     <FormLayout>

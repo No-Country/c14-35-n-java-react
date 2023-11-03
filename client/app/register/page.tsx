@@ -4,86 +4,152 @@ import FormError from "@/components/forms/FormError";
 import FormHeader from "@/components/forms/FormHeader";
 import FormInput from "@/components/forms/FormInput";
 import FormLayout from "@/components/forms/FormLayout";
+import { addUser } from "@/utils/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useEffect, useState } from "react";
+import { UseFormRegister, useForm } from "react-hook-form";
 
-const RegisterPage = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  role: "ADMIN" | "USER";
+}
+
+const RoleSelector: React.FC<{
+  register: UseFormRegister<FormData>;
+}> = ({ register }) => {
+  return (
+    <div className="mt-12">
+      <input
+        {...register("role")}
+        name="role"
+        className="hidden peer/student"
+        id="student"
+        type="radio"
+        value="USER"
+      />
+      <label
+        htmlFor="student"
+        className="w-1/2 rounded-r-none btn btn-sm peer-checked/student:btn-success"
+      >
+        Soy estudiante
+      </label>
+      <input
+        {...register("role")}
+        name="role"
+        className="hidden peer/educator"
+        id="educator"
+        type="radio"
+        value="ADMIN"
+      />
+      <label
+        htmlFor="educator"
+        className="w-1/2 rounded-l-none btn btn-sm peer-checked/educator:btn-success"
+      >
+        Soy profesor
+      </label>
+    </div>
+  );
+};
+
+const RegisterPage: React.FC = () => {
   const [displayError, setDisplayError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { register, handleSubmit, watch } = useForm<FormData>({
+    defaultValues: {
+      role: "USER",
+    },
+  });
   const router = useRouter();
+  const password = watch("password");
+  const passwordConfirmation = watch("passwordConfirmation");
 
-  const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!firstName || !lastName || !email || !password || !passwordConfirmation)
-      return;
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/registro?nombre=${firstName}&email=${email}&password=${password}&password2=${passwordConfirmation}`,
-      { method: "POST" }
-    )
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          router.push("/");
-        } else {
-          setDisplayError(true);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
+  useEffect(() => {
+    if (isLoading) {
+      setDisplayError(false);
+    }
+  }, [isLoading]);
+
+  const onSubmit = async (data: FormData) => {
+    setIsLoading(true);
+    console.log(data);
+
+    try {
+      const res = await addUser(data);
+      if (res.status === 200) {
+        router.push("/");
+      } else {
         setDisplayError(true);
-      });
+      }
+    } catch (error) {
+      console.error(error);
+      setDisplayError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <FormLayout onSubmit={(event) => handleOnSubmit(event)}>
-      {displayError && (
-        <FormError onClick={() => setDisplayError(false)}>
-          Ha ocurrido un error
-        </FormError>
-      )}
+    <FormLayout onSubmit={handleSubmit(onSubmit)}>
       <FormHeader>Registrate</FormHeader>
+      {isLoading && (
+        <span className="loading loading-spinner text-info mx-auto mt-10 w-10"></span>
+      )}
+      {displayError && (
+        <div className="mt-7">
+          <FormError onClick={() => setDisplayError(false)} />
+        </div>
+      )}
+
+      <RoleSelector register={register} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
         <div>
           <FormInput
+            {...register("firstName")}
             label="Nombre"
-            onChange={(event) => setFirstName(event.target.value)}
+            maxLength={20}
             required
           />
         </div>
         <div>
           <FormInput
+            {...register("lastName")}
             label="Apellido"
+            maxLength={20}
             required
-            onChange={(event) => setLastName(event.target.value)}
           />
         </div>
       </div>
       <FormInput
+        {...register("email")}
         label="Correo"
         type="email"
-        onChange={(event) => setEmail(event.target.value)}
+        maxLength={40}
         required
       />
       <FormInput
+        {...register("password")}
         label="Contraseña"
         type="password"
-        onChange={(event) => setPassword(event.target.value)}
+        maxLength={20}
+        minLength={8}
         required
       />
       {password !== passwordConfirmation && (
-        <p className="text-error mt-2 -mb-7 font-medium text-sm">
+        <p className="mt-2 text-sm font-medium text-error -mb-7">
           Las contraseñas no coinciden
         </p>
       )}
       <FormInput
+        {...register("passwordConfirmation")}
         label="Confirmar contraseña"
         type="password"
-        onChange={(event) => setPasswordConfirmation(event.target.value)}
+        maxLength={20}
+        minLength={8}
         required
       />
       <p className="mt-5 text-sm text-center text-info">

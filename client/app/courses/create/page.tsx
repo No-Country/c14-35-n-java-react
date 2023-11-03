@@ -6,6 +6,8 @@ import { BlockData, CourseData, LectureData } from "@/types/courses.types";
 import { activateCourse, addBlock, addCourse, addLecture } from "@/utils/api";
 import { useState } from "react";
 
+
+
 const CreateCoursesPage = () => {
   const [blocks, setBlocks] = useState<BlockData[]>([]);
   const [lectures, setLectures] = useState<LectureData[]>([]);
@@ -13,13 +15,15 @@ const CreateCoursesPage = () => {
     name: string,
     description: string,
     videoUrl: string,
-    imageUrl: string
+    imageUrl: string,
+    categories: { nombre: string }[]
   ) => {
     const course: CourseData = await addCourse({
       name,
       description,
       videoUrl,
       imageUrl,
+      categories,
     });
     console.log(course);
     for (const block of blocks) {
@@ -28,7 +32,6 @@ const CreateCoursesPage = () => {
         name: block.nombre,
         courseId: course.id,
       });
-
       // Start creating a lecture and inmediatly create the next one
       for (const lecture of lectures.filter(
         (lecture) => lecture.id_bloque === block.id
@@ -37,7 +40,7 @@ const CreateCoursesPage = () => {
           courseId: course.id,
           blockId: newBlock.id,
           lectureNum: lecture.num_leccion,
-          title: lecture.title,
+          title: lecture.titulo,
           urlResource: lecture.url_recurso,
         });
       }
@@ -65,7 +68,7 @@ const CreateCoursesPage = () => {
       {
         id_bloque: blockId,
         num_leccion: lectures.length + 1,
-        title,
+        titulo: title,
         url_recurso: url_recurso,
       },
     ]);
@@ -92,10 +95,7 @@ const CreateCoursesPage = () => {
           </div>
         )}
 
-        <AddBlockForm
-          onSave={handleBlockCreation}
-          onCancel={() => alert("canceled creation")}
-        />
+        <AddBlockForm onSave={handleBlockCreation} />
       </div>
     </div>
   );

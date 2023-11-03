@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Pdocente from "@/public/avatar_male.svg"
 import Image from "next/image";
 
+
 const Docente = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 

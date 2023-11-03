@@ -25,7 +25,7 @@ const FormInput = forwardRef<HTMLInputElement, Props>(function FormInput(
         <span className="font-semibold label-text">{props.label}</span>
       </label>
       {props.type === "password" ? (
-        <PasswordInput {...inputProps} />
+        <PasswordInput {...inputProps} ref={ref} />
       ) : (
         <input
           {...inputProps}
