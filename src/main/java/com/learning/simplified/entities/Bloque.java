@@ -32,6 +32,7 @@ public class Bloque{
     private Long id;
     private String nombre;
 
+
     @OneToMany
     private List<Leccion> lecciones;
 

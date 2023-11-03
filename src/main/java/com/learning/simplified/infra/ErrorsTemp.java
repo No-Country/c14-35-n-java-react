@@ -1,5 +1,6 @@
 package com.learning.simplified.infra;
 
+import com.learning.simplified.exceptions.BadDataEntryException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -23,6 +24,11 @@ public class ErrorsTemp {
         return ResponseEntity.badRequest().body(err);
     }
 
+    @ExceptionHandler(BadDataEntryException.class)
+    public ResponseEntity badDataEntry(BadDataEntryException e){
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity err400(HttpMessageNotReadableException e){
         String err = e.getMessage(); //Mensaje de error
@@ -32,7 +38,7 @@ public class ErrorsTemp {
         public errorResponseDTO(FieldError error){
             this(error.getField(), error.getDefaultMessage());
         }
-    };
+    }
 
 
 }

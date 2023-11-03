@@ -4,10 +4,12 @@ import com.learning.simplified.dto.BloqueDTO;
 import com.learning.simplified.dto.CursoDTO;
 import com.learning.simplified.dto.LeccionDTO;
 import com.learning.simplified.entities.*;
+import com.learning.simplified.exceptions.BadDataEntryException;
 import com.learning.simplified.repository.CategoriaRepository;
 import com.learning.simplified.repository.CursoRepository;
 import com.learning.simplified.repository.UsuarioRepository;
 import com.learning.simplified.mappers.CursoMapper;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,23 +20,23 @@ import java.util.*;
 
 @Service
 public class CursoService {
-    @Autowired
     private CursoRepository cursoRepository;
-    @Autowired
     private UsuarioRepository usuarioRepository;
-    @Autowired
     private CategoriaRepository categoriaRepository;
-    @Autowired
     private CategoriaService categoriaService;
-    @Autowired
     private BloqueService bloqueService;
-
-    @Autowired
     private LeccionService leccionService;
-
-    @Autowired
     private CursoMapper cursoMapper;
-
+    @Autowired
+    public CursoService(CursoRepository cursoRepository, UsuarioRepository usuarioRepository, CategoriaRepository categoriaRepository, CategoriaService categoriaService, BloqueService bloqueService, LeccionService leccionService, CursoMapper cursoMapper) {
+        this.cursoRepository = cursoRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.categoriaRepository = categoriaRepository;
+        this.categoriaService = categoriaService;
+        this.bloqueService = bloqueService;
+        this.leccionService = leccionService;
+        this.cursoMapper = cursoMapper;
+    }
 
     /**
      * Crea un curso y lo guarda en la base de datos. Retorna el DTO del curso creado.
@@ -106,42 +108,45 @@ public class CursoService {
     //valida que luego de analizar cada categoría al menos quede una categoría válida, no vacía, ni nula
     private void validateNumMinCategoria(List<Categoria> aux) {
         if (aux.isEmpty()){
-            throw new RuntimeException("Debe ingresar al menos una categoría válida");
+            throw new BadDataEntryException("Debe ingresar al menos una categoría válida");
         }
     }
     /**
      * TODO Implementar métodos para validad que los datos del curso sean válidos
      */
     public Boolean validateDataCreateCourse(CursoDTO course){
-        //valida que el nombre del curso no sea nulo o esté en blanco
+
+    //valida que el nombre del curso no sea nulo o esté en blanco
+
         if(course.nombre()==null || course.nombre().isBlank()){
-            throw new RuntimeException("El nombre del curso no puede estar vacío");
+            throw new BadDataEntryException("El nombre del curso no puede estar vacío");
+
         }
         //Valida que la descipción del curso no esté en blanco y no sea nula
         if(course.descripcion()==null || course.descripcion().isBlank()){
-            throw new RuntimeException("La descripción del curso no puede estar vacío");
+            throw new BadDataEntryException("La descripción del curso no puede estar vacío");
         }
         //Comprueba que el id del profesor no sea nulo
         if(course.profesor().id() == null ){
-            throw new RuntimeException("Error con el id del profesor");
+            throw new BadDataEntryException("Error con el id del profesor: No puede ser un valor vacío o nulo");
         }
         //Comprueba que el usuario que intenta crear el curso sea un usuario
         Usuario techer = usuarioRepository.findUsuarioById(course.profesor().id());
         if(!techer.getRol().toString().equals("ADMIN")){
-            throw new RuntimeException("El usuario ingresado no es docente. " +
+            throw new BadDataEntryException("El usuario ingresado no es docente. " +
                     "No tiene permisos para crear cursos");
         }
         //Comprueba que exista o no un curso con el nombre que ingresa el usuario
         Curso courseFound = cursoRepository.findCursoByNombre(course.nombre());
         if(courseFound!=null){
-            throw new RuntimeException("Ya existe un curso con ese nombre");
+            throw new BadDataEntryException("Ya existe un curso con el nombre: " + course.nombre());
         }
         //Comprueba que llegue la lista de categorías y que no esté vacía, que al menos llegue una
         if(course.categorias()==null|| course.categorias().isEmpty()){
-            throw new RuntimeException("Debe ingresar al menos una categoría para el curso");
+            throw new BadDataEntryException("Debe ingresar al menos una categoría para el curso");
         }
         if(course.subtitle().isEmpty()||course.subtitle().isBlank()){
-            throw  new RuntimeException("El subtitulo del curso no puede ser nulo");
+            throw  new BadDataEntryException("El subtitulo del curso no puede ser nulo");
         }
         return true;
     }
@@ -158,25 +163,24 @@ public class CursoService {
 
     private void validateBlockDataAdd(BloqueDTO bloqueDTO) {
         if(bloqueDTO==null){
-            throw new RuntimeException("Error en el traspaso de datos. El conjunto de datos llegó vacío");
+            throw new BadDataEntryException("Error en el traspaso de datos. El conjunto de datos llegó vacío");
         }
         if(bloqueDTO.id_curso()==null){
-            throw new RuntimeException("Error en el traspaso de datos. No se reconoció el curso al que se desea agregar el Bloque");
+            throw new BadDataEntryException("Error en el traspaso de datos. No se reconoció el curso al que se desea agregar el Bloque");
         }
-        if(bloqueDTO.nombre().isEmpty() ||bloqueDTO.nombre()==null){
-            throw new RuntimeException("Error en el traspaso de datos. No puede ingresarse un bloque sin nombre");
+        if(bloqueDTO.nombre().isEmpty() ||bloqueDTO.nombre().isBlank()){
+            throw new BadDataEntryException("Error en el traspaso de datos. No puede ingresarse un bloque sin nombre");
         }
         Curso course = cursoRepository.getCursoById(bloqueDTO.id_curso());
         if (course == null){
-            throw new RuntimeException("No existe el curso al que desea ingresarse el bloque");
+            throw new BadDataEntryException("No existe el curso al que desea ingresarse el bloque con el id: " + bloqueDTO.id_curso());
         }
         for (Bloque b: course.getBloques()) {
             if(b.getNombre().equals(bloqueDTO.nombre())){
-                throw new RuntimeException("Dentro del curso, ya existe un bloque con el nombre que desea ingresar");
+                throw new BadDataEntryException("Dentro del curso, ya existe un bloque con el nombre que desea ingresar: " + bloqueDTO.nombre());
             }
         }
     }
-
     @Transactional
     public CursoDTO addLeccionToCurso(LeccionDTO leccionDTO) {
         validateLessonData(leccionDTO);
@@ -204,53 +208,48 @@ public class CursoService {
         return cursoMapper.cursoToCursoDTO(course);
 
     }
-
     private void validateLessonData(LeccionDTO leccionDTO) {
         if(leccionDTO==null){
-            throw new RuntimeException("Error de transferencia de datos. Los datos están vacíos o no se pudieron transportar");
+            throw new BadDataEntryException("Error de transferencia de datos. Los datos están vacíos o no se pudieron transportar");
         }
         if(leccionDTO.id_curso()==null){
-            throw new RuntimeException("El id del curso al cual desea ingresar la lección se encuentra vacío");
+            throw new BadDataEntryException("El id del curso al cual desea ingresar la lección se encuentra vacío");
         }
         if(leccionDTO.id_bloque()==null){
-            throw new RuntimeException("El id del bloque al cual desea ingresar la lección se encuentra vacío");
+            throw new BadDataEntryException("El id del bloque al cual desea ingresar la lección se encuentra vacío");
         }
         if (leccionDTO.num_leccion()==null){
-            throw new RuntimeException("El número de la lección se encuentra vacío");
+            throw new BadDataEntryException("El número de la lección se encuentra vacío");
         }
         if (leccionDTO.titulo()==null || leccionDTO.titulo().isBlank() || leccionDTO.titulo().isEmpty()){
-            throw new RuntimeException("El título de la lección se encuentra vacío");
+            throw new BadDataEntryException("El título de la lección se encuentra vacío");
         }
         if (leccionDTO.url_recurso()==null || leccionDTO.url_recurso().isBlank() || leccionDTO.url_recurso().isEmpty()){
-            throw new RuntimeException("No se ingresó un recurso para la lección");
+            throw new BadDataEntryException("Debe ingresar un recurso para la lección");
         }
         Curso course = cursoRepository.getCursoById(leccionDTO.id_curso());
         if (course==null){
-            throw new RuntimeException("No existe en la base de datos un curso con el id ingresado");
+            throw new BadDataEntryException("No existe en la base de datos un curso con el id ingresado: " + leccionDTO.id_curso());
         }
-
-
-        //TODO Revisar
         Bloque block;
 
         block = bloqueService.getBloqueById(leccionDTO.id_bloque());
 
         if(block == null){
-            throw new RuntimeException("No existe en la base de datos un bloque  con el id ingresado");
+            throw new BadDataEntryException("No existe en la base de datos un bloque  con el id ingresado: " + leccionDTO.id_bloque());
         }
         for (Leccion l: block.getLecciones()) {
             if(l.getTitulo().equals(leccionDTO.titulo())){
-                throw new RuntimeException("El bloque ya posee una lección con el título indicado");
+                throw new BadDataEntryException("El bloque ya posee una lección con el título indicado: " + leccionDTO.titulo());
             }
-            if(l.getNum_leccion()==leccionDTO.num_leccion()){
-                throw new RuntimeException("Ya existe una lección con el número ingresado");
+            if(l.getNum_leccion().equals(leccionDTO.num_leccion())){
+                throw new BadDataEntryException("Ya existe una lección con el número ingresado: " + leccionDTO.num_leccion());
             }
             if(l.getUrl_recurso().equals(leccionDTO.url_recurso())){
-                throw new RuntimeException("El recurso ingresado ya se encuentra en otra lección de este bloque");
+                throw new BadDataEntryException("El recurso ingresado ya se encuentra en otra lección de este bloque: " + l.getUrl_recurso());
             }
         }
     }
-
     //Lista todos los cursos creados
     public List<Curso> findAll() {
         return cursoRepository.findAll();
@@ -261,27 +260,17 @@ public class CursoService {
         course.setActivo(true);
         cursoRepository.save(course);
         return cursoMapper.cursoToCursoDTO(course);
-
     }
-
-    public List<Curso> findAllActiveCourses() {
-        List <Curso> courses = cursoRepository.findByNameOrDescription(true);
-        return courses;
-    }
-
+    public List<Curso> findAllActiveCourses() {return cursoRepository.findByNameOrDescription(true);    }
     public Page<Curso> findByActivoTrue(Pageable paginacion, Long id) {
         return cursoRepository.findByNameOrDescription(paginacion, true, id);
     }
-
     public Page<Curso> findByTeacher(Pageable paginacion, Long id) {
         return cursoRepository.findByTeacher(paginacion, id);
     }
-
     public Page<Curso> findActiveCourses(Pageable paginacion) {
         return cursoRepository.findAllActiveCourses(paginacion, true);
-
     }
-
     public CursoDTO disableCourse(CursoDTO cursoDTO) {
         Curso course = cursoRepository.getReferenceById(cursoDTO.id());
         course.setActivo(false);
@@ -296,13 +285,13 @@ public class CursoService {
     //Buscador
     public Page<Curso> findByNameOrDescription(Pageable paginacion, String name, String description) {
         if(name==null||name.isEmpty()||name.isBlank()||description==null||description.isBlank()||description.isEmpty()){
-            throw new RuntimeException("El campo de búsqueda está vacío");
+            throw new BadDataEntryException("El campo de búsqueda está vacío");
         }
         return cursoRepository.findByNameOrDescription(paginacion, name, description, true);
     }
     @Transactional
     public String deleteCourseById(Long id) {
-        validateCourseId(id);
+        validateLongNotNull(id);
         Curso course = cursoRepository.getReferenceById(id);
         validateCourse(course);
         //Antes de eliminar el curso es necesario sacarlo de cada usuario que esté inscripto al curso
@@ -313,7 +302,6 @@ public class CursoService {
             u.getCurso().remove(course);
             usuarioRepository.save(u);
        }
-
         for (Bloque b: course.getBloques()) {
             for (Leccion l: b.getLecciones()) {
                 leccionService.deleteLeccionById(l.getId());
@@ -323,16 +311,59 @@ public class CursoService {
         cursoRepository.deleteById(id);
         return "Curso eliminado";
     }
-
     private void validateCourse(Curso course) {
         if (course==null){
-            throw new RuntimeException("No existe un curso con el id ingresado");
+            throw new EntityNotFoundException("No existe un curso con el id ingresado");
         }
     }
-
-    private void validateCourseId(Long id) {
+    private void validateLongNotNull(Long id) {
         if(id==null){
-            throw new RuntimeException("El id ingresado es nulo");
+            throw new BadDataEntryException("No puede procesarse un id nulo");
         }
+    }
+    @Transactional
+    public CursoDTO updateCourse(CursoDTO courseDTO) {
+        //validaciones
+        validateLongNotNull(courseDTO.id());
+        //obtener el curso
+        Curso course = cursoRepository.getCursoById(courseDTO.id());
+        validateCourse(course);
+        //actualizar los datos
+        if(courseDTO.nombre()!=null&&validateRepeatedName(courseDTO.nombre())&&!courseDTO.nombre().isBlank()){
+            course.setNombre(courseDTO.nombre());
+        }
+        if (courseDTO.subtitle()!=null&&!courseDTO.subtitle().isBlank()){
+            course.setSubtitle(courseDTO.subtitle());
+        }
+        if (courseDTO.descripcion()!=null&&!courseDTO.descripcion().isBlank()){
+            course.setDescripcion(courseDTO.descripcion());
+        }
+        if(courseDTO.url_imagen_presentacion()!=null&&!courseDTO.url_imagen_presentacion().isBlank()){
+            course.setUrl_imagen_presentacion(courseDTO.url_imagen_presentacion());
+        }
+        if(courseDTO.url_video_presentacion()!=null&&!courseDTO.url_video_presentacion().isBlank()){
+            course.setUrl_video_presentacion(courseDTO.url_video_presentacion());
+        }
+        if(courseDTO.activo()!=null){
+            course.setActivo(courseDTO.activo());
+        }
+        if (courseDTO.bloques()!=null&&!courseDTO.bloques().isEmpty()){
+            for (Bloque b: courseDTO.bloques()) {
+                bloqueService.updateBlock(b, course);
+            }
+        }
+        //salvar los nuevos datos
+        cursoRepository.save(course);
+
+        //retornar el curso en un dto con el mapper
+        return cursoMapper.cursoToCursoDTO(course);
+    }
+
+    private boolean validateRepeatedName(String name) {
+        Curso courseFound = cursoRepository.findCursoByNombre(name);
+        if(courseFound!=null){
+            throw new BadDataEntryException("Ya existe un curso con el siguiente nombre: " + name);
+        }
+        return true;
     }
 }

@@ -51,8 +51,7 @@ public class CursoController {
 
     @PutMapping("/activate")
     public ResponseEntity<CursoDTO> activateCurso(@RequestBody CursoDTO cursoDTO){
-        CursoDTO course = cursoService.activateCurso(cursoDTO);
-        return ResponseEntity.ok().body(course);
+        return ResponseEntity.ok().body(cursoService.activateCurso(cursoDTO));
     }
 
     /**
@@ -62,13 +61,12 @@ public class CursoController {
      */
     @PutMapping("/disable")
     public ResponseEntity<CursoDTO> disableCourse(@RequestBody CursoDTO cursoDTO){
-        CursoDTO course = cursoService.disableCourse(cursoDTO);
-        return ResponseEntity.ok().body(course);
+        return ResponseEntity.ok().body(cursoService.disableCourse(cursoDTO));
     }
 
     /**
      * Muestra todos los cursos activos. Devuelve una lista de cursos, no está paginado
-     * @return
+     * @return Retorna la lista de cursos
      */
     @GetMapping("/allActive")
     public List<Curso> showAllActiveCourse(){
@@ -78,7 +76,7 @@ public class CursoController {
     /**
      * Método para buscar todos los cursos con el campo activo = true de la db
      * @param paginacion Interface que permite devolver los datos en forma de páginas.
-     * @size es el tamaño por defecto de la página, aunque puede modificarse
+     * size es el tamaño por defecto de la página, aunque puede modificarse
      * @return Devuelve un 200 Ok, y por defecto la primera página de la búsqueda de cursos con los
      * primeros 10 resultados
      */
@@ -107,7 +105,6 @@ public class CursoController {
     @GetMapping("/teacher/{id}")
     public ResponseEntity<Page<CursoDTO>> findAllCoursesByTeacher(@PageableDefault(size = 10) Pageable paginacion, @PathVariable Long id) {
         return ResponseEntity.ok(cursoService.findByTeacher(paginacion, id).map(CursoDTO::new));
-
     }
     /**
      * Método que busca el curso con el id ingresado y devuelve su contenido
@@ -131,7 +128,6 @@ public class CursoController {
     }
 
     /**
-     * EN PROCESO
      * Método para borrar un curso por id
      * @param id captura el valor de la variable id del path
      * @return retorna un ok con un String/mensaje de éxito
@@ -141,7 +137,15 @@ public class CursoController {
         return ResponseEntity.ok().body(cursoService.deleteCourseById(id));
 
     }
-
-
+    /**
+     * Método para actualizar los datos de un curso, sus bloques y lecciones
+     * @param courseDTO Contiene los datos que llegan del body para actualizar
+     * @return retorna 200 Ok con una copia del curso actualizado
+     */
+    @PutMapping("/update")
+    public ResponseEntity<CursoDTO> updateCourse(@RequestBody CursoDTO courseDTO){
+        CursoDTO course = cursoService.updateCourse(courseDTO);
+        return ResponseEntity.ok().body(course);
+    }
 
 }
